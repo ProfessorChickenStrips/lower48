@@ -28,5 +28,5 @@ jobs:
           password: ${{ secrets.SMTP_PASS }}
           subject: ${{ steps.pick.outputs.subject }}
           to: cjohns0334@yahoo.com
-          from: The Morning Mile <${{ secrets.SMTP_USER }}>
+          from: ${{ secrets.SMTP_USER }}
           body: file://body.txt
