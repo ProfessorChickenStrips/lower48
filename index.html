@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1B3A5C">
+<title>The Lower 48</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="%231B3A5C"/><circle cx="32" cy="32" r="24" fill="none" stroke="%23C9A227" stroke-width="3"/><text x="32" y="41" font-family="Georgia" font-size="22" fill="%23C9A227" text-anchor="middle" font-weight="bold">48</text></svg>'>
+<style>
+:root{
+  --navy:#1B3A5C; --navy2:#16304d; --teal:#2F6F73; --gold:#7A5C00; --goldBright:#C9A227;
+  --parch:#F7F3E8; --card:#FFFFFF; --ink:#2B2B2B; --muted:#5A6672; --line:#DDD5C4;
+  --good:#1E7A34; --warn:#9A6700; --bad:#B3261E; --lt:#EEF3F7; --sand:#F5E9C9;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--parch);color:var(--ink);
+  font:16px/1.45 -apple-system,"Segoe UI",Roboto,Calibri,sans-serif}
+body{padding-bottom:76px}
+.wrap{max-width:540px;margin:0 auto;padding:0 12px}
+h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif}
+a{color:var(--teal)}
+/* header */
+header{background:linear-gradient(180deg,var(--navy),var(--navy2));color:#fff;
+  padding:calc(10px + env(safe-area-inset-top)) 0 12px}
+.brandrow{display:flex;align-items:center;gap:10px}
+.seal{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:var(--navy);
+  border:2.5px solid var(--goldBright);display:flex;align-items:center;justify-content:center;
+  color:var(--goldBright);font-family:Georgia;font-weight:bold;font-size:17px}
+.brand h1{margin:0;font-size:21px;letter-spacing:.06em;color:#fff}
+.brand .sub{font-size:12.5px;color:#C7D3E0;margin-top:1px}
+.statrow{display:flex;gap:8px;margin-top:12px}
+.stat{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:12px;padding:8px 6px;text-align:center}
+.stat .big{font-family:Georgia;font-size:20px;color:#fff;line-height:1.1}
+.stat .lbl{font-size:10.5px;color:#B9C7D6;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.stat .big .accent{color:var(--goldBright)}
+.ringwrap{position:relative;width:46px;height:46px;margin:0 auto}
+.ringwrap svg{transform:rotate(-90deg)}
+.ringnum{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:Georgia;font-size:13.5px;color:#fff}
+/* banner */
+.banner{background:var(--sand);border:1px solid #E4D6A8;color:var(--gold);border-radius:12px;
+  padding:10px 12px;font-size:13.5px;margin:12px 0;display:flex;gap:10px;align-items:flex-start}
+.banner button{margin-left:auto;flex:0 0 auto}
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:14px;margin:12px 0;box-shadow:0 1px 3px rgba(27,58,92,.06)}
+.card h2{margin:0 0 8px;font-size:18px;color:var(--navy)}
+.card h3{margin:0 0 6px;font-size:15.5px;color:var(--navy)}
+.k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.07em}
+.small{font-size:13px;color:var(--muted)}
+.divider{height:1px;background:var(--line);margin:10px 0}
+/* buttons */
+button{font:inherit;border:0;border-radius:10px;padding:9px 13px;cursor:pointer}
+.btn{background:var(--navy);color:#fff}
+.btn.gold{background:var(--goldBright);color:#2e2503;font-weight:700}
+.btn.ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+.btn.subtle{background:var(--lt);color:var(--navy)}
+.btn.danger{background:#fff;color:var(--bad);border:1.5px solid var(--bad)}
+.btn.sm{padding:6px 10px;font-size:13.5px;border-radius:8px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+/* chips / tabs */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0 6px;-webkit-overflow-scrolling:touch}
+.chip{flex:0 0 auto;background:#fff;border:1.5px solid var(--line);border-radius:999px;
+  padding:6px 11px;font-size:13.5px;color:var(--navy)}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip.done{border-color:var(--goldBright)}
+nav.tabbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
+  display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:50}
+nav.tabbar button{flex:1;background:none;border-radius:0;padding:9px 2px 7px;color:var(--muted);
+  font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.tabbar button .ico{font-size:19px;line-height:1}
+nav.tabbar button.on{color:var(--navy);font-weight:700}
+nav.tabbar button .dot{position:absolute;margin-left:26px;width:8px;height:8px;border-radius:50%;background:var(--bad)}
+/* option cards */
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:11px;margin:9px 0;position:relative}
+.opt .rank{position:absolute;top:-9px;left:10px;background:var(--navy);color:#fff;font-size:11px;
+  border-radius:6px;padding:2px 7px;letter-spacing:.05em}
+.opt.booked{border-color:var(--good);background:#F2FAF4}
+.opt .nm{font-family:Georgia;font-size:16px;color:var(--navy);margin-top:3px}
+.tag{display:inline-block;font-size:11px;border-radius:6px;padding:2px 7px;margin:3px 4px 0 0;vertical-align:middle}
+.tag.mich{background:var(--sand);color:var(--gold);font-weight:700}
+.tag.ver{background:#E7F3EA;color:var(--good)}
+.tag.unver{background:#FBEAE8;color:var(--bad)}
+.tag.med{background:#FFF3DC;color:var(--warn)}
+/* tasks */
+.task{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-bottom:1px solid #EFEAD9}
+.task:last-child{border-bottom:0}
+.task input[type=checkbox]{width:21px;height:21px;accent-color:var(--teal);margin-top:1px}
+.task.done .t{text-decoration:line-through;color:var(--muted)}
+/* claims */
+.claimcard{border:2px solid var(--goldBright);border-radius:14px;background:linear-gradient(180deg,#FFFDF6,#FBF4DF);
+  padding:14px;margin:12px 0}
+.claimcard .st{font-family:Georgia;font-size:24px;color:var(--gold);letter-spacing:.04em}
+.stamp{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;
+  border:3px solid var(--gold);color:var(--gold);font-family:Georgia;font-weight:bold;font-size:19px;
+  transform:rotate(-8deg);background:rgba(201,162,39,.12)}
+.stamp.pop{animation:pop .5s ease-out}
+@keyframes pop{0%{transform:scale(2.2) rotate(-30deg);opacity:0}70%{transform:scale(.95) rotate(-6deg);opacity:1}100%{transform:scale(1) rotate(-8deg)}}
+.sealgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0}
+.sealcell{text-align:center}
+.sealcell .s{width:58px;height:58px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:Georgia;font-weight:bold;font-size:16px;border:2.5px dashed var(--line);color:#B9B29E;background:#fff}
+.sealcell.got .s{border:3px solid var(--gold);border-style:solid;color:var(--gold);background:rgba(201,162,39,.14);transform:rotate(-8deg)}
+.sealcell .d{font-size:10.5px;color:var(--muted);margin-top:3px}
+/* progress bars */
+.meter{background:var(--lt);border-radius:8px;height:14px;overflow:hidden;margin:6px 0 2px}
+.meter>div{height:100%;background:var(--teal);border-radius:8px 0 0 8px}
+/* chat */
+.chatlog{max-height:330px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:4px 0}
+.msg{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14.5px;white-space:pre-wrap}
+.msg.me{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:4px}
+.msg.ai{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
+textarea,input[type=text],select{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:10px;
+  padding:9px;background:#fff;color:var(--ink)}
+textarea{min-height:74px;resize:vertical}
+.inrow{display:flex;gap:8px;margin-top:8px}
+.inrow textarea{min-height:44px;flex:1}
+/* medal */
+.medal{background:radial-gradient(circle at 50% 30%,#24466b,var(--navy2));border-radius:18px;color:#fff;
+  text-align:center;padding:26px 16px;margin:12px 0}
+.medal .ring{width:120px;height:120px;margin:0 auto 12px;border-radius:50%;border:5px solid var(--goldBright);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Georgia}
+.medal .ring .n{font-size:38px;color:var(--goldBright);font-weight:bold;line-height:1}
+.medal h2{color:#fff;margin:4px 0}
+/* toast + confetti */
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--navy);color:#fff;
+  padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .25s;z-index:99;pointer-events:none;max-width:86%}
+#toast.show{opacity:1}
+.cf{position:fixed;top:-12px;z-index:98;pointer-events:none;font-size:15px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.6}}
+.hero{font-family:Georgia;font-size:30px;color:var(--navy);line-height:1.1}
+.emcard{border-left:4px solid var(--bad);}
+.prep{border:1.5px solid var(--warn);background:#FFF9EC;border-radius:12px;padding:10px 12px;margin:10px 0;font-size:14px}
+.footer-note{text-align:center;color:var(--muted);font-size:12px;margin:18px 0 8px}
+</style>
+</head>
+<body data-palette="#2F6F73,#C9A227">
+<header><div class="wrap">
+  <div class="brandrow">
+    <div class="seal">48</div>
+    <div class="brand"><h1>THE LOWER 48</h1><div class="sub">Aug 15–28, 2026 · the trip that finishes the map</div></div>
+  </div>
+  <div class="statrow" id="statrow"></div>
+</div></header>
+
+<div class="wrap">
+  <div class="banner" id="memBanner">⚠️ <span><b>State lives in this page only</b> — there is no auto-save here. Use <b>Sync → Copy state</b> before closing, and paste it back next time.</span><button class="btn sm subtle" onclick="dismissBanner()">Got it</button></div>
+  <main id="view"></main>
+  <div class="footer-note">The Lower 48 · built by your Claude planning chat · prices verified Jul 19–20, 2026 — always confirm live before paying</div>
+</div>
+
+<nav class="tabbar" id="tabbar"></nav>
+<div id="toast"></div>
+
+<script>
+/* ============ STATE ============ */
+const S = {
+ v: 2, dirty: false,
+ meta: { start:'2026-08-15', end:'2026-08-28', base:38, goal:48,
+  flightsOut:'AA 2599 BUR 7:00a → DFW 12:22p · AA 569 DFW 1:29p → AVL 4:44p',
+  flightsBack:'DL 1515 PWM 6:05a → ATL 8:50a · DL 483 ATL 11:25a → BUR 1:01p',
+  rental:'One-way AVL → PWM — CONFIRM on agreement + after-hours PWM return' },
+ hotelsBooked: [
+  {dates:['2026-08-15','2026-08-16'], name:'Blind Tiger Asheville', town:'Asheville, NC', mich:'1 KEY'},
+  {dates:['2026-08-17'], name:'Oakhurst Inn', town:'Charlottesville, VA'},
+  {dates:['2026-08-18'], name:'Graduate Annapolis', town:'Annapolis, MD'},
+  {dates:['2026-08-19'], name:'Marquis de Lafayette', town:'Cape May, NJ'},
+  {dates:['2026-08-20'], name:'The Wayfinder', town:'Newport, RI'} ],
+ stops: [
+  {id:'cape', name:'Outer Cape (Eastham/Orleans)', nights:'Fri Aug 21 → Sun Aug 23 · 2 nights', dates:['2026-08-21','2026-08-22'], booked:null, urgency:'Book this week — cards showed “1–2 left” on Jul 19', options:[
+    {name:'Whalewalk Inn & Spa', url:'https://whalewalkinn.com', ver:'ver', basis:'Kings $290–365/nt pre-tax (2026 chart) ≈ $660–830 all-in for 2n; Expedia rendered the dates ($638 lead-in, “1 left”); 10/10', caveat:'Quiet-romance spa inn — you drive 5–10 min to dinner/beaches', status:'live'},
+    {name:'The Orleans Inn', url:'https://www.orleansinn.com', ver:'ver', basis:'Honeymoon King Waterfront Suite $400/nt seen live in engine (~$915 all-in 2n)', caveat:'Wedding venue + bar on site — call about Sat events; stairs, no elevator', status:'live'},
+    {name:'Queen Anne Inn (Chatham)', url:'https://www.queenanneinn.com', ver:'ver', basis:'$436/nt · $998 total verified (“1 left”)', caveat:'Recurring maintenance/musty reviews — book flexible, inspect room', status:'live'}],
+   pool:[{name:'Four Points Eastham', note:'Chain fallback — reliable, zero romance', url:'https://www.marriott.com'},
+         {name:'Winstead Inn, Harwich Port', note:'Lovely but 3-night minimum blocks these dates', url:'https://www.winsteadinn.com'}]},
+  {id:'stowe', name:'Stowe, Vermont', nights:'Sun Aug 23 → Tue Aug 25 · 2 nights', dates:['2026-08-23','2026-08-24'], booked:null, urgency:'Low risk (101 rooms, midweek) — book within 2 weeks', options:[
+    {name:'Green Mountain Inn', url:'https://www.greenmountaininn.com', ver:'ver', basis:'Deluxe King $269 / Luxury King $329 ⇒ ≈$312–382/nt all-in; live render confirmed inventory (refundable, 72h cancel)', caveat:'Village Main St — whole town on foot; classic-inn (not designer) style', status:'live'},
+    {name:'Tälta Lodge', mich:'Michelin-listed', url:'https://www.larkhotels.com/vermont/stowe/talta-lodge', ver:'ver', basis:'$117/nt · $292 total verified — cheapest Michelin king of the route', caveat:'2.8 mi from village; upgraded-motel bones; some noise notes', status:'live'},
+    {name:'The Lodge at Spruce Peak', mich:'Michelin-listed', url:'https://www.sprucepeak.com', ver:'med', basis:'Lead-in $299/nt · $790 total verified refundable ≈$395/nt', caveat:'$50+tax resort fee inclusion unconfirmed; kings likely higher category; valet $35', status:'live'}],
+   pool:[{name:'Edson Hill', note:'THE romance pick (9.5/10, hilltop) — unverified $367–451; call 802-508-6106', url:'https://www.edsonhill.com'},
+         {name:'Stone Hill Inn', note:'Adults-only 10/10 — $1,078/2n ≈ just over cap', url:'https://www.stonehillinn.com'},
+         {name:'Field Guide Lodge', note:'Michelin-listed, unverified ~$150–250', url:'https://www.larkhotels.com/vermont/stowe/field-guide-lodge'},
+         {name:'Trapp Family Lodge', note:'$329 lead + $38 fee; weak breakfast reviews', url:'https://www.trappfamily.com'}]},
+  {id:'jackson', name:'Jackson, New Hampshire', nights:'Tue Aug 25 → Wed Aug 26 · 1 night', dates:['2026-08-25'], booked:null, urgency:'BOOK FIRST — tiny inventory, 2-Key halo, refundable to 72h', options:[
+    {name:'Inn at Thorn Hill & Spa', mich:'2 MICHELIN KEYS', url:'https://www.innatthornhill.com', ver:'med', basis:'~$280 king incl. breakfast ⇒ ≈$304 all-in (engine-verified in-season; exact date = confirm direct or 603-383-4242)', caveat:'Adults-only, fireplace/jacuzzi kings, dinner on site — the trip’s signature stay', status:'live'},
+    {name:'Christmas Farm Inn & Spa', url:'https://www.christmasfarminn.com', ver:'ver', basis:'$107–109 lead ($138 total) verified · Superior King $159 in engine', caveat:'1-night stays charged 100% at booking; slightly less hushed', status:'live'},
+    {name:'The Wentworth', url:'https://www.thewentworth.com', ver:'unver', basis:'“From $193” indicative — Cottage King (four-poster, fireplace, whirlpool)', caveat:'Price unverified; best village-center walkability in Jackson', status:'live'}],
+   pool:[{name:'The Lodge at Jackson Village', note:'$129 refundable, 9.0/10 — clean budget fallback', url:'https://www.lodgeatjacksonvillage.com'},
+         {name:'Omni Mount Washington', note:'The grand hotel — ≈$610+ all-in, over cap', url:'https://www.omnihotels.com'}]},
+  {id:'portland', name:'Portland, Maine', nights:'Wed Aug 26 → Fri Aug 28 · 2 nights', dates:['2026-08-26','2026-08-27'], booked:null, urgency:'Was actively discounting ($916→$862) — lock refundable now, rebook if it drops', options:[
+    {name:'Portland Regency Hotel & Spa', url:'https://www.theregency.com', ver:'ver', basis:'$390/nt · $862 total verified, refundable · valet $40 ⇒ ≈$471/nt all-in', caveat:'Old Port center; pick the renovated Superior King (some rooms have small windows). Tell valet: car at 4:15 AM on the 28th', status:'live'},
+    {name:'The Francis', url:'https://thefrancismaine.com', ver:'ver', basis:'$354/nt · $831 total verified · FREE parking ⇒ ≈$416/nt all-in', caveat:'1881 West End mansion — 20–25 min walk to Old Port; request a king explicitly', status:'live'},
+    {name:'The Press Hotel', mich:'Michelin-listed', url:'https://www.thepresshotel.com', ver:'unver', basis:'Rate unverified (engine blocked) — likely $400s + $50 valet ≈ at cap', caveat:'Perfect Exchange St block; 9.4/10; check marriott.com', status:'live'}],
+   pool:[{name:'Portland Harbor Hotel', note:'Michelin-listed ≈$584 all-in (over cap); ask for courtyard room', url:'https://www.portlandharborhotel.com'},
+         {name:'Canopy Portland Waterfront', note:'≈$561 all-in over cap; new-build', url:'https://www.hilton.com'},
+         {name:'Blind Tiger – Danforth St', note:'1 MICHELIN KEY · ≈$691 all-in — the splurge card (bookends your Asheville Blind Tiger)', url:'https://www.larkhotels.com/maine/portland/blind-tiger-portland-danforth-street'},
+         {name:'The Longfellow', note:'Michelin-listed ≈$686 all-in over cap', url:'https://www.longfellowhotel.com'}]}],
+ res: [
+  {id:'ferry', what:'Cape May–Lewes Ferry — VEHICLE reservation', when:'Wed Aug 19 · target 4–5 PM sailing', cost:'$64 car + 2 (weekday)', url:'https://www.cmlf.com', p:1, status:'todo', conf:''},
+  {id:'monticello', what:'Monticello — first Highlights tour', when:'Tue Aug 18 · earliest slot', cost:'$42/adult', url:'https://www.monticello.org', p:1, status:'todo', conf:''},
+  {id:'biltmore', what:'Biltmore — timed house entry', when:'Sun Aug 16 · earliest entry', cost:'from $80 (−$10 online)', url:'https://www.biltmore.com', p:1, status:'todo', conf:''},
+  {id:'curate', what:'Cúrate dinner, Asheville', when:'Aug 15 ~8 PM (or Aug 16)', cost:'', url:'https://curatetapasbar.com', p:2, status:'todo', conf:''},
+  {id:'forestreet', what:'Fore Street — FIRST seating ~5:30 PM', when:'Thu Aug 27 · ⚠️ reservations open ~JULY 28', cost:'', url:'https://forestreet.biz', p:2, status:'todo', conf:''},
+  {id:'thornhilldin', what:'Forty at Thorn Hill dinner', when:'Tue Aug 25', cost:'', url:'https://www.innatthornhill.com', p:3, status:'todo', conf:''},
+  {id:'harrisons', what:'Harrison’s Stowe dinner', when:'Sun Aug 23', cost:'', url:'https://harrisonsstowe.com', p:3, status:'todo', conf:''},
+  {id:'scales', what:'Scales or Street & Co dinner', when:'Wed Aug 26', cost:'', url:'https://www.scalesrestaurant.com', p:3, status:'todo', conf:''},
+  {id:'bowens', what:'Bowen’s Wharf Newport dinner 8 PM', when:'Thu Aug 20', cost:'', url:'https://bowenswharf.com', p:3, status:'todo', conf:''},
+  {id:'cog', what:'OPTIONAL · Cog Railway (sells out)', when:'Tue Aug 25 afternoon', cost:'~$91–99/adult', url:'https://www.thecog.com', p:4, status:'todo', conf:''},
+  {id:'lucky', what:'OPTIONAL · Lucky Catch lobstering 10:30 AM', when:'Thu Aug 27', cost:'$60/adult', url:'https://luckycatch.com', p:4, status:'todo', conf:''} ],
+ tasks: [
+  {id:'t1', t:'Confirm rental agreement: AVL pickup → PWM drop + after-hours return', done:false},
+  {id:'t2', t:'Calendar alert JULY 28: book Fore Street first seating for Aug 27', done:false},
+  {id:'t3', t:'Check in for AA flights Aug 14 (24h window)', done:false},
+  {id:'t4', t:'Download offline maps: Blue Ridge Pkwy, White Mountains (no signal on the Kanc)', done:false},
+  {id:'t5', t:'Photo ID handy for Naval Academy Gate 1 (Aug 19)', done:false},
+  {id:'t6', t:'Card (not cash) for Cape Cod Seashore lots — $25, cashless', done:false},
+  {id:'t7', t:'On Aug 26 check-in: tell Regency valet — car at 4:15 AM on the 28th', done:false},
+  {id:'t8', t:'Thu Aug 27 evening: fuel the rental (no open stations at 4 AM)', done:false} ],
+ packing: [ {t:'Layers — 55° mountain mornings to 85° beach afternoons', done:false},
+  {t:'Swimsuits + beach towels (Cape, lakes)', done:false},
+  {t:'Light rain shells (afternoon mountain storms)', done:false},
+  {t:'Walking shoes broken in — Cliff Walk, Flume, Kanc pull-offs', done:false},
+  {t:'Dinner-nice outfits ×2 (Cúrate, Thorn Hill, Fore Street)', done:false},
+  {t:'Sunscreen + bug spray (Seashore + mountains)', done:false} ],
+ days: [
+  {d:'2026-08-15', dow:'Sat', title:'Fly west → east · arrive Asheville', hotel:'Blind Tiger Asheville (1 KEY)',
+   depart:'BUR 7:00 AM — wheels down AVL 4:44 PM', drive:'AVL → Montford ~20 min',
+   todo:['Bags + one-way rental at AVL','Check in ~6 PM — the trip opens in a Michelin Key inn','Gentle stroll: Pack Square or Montford'],
+   eat:'Cúrate ~8 PM if booked tonight · else White Duck Taco / Burial', note:'You woke at 4:30 AM Pacific. Keep it gentle.', claims:[]},
+  {d:'2026-08-16', dow:'Sun', title:'Biltmore early + Blue Ridge at golden hour', hotel:'Blind Tiger Asheville',
+   depart:'Earliest Biltmore entry slot', drive:'Local only',
+   todo:['Biltmore house + gardens + Antler Hill tasting (4–5h)','Blue Ridge Parkway: Craggy Gardens for golden hour'],
+   eat:'Cúrate (if tonight) or Chai Pani', claims:[{code:'NC', label:'North Carolina', text:'Biltmore House + Blue Ridge Parkway at golden hour + Cúrate', rain:'Biltmore interiors · food halls · breweries'}]},
+  {d:'2026-08-17', dow:'Mon', title:'Asheville → Charlottesville', hotel:'Oakhurst Inn',
+   depart:'8:30–9:00 AM', drive:'334 mi · ~6h (I-26→I-81→I-64) · lunch Roanoke or Lexington',
+   todo:['UVA Lawn & Rotunda at golden hour — steps from the inn','Downtown Mall dinner'],
+   eat:'C&O / Fleurie (book) · Mockingbird casual', note:'Longest first-half drive — no detours today.', claims:[]},
+  {d:'2026-08-18', dow:'Tue', title:'Monticello → Annapolis', hotel:'Graduate Annapolis',
+   depart:'First Monticello tour (~9 AM) · on the road by noon', drive:'~150 mi · 3h–3h45 — Beltway before 2 PM',
+   todo:['Monticello Highlights ($42) — done by 11:30','City Dock + Ego Alley stroll','Crab dinner: Boatyard Bar & Grill, Eastport'],
+   eat:'Boatyard crab feast (the Maryland ritual begins)', claims:[{code:'VA', label:'Virginia', text:'Monticello + UVA Lawn & Rotunda — the Jefferson UNESCO pair', rain:'Both largely indoor'}]},
+  {d:'2026-08-19', dow:'Wed', title:'Naval Academy → Lewes → the ferry → Cape May', hotel:'Marquis de Lafayette',
+   depart:'USNA at opening · drive out ~11:30 AM', drive:'~120 mi · ~2h15 over the Bay Bridge · ferry 85 min',
+   todo:['Naval Academy via Gate 1 (photo ID!)','Lewes: lunch + Second St in the “first town in the first state”','Ferry ~4–5 PM — watch for dolphins','Cape May sunset promenade'],
+   eat:'Lewes lunch · Washington St Mall dinner',
+   claims:[{code:'MD', label:'Maryland', text:'Eastport crab feast + the Naval Academy', rain:'Academy museum + visitor center'},
+           {code:'DE', label:'Delaware', text:'Historic Lewes, then boarding the ferry from Delaware sand', rain:'Rain-proof as designed'}]},
+  {d:'2026-08-20', dow:'Thu', title:'Cape May → Mystic → Newport', hotel:'The Wayfinder',
+   depart:'9:30 AM sharp', drive:'324 mi · 7–8h · GWB midday only — never at 4 PM',
+   todo:['Victorian Cape May morning (lighthouse optional)','Mystic ~4 PM: village stroll + Sift (running late? Frank Pepe, New Haven)','Newport ~6:30 · Bowen’s Wharf 8 PM'],
+   eat:'Bowen’s Wharf dinner (booked?)',
+   claims:[{code:'NJ', label:'New Jersey', text:'Arrival by sea + Victorian Cape May', rain:'Congress Hall + the covered mall'},
+           {code:'CT', label:'Connecticut', text:'Mystic’s drawbridge village (or Pepe’s apizza)', rain:'Pepe’s — indoor by design'}]},
+  {d:'2026-08-21', dow:'Fri', title:'Cliff Walk → over the bridge → the Outer Cape', hotel:'Cape stay (book!)',
+   depart:'Walk 7:45 · drive 9:15–9:30 AM', drive:'~95 mi · 2h45–3h45 — Bourne Bridge before noon',
+   todo:['Cliff Walk, Forty Steps stretch (free)','Nauset Light + Coast Guard Beach after 3:30 ($25 lots, cards only)','Rock Harbor sunset'],
+   eat:'Mahoney’s or The Knack, Orleans', claims:[{code:'RI', label:'Rhode Island', text:'Bowen’s Wharf evening + a morning mile of the Cliff Walk', rain:'Mansion interiors (The Breakers)'}]},
+  {d:'2026-08-22', dow:'Sat', title:'Chatham → Seashore → Provincetown', hotel:'Cape stay',
+   depart:'Chatham by 9 AM', drive:'Segments only · Chatham 25 min · P-town 1h15–1h45',
+   todo:['Chatham lighthouse + fish-pier seals','Wellfleet oysters at Mac’s on the Pier','Race Point sunset → Commercial St'],
+   eat:'Oysters midday · P-town dinner (reserve)', note:'Carnival tail-week — festive and crowded; invert the day if you want calm.',
+   claims:[{code:'MA', label:'Massachusetts', bonus:true, text:'BONUS (already visited): National Seashore + P-town', rain:'PAAM · shark center · Truro Vineyards'}]},
+  {d:'2026-08-23', dow:'Sun', title:'Cape Cod → Stowe, Vermont', hotel:'Stowe stay (book!)',
+   depart:'8:30–9:00 AM — canal by 10', drive:'~280 mi · 6–7h door-to-door · lunch Concord NH',
+   todo:['Cold Hollow Cider Mill on the approach','Stowe village stroll + covered bridge'],
+   eat:'Harrison’s (booked?)', note:'The second half’s only long drive — rewarded with two Vermont nights.', claims:[]},
+  {d:'2026-08-24', dow:'Mon', title:'Full Stowe day — the suitcase stays put', hotel:'Stowe stay',
+   depart:'Gondola opens 10 AM — mountain first in clear sky', drive:'None required',
+   todo:['Mansfield: Gondola SkyRide or Auto Toll Road ($51/couple)','Smugglers’ Notch drive + Bingham Falls','Trapp Bierhall lunch (Resy)','Spa or pool hour'],
+   eat:'Edson Hill dining room or Michael’s on the Hill',
+   claims:[{code:'VT', label:'Vermont', text:'Mansfield’s summit + Smugglers’ Notch + a Bierhall lunch', rain:'Alchemist + von Trapp tastings · Ski Museum · spa'}]},
+  {d:'2026-08-25', dow:'Tue', title:'Stowe → Crawford Notch → Jackson', hotel:'Jackson stay (book!)',
+   depart:'9:30–10:00 AM', drive:'115 mi · 3–3.5h with Notch stops',
+   todo:['Crawford Notch: Mount Washington Hotel overlook, Silver Cascade, Willey House','Optional: Cog Railway (~3h — booked?)','Jackson Falls + the honeymoon covered bridge'],
+   eat:'Forty at Thorn Hill (book — town is thin midweek)', claims:[]},
+  {d:'2026-08-26', dow:'Wed', title:'Kancamagus or Mt Washington → Portland', hotel:'Portland stay (book!)',
+   depart:'Decide by the sky at breakfast', drive:'Kanc 4–5h (NO GAS on the highway) or Auto Road ~2.5h · then 1h45–2h15 east',
+   todo:['A: Kanc out-and-back — Albany bridge, Lower Falls, Rocky Gorge, Sabbaday','B: Auto Road if the summit is clear (fogged ~60%)','West Side Rd bypass → Portland ~4:30 · Old Port walk','Eastern Prom sunset'],
+   eat:'Scales or Street & Co (booked?)',
+   claims:[{code:'NH', label:'New Hampshire', text:'Crawford Notch + a night at NH’s only Michelin-Key inn + the Kanc or the summit', rain:'The Notch + Kanc drive fine in rain; skip the summit in fog'}]},
+  {d:'2026-08-27', dow:'Thu', title:'Casco Bay + Cape Elizabeth — last full day', hotel:'Portland stay',
+   depart:'Ferry or Lucky Catch mid-morning', drive:'Local · Peaks ferry 17 min, $16 RT',
+   todo:['Peaks Island bike loop OR Lucky Catch 10:30 (passes Portland Head Light)','Portland Head Light + Two Lights','Lobster roll on the rocks','West End stroll'],
+   eat:'Fore Street FIRST seating ~5:30 (booked?)', prep:'TONIGHT: fuel the car · confirm valet 4:15 AM · settle bill · pack · lights out 9:30',
+   claims:[{code:'ME', label:'Maine', text:'The bay by ferry or lobster boat + Portland Head Light + lobster on the rocks', rain:'Museum of Art + Old Port food crawl'}]},
+  {d:'2026-08-28', dow:'Fri', title:'PWM 6:05 AM → home', hotel:'— (fly home)',
+   depart:'Leave hotel 4:15–4:30 AM', drive:'10–12 min · bags by 5:20 · checkpoint opens ~3 AM (reported)',
+   todo:['After-hours key drop if the counter is dark','ATL connection 2h35','BUR 1:01 PM — home mid-afternoon'],
+   eat:'Airport coffee — you earned the nap', medal:true, claims:[]} ],
+ claims:{}, chatLog:[], bannerOff:false
+};
+/* ============ HELPERS ============ */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),2600)}
+function dirty(){S.dirty=true;renderTabs()}
+function today(){return new Date()}
+function iso(dt){return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0')}
+function tripDayIndex(){const t=iso(today());return S.days.findIndex(x=>x.d===t)}
+function phase(){const t=iso(today());if(t<S.meta.start)return 'plan';if(t>S.meta.end)return 'after';return 'trip'}
+function claimedCount(){return ['NC','VA','MD','DE','NJ','CT','RI','VT','NH','ME'].filter(c=>S.claims[c]).length}
+function bookingsDone(){return S.stops.filter(s=>s.booked).length + S.res.filter(r=>r.p<=2&&r.status==='booked').length}
+function bookingsTotal(){return S.stops.length + S.res.filter(r=>r.p<=2).length}
+function daysToGo(){return Math.max(0,Math.ceil((new Date(S.meta.start+'T00:00:00')-today())/86400000))}
+function confetti(){const el=['🎉','✨','⭐','🧭','🗺️'];for(let i=0;i<44;i++){const s=document.createElement('span');s.className='cf';s.textContent=el[i%el.length];s.style.left=(Math.random()*100)+'vw';s.style.animationDuration=(1.4+Math.random()*1.6)+'s';s.style.fontSize=(12+Math.random()*14)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),3200)}}
+/* ============ HEADER + TABS ============ */
+let TAB = phase()==='plan' ? 'plan' : (phase()==='trip' ? 'trip' : 'ledger');
+const TABS=[['plan','🧭','Plan'],['trip','🗺️','Trip'],['ledger','🏅','Ledger'],['chat','💬','Concierge'],['sync','🔄','Sync']];
+function renderHeader(){
+ const done=bookingsDone(), tot=bookingsTotal(), pct=done/tot;
+ const r=19,c=2*Math.PI*r;
+ const ph=phase();
+ const left = ph==='plan' ? `<div class="big">${daysToGo()}</div><div class="lbl">days to wheels-up</div>`
+   : ph==='trip' ? `<div class="big">Day ${tripDayIndex()+1}<span class="accent">/14</span></div><div class="lbl">on the road</div>`
+   : `<div class="big serif">🏅</div><div class="lbl">trip complete</div>`;
+ $('statrow').innerHTML=`
+  <div class="stat">${left}</div>
+  <div class="stat"><div class="ringwrap"><svg width="46" height="46"><circle cx="23" cy="23" r="${r}" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="#C9A227" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(pct*c).toFixed(1)} ${c}"/></svg><div class="ringnum">${done}/${tot}</div></div><div class="lbl">bookings locked</div></div>
+  <div class="stat"><div class="big">${S.meta.base+claimedCount()}<span class="accent">→48</span></div><div class="lbl">states claimed</div></div>`;
+}
+function renderTabs(){
+ $('tabbar').innerHTML=TABS.map(([id,ico,lb])=>`<button class="${TAB===id?'on':''}" onclick="go('${id}')"><span class="ico">${ico}</span>${lb}${id==='sync'&&S.dirty?'<span class="dot"></span>':''}</button>`).join('');
+}
+function go(t){TAB=t;render()}
+function dismissBanner(){S.bannerOff=true;$('memBanner').style.display='none'}
+/* ============ RENDER DISPATCH ============ */
+function render(){
+ renderHeader();renderTabs();
+ $('memBanner').style.display=S.bannerOff?'none':'flex';
+ const v=$('view');
+ if(TAB==='plan')v.innerHTML=viewPlan();
+ else if(TAB==='trip')v.innerHTML=viewTrip();
+ else if(TAB==='ledger')v.innerHTML=viewLedger();
+ else if(TAB==='chat'){v.innerHTML=viewChat();const l=$('chatlog');if(l)l.scrollTop=l.scrollHeight}
+ else v.innerHTML=viewSync();
+ window.scrollTo(0,0);
+}
+/* ============ PLAN VIEW ============ */
+function tagFor(o){let t='';if(o.mich)t+=`<span class="tag mich">★ ${esc(o.mich)}</span>`;
+ t+=o.ver==='ver'?'<span class="tag ver">price verified 7/19</span>':o.ver==='med'?'<span class="tag med">partially verified</span>':'<span class="tag unver">unverified — check live</span>';return t}
+function viewPlan(){
+ const live=s=>s.options.filter(o=>o.status==='live');
+ const stops=S.stops.map(s=>{
+  if(s.booked)return `<div class="card"><h3>${esc(s.name)}</h3><div class="small">${esc(s.nights)}</div>
+   <div class="opt booked"><div class="nm">✓ ${esc(s.booked.name)}</div><div class="small">Conf ${esc(s.booked.conf||'—')} · ${esc(s.booked.total||'cost not entered')}</div>
+   <div class="btnrow"><button class="btn sm danger" onclick="unbookStop('${s.id}')">Undo</button></div></div></div>`;
+  const opts=live(s).slice(0,3).map((o,i)=>`
+   <div class="opt"><span class="rank">#${i+1}</span>
+    <div class="nm">${esc(o.name)}</div><div>${tagFor(o)}</div>
+    <div class="small" style="margin-top:5px">${esc(o.basis)}</div>
+    ${o.caveat?`<div class="small" style="margin-top:4px">⚖️ ${esc(o.caveat)}</div>`:''}
+    <div class="btnrow">
+     <a href="${esc(o.url)}" target="_blank" rel="noopener"><button class="btn sm subtle">Open site ↗</button></a>
+     <button class="btn sm gold" onclick="bookStopUI('${s.id}','${esc(o.name)}')">We booked this ✓</button>
+     <button class="btn sm ghost" onclick="rejectOption('${s.id}','${esc(o.name)}')">Not for us ✕</button>
+    </div></div>`).join('');
+  const dry = live(s).length<3 && s.pool.length===0 ? `<div class="opt"><div class="nm">Pool is dry</div><div class="small">Ask the concierge to research a replacement with your exact wishes.</div><div class="btnrow"><button class="btn sm" onclick="askReplace('${s.id}')">Draft the research request →</button></div></div>`:'';
+  return `<div class="card"><h3>${esc(s.name)}</h3><div class="small">${esc(s.nights)} · <b style="color:var(--warn)">${esc(s.urgency)}</b></div>${opts}${dry}
+   <div class="btnrow"><button class="btn sm subtle" onclick="askReplace('${s.id}')">Want something specific? Ask the concierge</button></div></div>`;
+ }).join('');
+ const resRows=S.res.map(r=>`<div class="task ${r.status==='booked'?'done':''}">
+   <input type="checkbox" ${r.status==='booked'?'checked':''} onchange="toggleRes('${r.id}',this.checked)">
+   <div style="flex:1"><div class="t"><b>${esc(r.what)}</b>${r.p===1?' <span class="tag med">book now</span>':''}</div>
+   <div class="small">${esc(r.when)}${r.cost?' · '+esc(r.cost):''} · <a href="${esc(r.url)}" target="_blank" rel="noopener">book ↗</a>${r.status==='booked'?` · conf: <b>${esc(r.conf||'—')}</b>`:''}</div></div></div>`).join('');
+ const taskRows=S.tasks.map(t=>`<div class="task ${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask('${t.id}',this.checked)"><div class="t">${esc(t.t)}</div></div>`).join('');
+ const packRows=S.packing.map((p,i)=>`<div class="task ${p.done?'done':''}"><input type="checkbox" ${p.done?'checked':''} onchange="togglePack(${i},this.checked)"><div class="t">${esc(p.t)}</div></div>`).join('');
+ const booked=S.stops.filter(x=>x.booked).length;
+ return `
+  <div class="card"><h2>Mission control</h2>
+   <div class="small">Lodging locked: <b>${booked}/4 stops</b> · First-choice estimate ≈ $2,530–2,850 all-in (7 nights) · value-mix ≈ $2,050. Hard cap $500/night.</div>
+   <div class="meter"><div style="width:${(bookingsDone()/bookingsTotal()*100).toFixed(0)}%"></div></div>
+   <div class="small">${bookingsDone()} of ${bookingsTotal()} core bookings done</div></div>
+  <div class="card"><h2>Book-next queue</h2><div class="small">In priority order: <b>Thorn Hill → Cape → Regency → Green Mountain Inn → ferry / Biltmore / Monticello → dinners</b>. Every price below was verified live Jul 19–20; confirm at booking.</div></div>
+  ${stops}
+  <div class="card"><h2>Reservations & tickets</h2>${resRows}</div>
+  <div class="card"><h2>Pre-trip tasks</h2>${taskRows}</div>
+  <div class="card"><h2>Packing</h2>${packRows}
+   <div class="inrow"><textarea id="packNew" placeholder="Add an item…"></textarea><button class="btn" onclick="addPack()">Add</button></div></div>
+  <div class="card"><h2>The flights (booked ✓)</h2>
+   <div class="small"><b>Out:</b> ${esc(S.meta.flightsOut)}<br><b>Home:</b> ${esc(S.meta.flightsBack)}<br><b>Car:</b> ${esc(S.meta.rental)}</div></div>`;
+}
+/* plan actions */
+function findStop(id){return S.stops.find(s=>s.id===id)}
+function promote(s){while(s.options.filter(o=>o.status==='live').length<3 && s.pool.length){const b=s.pool.shift();
+  s.options.push({name:b.name,url:b.url||'#',ver:'unver',basis:b.note,caveat:'Promoted from the backup pool — verify price & availability live before booking',status:'live'})}}
+function rejectOption(id,name){const s=findStop(id);const o=s.options.find(x=>x.name===name&&x.status==='live');if(!o)return;
+ o.status='rejected';promote(s);dirty();toast(`Rejected “${name}” — promoted the next candidate`);render()}
+function bookStopUI(id,name){const conf=prompt(`Confirmation number for ${name}? (optional)`)??'';
+ const total=prompt('Total cost, all-in? e.g. $862 (optional)')??'';bookLodging(id,name,conf,total)}
+function bookLodging(id,name,conf,total){const s=findStop(id);if(!s)return toast('Unknown stop');
+ s.booked={name,conf,total};const o=s.options.find(x=>x.name===name);if(o)o.status='booked';
+ dirty();confetti();toast(`${s.name}: booked ✓`);render()}
+function unbookStop(id){const s=findStop(id);if(!confirm('Undo this booking?'))return;
+ const o=s.options.find(x=>x.name===s.booked.name);if(o)o.status='live';s.booked=null;dirty();render()}
+function toggleRes(id,ck){const r=S.res.find(x=>x.id===id);if(ck){r.status='booked';r.conf=prompt('Confirmation number? (optional)')??''}else{r.status='todo';r.conf=''}dirty();render()}
+function toggleTask(id,ck){S.tasks.find(x=>x.id===id).done=ck;dirty();renderHeader();renderTabs()}
+function togglePack(i,ck){S.packing[i].done=ck;dirty()}
+function addPack(){const v=$('packNew').value.trim();if(!v)return;S.packing.push({t:v,done:false});dirty();render()}
+/* ============ TRIP VIEW ============ */
+let DAYSEL=null;
+function viewTrip(){
+ const idx = DAYSEL!==null?DAYSEL:Math.max(0,tripDayIndex()===-1?(phase()==='after'?13:0):tripDayIndex());
+ const chips=S.days.map((dd,i)=>{const done=dd.claims.length&&dd.claims.every(c=>c.bonus||S.claims[c.code]);
+  return `<div class="chip ${i===idx?'on':''} ${done?'done':''}" onclick="DAYSEL=${i};render()">${dd.dow} ${+dd.d.slice(8)}</div>`}).join('');
+ const d=S.days[idx];
+ const claims=d.claims.map(c=>{
+  const got=S.claims[c.code];
+  return `<div class="claimcard">
+   <div style="display:flex;gap:12px;align-items:center">
+    ${got?`<div class="stamp pop">${c.code}</div>`:`<div class="stamp" style="opacity:.35;border-style:dashed">${c.code}</div>`}
+    <div style="flex:1"><div class="st">${esc(c.label)}${c.bonus?' <span class="tag mich">bonus</span>':''}</div>
+    <div style="font-size:14px">${esc(c.text)}</div></div></div>
+   <div class="small" style="margin-top:7px">☔ If it rains: ${esc(c.rain)}</div>
+   ${got?`<div class="small" style="margin-top:6px;color:var(--gold)"><b>Claimed ${esc(got.at)}</b></div>
+    <div class="btnrow">
+     <button class="btn sm ${got.meal?'gold':'subtle'}" onclick="ev('${c.code}','meal')">${got.meal?'✓':''} local meal</button>
+     <button class="btn sm ${got.photo?'gold':'subtle'}" onclick="ev('${c.code}','photo')">${got.photo?'✓':''} photo of us</button>
+     <button class="btn sm ghost" onclick="claimNote('${c.code}')">journal note</button></div>
+    ${got.note?`<div class="small" style="margin-top:6px">📝 ${esc(got.note)}</div>`:''}`
+   :`<div class="btnrow"><button class="btn gold" style="width:100%;font-size:16px" onclick="claimIt('${c.code}','${esc(c.label)}',${!!c.bonus})">🏅 CLAIM ${c.bonus?'THE BONUS':'IT'}</button></div>`}
+  </div>`}).join('');
+ const resToday=S.res.filter(r=>r.when.includes('Aug '+(+d.d.slice(8))));
+ const resHtml=resToday.length?`<div class="card"><h3>Today’s reservations</h3>${resToday.map(r=>`<div class="task ${r.status==='booked'?'done':''}"><div class="t">${r.status==='booked'?'✓':'○'} <b>${esc(r.what)}</b><div class="small">${esc(r.when)}${r.conf?' · conf '+esc(r.conf):''}${r.status!=='booked'?' · <span style="color:var(--bad)">not booked yet</span>':''}</div></div></div>`).join('')}</div>`:'';
+ const tomorrow=S.days[idx+1];
+ const medal = d.medal ? medalBlock() : '';
+ return `
+  <div class="chips">${chips}</div>
+  <div class="card"><div class="k">${esc(d.dow)}, Aug ${+d.d.slice(8)} · Day ${idx+1} of 14</div>
+   <div class="hero">${esc(d.title)}</div>
+   <div class="small" style="margin-top:4px">🏨 ${esc(d.hotel)}</div></div>
+  ${medal}${claims}
+  <div class="card"><h3>🚗 The drive</h3>
+   <div><b>Depart:</b> ${esc(d.depart)}</div><div class="small" style="margin-top:3px">${esc(d.drive)}</div>
+   ${d.note?`<div class="small" style="margin-top:6px">📌 ${esc(d.note)}</div>`:''}</div>
+  ${d.prep?`<div class="prep"><b>⏰ Tonight’s prep:</b> ${esc(d.prep)}</div>`:''}
+  <div class="card"><h3>Today</h3>${d.todo.map(x=>`<div class="task"><div class="t">▸ ${esc(x)}</div></div>`).join('')}
+   <div class="divider"></div><div class="small">🍽 ${esc(d.eat)}</div></div>
+  ${resHtml}
+  ${tomorrow?`<div class="card"><div class="k">Tomorrow</div><b>${esc(tomorrow.title)}</b><div class="small">${esc(tomorrow.depart)}</div></div>`:''}
+  <div class="card emcard"><h3>In a pinch</h3><div class="small">
+   <b>Flights out:</b> ${esc(S.meta.flightsOut)}<br><b>Flights home:</b> ${esc(S.meta.flightsBack)}<br>
+   <b>Car:</b> ${esc(S.meta.rental)}<br><b>Thorn Hill:</b> 603-383-4242 · <b>Ferry:</b> cmlf.com · 800-643-3779</div></div>`;
+}
+function medalBlock(){const n=claimedCount();
+ return n>=10?`<div class="medal"><div class="ring"><div class="n">48</div><div style="color:#C7D3E0;font-size:12px">of 50</div></div>
+  <h2 class="serif">THE CONTIGUOUS 48 — COMPLETE</h2><div style="color:#C7D3E0">A promise kept, ten states at a time.<br>Only Alaska remains. 🐻‍❄️</div></div>`
+ :`<div class="medal"><div class="ring"><div class="n">${S.meta.base+n}</div><div style="color:#C7D3E0;font-size:12px">of 50</div></div>
+  <h2 class="serif">${10-n} claim${10-n>1?'s':''} still open</h2><div style="color:#C7D3E0">Check the Ledger — stamp what you finished.</div></div>`}
+function claimIt(code,label,bonus){S.claims[code]={at:new Date().toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}),meal:false,photo:false,note:''};
+ dirty();confetti();toast(bonus?`${label} — bonus stamped!`:`${label} CLAIMED — ${S.meta.base+claimedCount()} of 50 🏅`);render()}
+function ev(code,k){S.claims[code][k]=!S.claims[code][k];dirty();render()}
+function claimNote(code){const n=prompt('Journal note for this claim:',S.claims[code].note||'');if(n!==null){S.claims[code].note=n;dirty();render()}}
+/* ============ LEDGER ============ */
+function viewLedger(){
+ const order=[['NC','Aug 16'],['VA','Aug 18'],['MD','Aug 19'],['DE','Aug 19'],['NJ','Aug 20'],['CT','Aug 20'],['RI','Aug 21'],['VT','Aug 24'],['NH','Aug 26'],['ME','Aug 27'],['MA','Aug 22 · bonus']];
+ const cells=order.map(([c,dt])=>{const got=S.claims[c];
+  return `<div class="sealcell ${got?'got':''}"><div class="s">${c}</div><div class="d">${got?esc(got.at):dt}</div></div>`}).join('');
+ const rows=S.days.flatMap(d=>d.claims.map(c=>({c,d}))).map(({c,d})=>{const got=S.claims[c.code];
+  return `<div class="task ${got?'done':''}" style="align-items:center"><div style="width:34px;font-family:Georgia;font-weight:bold;color:${got?'var(--gold)':'var(--muted)'}">${c.code}</div>
+   <div style="flex:1"><div class="t" style="text-decoration:none"><b>${esc(c.text)}</b></div><div class="small">${esc(d.dow)} Aug ${+d.d.slice(8)} · ☔ ${esc(c.rain)}${got&&got.note?` · 📝 ${esc(got.note)}`:''}</div></div>
+   <div>${got?'🏅':'○'}</div></div>`}).join('');
+ return `<div class="card"><h2>The State-Claim Ledger</h2>
+  <div class="small">The rule: an anchor experience + one local meal + one photo of the two of you. Overnights don’t count — experiences do.</div>
+  <div class="sealgrid">${cells}</div></div>
+  ${claimedCount()>=10?medalBlock():''}
+  <div class="card"><h3>Claims in detail</h3>${rows}</div>`;
+}
+/* ============ CHAT / CONCIERGE ============ */
+const HAS_AI = typeof window!=='undefined' && window.claude && typeof window.claude.complete==='function';
+function stateBrief(){
+ const un=S.stops.filter(s=>!s.booked).map(s=>`${s.name}: ${s.options.filter(o=>o.status==='live').map(o=>o.name).join(' / ')}`).join(' | ');
+ const resT=S.res.filter(r=>r.status!=='booked'&&r.p<=3).map(r=>r.what).join('; ');
+ return `TRIP: East Coast, Aug 15–28 2026, couple, completes lower-48 (claims: ${Object.keys(S.claims).join(',')||'none yet'}). UNBOOKED STOPS → ${un||'all booked'}. OPEN RESERVATIONS → ${resT||'none'}. BUDGET: ≤$500/night hard cap, value preferred. Flights: out ${S.meta.flightsOut}; home ${S.meta.flightsBack}.`}
+function viewChat(){
+ const log=S.chatLog.map(m=>`<div class="msg ${m.who}">${esc(m.text)}</div>`).join('')||'<div class="small">No messages yet. Ask about the plan, reject a hotel, or request a change — I’ll answer from the trip data and propose updates.</div>';
+ return `<div class="card"><h2>Concierge ${HAS_AI?'<span class="tag ver">AI live</span>':'<span class="tag med">composer mode</span>'}</h2>
+  <div class="small">${HAS_AI?'Answers come from your embedded trip data. Anything needing the live web gets drafted for your Claude planning chat.':'No in-page AI available here — I’ll draft perfect, copy-ready requests for your Claude planning chat, and you can paste its STATE_PATCH replies below to update the dashboard.'}</div>
+  <div class="chatlog" id="chatlog">${log}</div>
+  <div class="inrow"><textarea id="chatIn" placeholder="e.g. We don’t love option 1 in Portland — find something ON the water under $450"></textarea>
+  <button class="btn" onclick="chatSend()">Send</button></div>
+  <div class="btnrow">
+   <button class="btn sm subtle" onclick="quick('replace')">Replace a hotel option</button>
+   <button class="btn sm subtle" onclick="quick('specific')">We want something specific</button>
+   <button class="btn sm subtle" onclick="quick('today')">What’s next today?</button></div></div>
+ <div class="card"><h3>Apply an update from Claude</h3>
+  <div class="small">Paste a STATE_PATCH block from the planning chat; the dashboard applies it.</div>
+  <textarea id="patchIn" placeholder='{"op":"bookLodging","stop":"jackson","name":"Inn at Thorn Hill & Spa","conf":"ABC123","total":"$304"}'></textarea>
+  <div class="btnrow"><button class="btn" onclick="applyPatchUI()">Apply patch</button></div></div>`;
+}
+function pushMsg(who,text){S.chatLog.push({who,text});if(S.chatLog.length>60)S.chatLog.shift()}
+function quick(k){const t=$('chatIn');
+ t.value = k==='replace'?'We want to swap one of the hotel options — here’s the stop and what we didn’t like: '
+  : k==='specific'?'For our next unbooked stop we’re looking for: '
+  : 'What should we be doing right now, and what’s coming next?';t.focus()}
+function localAnswer(q){
+ const ql=q.toLowerCase();
+ if(/next|today|now|doing/.test(ql)){const ph=phase();
+  if(ph==='plan'){const nb=S.stops.find(s=>!s.booked);const nr=S.res.find(r=>r.p<=2&&r.status!=='booked');
+   return `Right now (${daysToGo()} days out): ${nb?`book ${nb.name} — top pick ${nb.options.find(o=>o.status==='live')?.name}.`:'lodging is done!'} ${nr?`Then: ${nr.what}.`:''} The full queue is on the Plan tab.`}
+  const i=tripDayIndex();if(i>=0){const d=S.days[i];return `Day ${i+1}: ${d.title}. Depart: ${d.depart}. Priorities: ${d.todo.slice(0,2).join('; ')}. ${d.claims.length?`Claim today: ${d.claims.map(c=>c.label).join(' + ')}.`:''}`}
+  return 'Trip complete — 48 down, Alaska to go.'}
+ return null;
+}
+async function chatSend(){
+ const inp=$('chatIn');const q=inp.value.trim();if(!q)return;inp.value='';pushMsg('me',q);render();
+ const local=localAnswer(q);
+ if(local){pushMsg('ai',local);dirty();render();return}
+ if(HAS_AI){
+  pushMsg('ai','…');render();
+  try{
+   const sys=`You are the concierge inside "The Lower 48", a private trip dashboard for a couple. Be warm, brief, and concrete. ONLY use the trip data given. You CANNOT browse the web: for live prices/availability/hours say plainly that it needs a live check and draft a short request for their Claude planning chat. If the user asks to change plans, reject an option, or record a booking, end your reply with a fenced json block: {"op":"rejectOption","stop":ID,"name":NAME} or {"op":"bookLodging","stop":ID,"name":N,"conf":C,"total":T} or {"op":"bookReservation","id":ID,"conf":C} or {"op":"claimState","code":ST} or {"op":"addTask","text":T}. Stop IDs: cape, stowe, jackson, portland. DATA: ${stateBrief()}`;
+   const out=await window.claude.complete(sys+'\n\nUSER: '+q);
+   S.chatLog.pop();pushMsg('ai',out);
+   const m=out.match(/```json\s*([\s\S]*?)```/);if(m){try{applyPatch(JSON.parse(m[1]));toast('Dashboard updated from concierge')}catch(e){}}
+  }catch(e){S.chatLog.pop();pushMsg('ai','The AI call failed here — switching to composer mode. '+draftRequest(q))}
+  dirty();render();return}
+ pushMsg('ai',draftRequest(q));dirty();render();
+}
+function draftRequest(q){
+ return `COPY THIS TO OUR CLAUDE PLANNING CHAT:\n———\n${q}\n\nContext: ${stateBrief()}\nPlease answer with (1) your recommendation with verified evidence and (2) a STATE_PATCH json block I can paste into the dashboard (ops: rejectOption / bookLodging / bookReservation / addTask / claimState; stops: cape, stowe, jackson, portland).\n———`;
+}
+function askReplace(id){const s=findStop(id);TAB='chat';render();
+ $('chatIn').value=`For ${s.name} (${s.nights}): we'd like a different option than [${s.options.filter(o=>o.status==='live').map(o=>o.name).join(' / ')}]. What we want instead: `;$('chatIn').focus()}
+function applyPatchUI(){const t=$('patchIn').value.trim();if(!t)return;
+ try{const arr=JSON.parse(t);(Array.isArray(arr)?arr:[arr]).forEach(applyPatch);toast('Patch applied ✓');$('patchIn').value='';dirty();render()}
+ catch(e){toast('Could not parse that patch — expecting JSON')}}
+function applyPatch(p){
+ switch(p.op){
+  case 'rejectOption':rejectOption(p.stop,p.name);break;
+  case 'bookLodging':bookLodging(p.stop,p.name,p.conf||'',p.total||'');break;
+  case 'bookReservation':{const r=S.res.find(x=>x.id===p.id);if(r){r.status='booked';r.conf=p.conf||''}break}
+  case 'addOption':{const s=findStop(p.stop);if(s){s.options.push({name:p.name,url:p.url||'#',ver:p.ver||'unver',basis:p.basis||'',caveat:p.caveat||'',status:'live'})}break}
+  case 'addTask':S.tasks.push({id:'t'+Date.now(),t:p.text,done:false});break;
+  case 'claimState':if(!S.claims[p.code])S.claims[p.code]={at:'via chat',meal:false,photo:false,note:p.note||''};break;
+  case 'noteDay':{const d=S.days.find(x=>x.d===p.date);if(d)d.note=(d.note?d.note+' · ':'')+p.note;break}
+  default:toast('Unknown patch op: '+p.op)}
+}
+/* ============ SYNC ============ */
+function viewSync(){
+ return `<div class="card"><h2>Sync between phones</h2>
+  <div class="small">No account, no server: the trip state is a text blob. Copy it here, send it to your partner (Notes, iMessage, email), and they paste it into <b>Load</b> on their phone. Whoever edited last, exports.</div>
+  <div class="btnrow"><button class="btn" onclick="exportState()">Copy state ⇪</button>
+   <button class="btn subtle" onclick="downloadState()">Download .json</button></div>
+  <textarea id="syncBox" placeholder="Exported state appears here — or paste a blob and hit Load"></textarea>
+  <div class="btnrow"><button class="btn gold" onclick="importState()">Load pasted state</button></div>
+  ${S.dirty?'<div class="small" style="color:var(--bad);margin-top:6px"><b>You have unsaved changes</b> — copy the state before closing this page.</div>':'<div class="small" style="margin-top:6px">No unsaved changes since last export.</div>'}</div>
+ <div class="card"><h2>Install on your phones</h2>
+  <div class="small"><b>iPhone (Safari):</b> visit https://professorchickenstrips.github.io/lower48/ → Share □↑ → “Add to Home Screen.”<br><br>
+  <b>Samsung (Chrome):</b> open it → ⋮ menu → “Add to Home screen” (or “Install”).<br><br>
+  It opens full-screen with the 48 seal as its icon. Remember: state is memory-only — export before closing.</div></div>
+ <div class="card"><h2>About</h2><div class="small">Built by your Claude planning chat from research verified Jul 19–20, 2026. Prices move — every booking deep-links to the official site so you pay the real number, never mine. Hard rules honored: no browser storage, no invented availability, budget cap $500/night.</div></div>`;
+}
+function exportState(){const j=JSON.stringify(S);$('syncBox').value=j;$('syncBox').select();
+ try{document.execCommand('copy');toast('State copied to clipboard ✓')}catch(e){toast('Select-all and copy the box contents')}
+ S.dirty=false;render();$('syncBox').value=j}
+function downloadState(){const a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(S));
+ a.download='lower48-state.json';a.click();S.dirty=false;render()}
+function importState(){const t=$('syncBox').value.trim();if(!t)return toast('Paste a state blob first');
+ try{const o=JSON.parse(t);if(!o.stops||!o.days)throw 0;Object.keys(S).forEach(k=>delete S[k]);Object.assign(S,o);S.dirty=false;toast('State loaded ✓');render()}
+ catch(e){toast('That doesn’t look like a Lower 48 state blob')}}
+/* ============ BOOT ============ */
+render();
+
+</script>
+</body>
+</html>
