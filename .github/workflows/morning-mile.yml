@@ -24,9 +24,9 @@ jobs:
           server_address: smtp.mail.yahoo.com
           server_port: 465
           secure: true
-          username: ${{ secrets.SMTP_USER }}
-          password: ${{ secrets.SMTP_PASS }}
+          username: ${{ secrets.USER_NAME }}
+          password: ${{ secrets.PASS }}
           subject: ${{ steps.pick.outputs.subject }}
           to: cjohns0334@yahoo.com
-          from: ${{ secrets.SMTP_USER }}
+          from: ${{ secrets.USER_NAME }}
           body: file://body.txt
