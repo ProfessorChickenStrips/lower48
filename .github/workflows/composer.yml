@@ -1,0 +1,114 @@
+name: Morning Mile Composer
+on:
+  schedule:
+    - cron: "0 13 21-31 7 *"
+    - cron: "0 13 1-14 8 *"
+    - cron: "0 10 15-28 8 *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  compose-and-send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Season guard (2026 only)
+        id: guard
+        run: |
+          if [ "$(date -u +%Y)" != "2026" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Season over."; else echo "skip=0" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Live weather (trip days, best effort)
+        if: steps.guard.outputs.skip != '1'
+        continue-on-error: true
+        run: |
+          D=$(TZ=America/New_York date +%Y-%m-%d)
+          case "$D" in
+            2026-08-15|2026-08-16) LOC="Asheville" ;;
+            2026-08-17) LOC="Charlottesville" ;;
+            2026-08-18) LOC="Annapolis" ;;
+            2026-08-19) LOC="Cape+May" ;;
+            2026-08-20) LOC="Newport+Rhode+Island" ;;
+            2026-08-21) LOC="Eastham" ;;
+            2026-08-22) LOC="Provincetown" ;;
+            2026-08-23|2026-08-24) LOC="Stowe" ;;
+            2026-08-25) LOC="Jackson+New+Hampshire" ;;
+            2026-08-26) LOC="North+Conway" ;;
+            2026-08-27|2026-08-28) LOC="Portland+Maine" ;;
+            *) LOC="" ;;
+          esac
+          if [ -n "$LOC" ]; then
+            curl -sS --max-time 15 "https://wttr.in/${LOC}?format=%l:+%C,+high+%t,+wind+%w" > weather.txt || true
+          fi
+          touch weather.txt
+
+      - name: Compose via Anthropic API
+        if: steps.guard.outputs.skip != '1'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TODAY=$(TZ=America/New_York date "+%A, %B %d, %Y")
+          W=$(head -c 300 weather.txt 2>/dev/null || true)
+          jq -n --rawfile p prompt.md --rawfile s status.md \
+             --arg today "$TODAY" --arg w "$W" \
+             '{model:"claude-sonnet-4-5", max_tokens:1800,
+               system:($p + "\n\nCURRENT TASK STATUS (from status.md):\n" + $s),
+               messages:[{role:"user",content:("Today is " + $today + " (US Eastern). " + (if $w != "" then ("Live weather for today: " + $w + ". ") else "" end) + "Compose the edition for this date now, following the OUTPUT CONTRACT exactly.")}]}' > req.json
+          curl -sS --max-time 120 https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d @req.json > resp.json
+          jq -r '.content[0].text // empty' resp.json > edition.txt
+          if [ ! -s edition.txt ]; then echo "API error:"; cat resp.json; exit 1; fi
+          head -1 edition.txt | grep -q '^Subject: ' || sed -i '1i Subject: The Morning Mile' edition.txt
+
+      - name: Prepare mail
+        if: steps.guard.outputs.skip != '1'
+        id: pick
+        run: |
+          SUBJ=$(head -1 edition.txt | sed 's/^Subject: *//' | tr -cd '\40-\176')
+          tail -n +2 edition.txt > body.txt
+          echo "subject=$SUBJ" >> "$GITHUB_OUTPUT"
+
+      - name: Send email
+        if: steps.guard.outputs.skip != '1'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.mail.yahoo.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.USER_NAME }}
+          password: ${{ secrets.PASS }}
+          subject: ${{ steps.pick.outputs.subject }}
+          to: cjohns0334@yahoo.com
+          from: ${{ secrets.USER_NAME }}
+          body: file://body.txt
+
+      - name: Archive edition in the repo
+        if: steps.guard.outputs.skip != '1'
+        continue-on-error: true
+        run: |
+          D=$(TZ=America/New_York date +%Y-%m-%d)
+          mkdir -p editions/archive
+          cp edition.txt "editions/archive/${D}.txt"
+          git config user.name "Morning Mile Composer"
+          git config user.email "actions@github.com"
+          git add editions/archive
+          git commit -m "Edition ${D}" || exit 0
+          git pull --rebase origin main || true
+          git push || true
+
+      - name: Alert on failure
+        if: failure() && steps.guard.outputs.skip != '1'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.mail.yahoo.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.USER_NAME }}
+          password: ${{ secrets.PASS }}
+          subject: Morning Mile - composer hit a snag
+          to: cjohns0334@yahoo.com
+          from: ${{ secrets.USER_NAME }}
+          body: "The Morning Mile could not compose or send this morning. Open the lower48 repo -> Actions tab and check the red run. Dashboard: https://professorchickenstrips.github.io/lower48/"
