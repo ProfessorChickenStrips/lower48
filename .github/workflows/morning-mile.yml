@@ -1,0 +1,32 @@
+name: Morning Mile Mailer
+on:
+  push:
+    paths: ["editions/**"]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pick latest edition
+        id: pick
+        run: |
+          F=$(ls -t editions/*.txt editions/*.md 2>/dev/null | head -1)
+          [ -z "$F" ] && { echo "no editions"; exit 1; }
+          SUBJ=$(head -1 "$F" | sed 's/^Subject: *//')
+          tail -n +2 "$F" > body.txt
+          echo "subject=$SUBJ" >> "$GITHUB_OUTPUT"
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.mail.yahoo.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: ${{ steps.pick.outputs.subject }}
+          to: cjohns0334@yahoo.com
+          from: The Morning Mile <${{ secrets.SMTP_USER }}>
+          body: file://body.txt
