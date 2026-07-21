@@ -11,9 +11,9 @@
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="%231B3A5C"/><circle cx="32" cy="32" r="24" fill="none" stroke="%23C9A227" stroke-width="3"/><text x="32" y="41" font-family="Georgia" font-size="22" fill="%23C9A227" text-anchor="middle" font-weight="bold">48</text></svg>'>
 <style>
 :root{
-  --navy:#1B3A5C; --navy2:#16304d; --teal:#2F6F73; --gold:#7A5C00; --goldBright:#C9A227;
-  --parch:#F7F3E8; --card:#FFFFFF; --ink:#2B2B2B; --muted:#5A6672; --line:#DDD5C4;
-  --good:#1E7A34; --warn:#9A6700; --bad:#B3261E; --lt:#EEF3F7; --sand:#F5E9C9;
+  --navy:#1B3A5C; --navy2:#16304d; --teal:#2F6F73; --gold:#6B5000; --goldBright:#C9A227;
+  --parch:#F7F3E8; --card:#FFFFFF; --ink:#2B2B2B; --muted:#54606C; --line:#DDD5C4;
+  --good:#1E7A34; --warn:#8A5C00; --bad:#B3261E; --lt:#EEF3F7; --sand:#F5E9C9;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:var(--parch);color:var(--ink);
@@ -22,7 +22,6 @@ body{padding-bottom:76px}
 .wrap{max-width:540px;margin:0 auto;padding:0 12px}
 h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif}
 a{color:var(--teal)}
-/* header */
 header{background:linear-gradient(180deg,var(--navy),var(--navy2));color:#fff;
   padding:calc(10px + env(safe-area-inset-top)) 0 12px}
 .brandrow{display:flex;align-items:center;gap:10px}
@@ -41,11 +40,9 @@ header{background:linear-gradient(180deg,var(--navy),var(--navy2));color:#fff;
 .ringwrap svg{transform:rotate(-90deg)}
 .ringnum{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   font-family:Georgia;font-size:13.5px;color:#fff}
-/* banner */
 .banner{background:var(--sand);border:1px solid #E4D6A8;color:var(--gold);border-radius:12px;
   padding:10px 12px;font-size:13.5px;margin:12px 0;display:flex;gap:10px;align-items:flex-start}
 .banner button{margin-left:auto;flex:0 0 auto}
-/* cards */
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
   padding:14px;margin:12px 0;box-shadow:0 1px 3px rgba(27,58,92,.06)}
 .card h2{margin:0 0 8px;font-size:18px;color:var(--navy)}
@@ -53,113 +50,112 @@ header{background:linear-gradient(180deg,var(--navy),var(--navy2));color:#fff;
 .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.07em}
 .small{font-size:13px;color:var(--muted)}
 .divider{height:1px;background:var(--line);margin:10px 0}
-/* buttons */
-button{font:inherit;border:0;border-radius:10px;padding:9px 13px;cursor:pointer}
+button{font:inherit;border:0;border-radius:10px;padding:11px 14px;cursor:pointer;min-height:44px}
 .btn{background:var(--navy);color:#fff}
 .btn.gold{background:var(--goldBright);color:#2e2503;font-weight:700}
 .btn.ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
 .btn.subtle{background:var(--lt);color:var(--navy)}
 .btn.danger{background:#fff;color:var(--bad);border:1.5px solid var(--bad)}
-.btn.sm{padding:6px 10px;font-size:13.5px;border-radius:8px}
+.btn.sm{padding:8px 11px;font-size:13.5px;border-radius:8px;min-height:40px}
+.btn:active{transform:scale(.97)}
 .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
-/* chips / tabs */
 .chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0 6px;-webkit-overflow-scrolling:touch}
 .chip{flex:0 0 auto;background:#fff;border:1.5px solid var(--line);border-radius:999px;
-  padding:6px 11px;font-size:13.5px;color:var(--navy)}
+  padding:9px 13px;font-size:13.5px;color:var(--navy);min-height:40px}
 .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
 .chip.done{border-color:var(--goldBright)}
 nav.tabbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
   display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:50}
 nav.tabbar button{flex:1;background:none;border-radius:0;padding:9px 2px 7px;color:var(--muted);
-  font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px}
+  font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px}
 nav.tabbar button .ico{font-size:19px;line-height:1}
 nav.tabbar button.on{color:var(--navy);font-weight:700}
 nav.tabbar button .dot{position:absolute;margin-left:26px;width:8px;height:8px;border-radius:50%;background:var(--bad)}
-/* option cards */
 .opt{border:1.5px solid var(--line);border-radius:12px;padding:11px;margin:9px 0;position:relative}
 .opt .rank{position:absolute;top:-9px;left:10px;background:var(--navy);color:#fff;font-size:11px;
   border-radius:6px;padding:2px 7px;letter-spacing:.05em}
 .opt.booked{border-color:var(--good);background:#F2FAF4}
 .opt .nm{font-family:Georgia;font-size:16px;color:var(--navy);margin-top:3px}
-.tag{display:inline-block;font-size:11px;border-radius:6px;padding:2px 7px;margin:3px 4px 0 0;vertical-align:middle}
+.tag{display:inline-block;font-size:11px;border-radius:6px;padding:2px 7px;margin:3px 4px 0 0;vertical-align:middle;font-weight:600}
 .tag.mich{background:var(--sand);color:var(--gold);font-weight:700}
-.tag.ver{background:#E7F3EA;color:var(--good)}
-.tag.unver{background:#FBEAE8;color:var(--bad)}
-.tag.med{background:#FFF3DC;color:var(--warn)}
-/* tasks */
-.task{display:flex;gap:10px;align-items:flex-start;padding:8px 2px;border-bottom:1px solid #EFEAD9}
+.tag.ver{background:#E1F0E5;color:#155724}
+.tag.unver{background:#FBEAE8;color:#8f1d15}
+.tag.med{background:#FFF1D6;color:#7a4c00}
+.task{display:flex;gap:10px;align-items:flex-start;padding:10px 2px;border-bottom:1px solid #EFEAD9;cursor:pointer}
 .task:last-child{border-bottom:0}
-.task input[type=checkbox]{width:21px;height:21px;accent-color:var(--teal);margin-top:1px}
+.task input[type=checkbox]{width:22px;height:22px;accent-color:var(--teal);margin-top:1px;flex:0 0 auto}
 .task.done .t{text-decoration:line-through;color:var(--muted)}
-/* claims */
 .claimcard{border:2px solid var(--goldBright);border-radius:14px;background:linear-gradient(180deg,#FFFDF6,#FBF4DF);
   padding:14px;margin:12px 0}
 .claimcard .st{font-family:Georgia;font-size:24px;color:var(--gold);letter-spacing:.04em}
 .stamp{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;
   border:3px solid var(--gold);color:var(--gold);font-family:Georgia;font-weight:bold;font-size:19px;
-  transform:rotate(-8deg);background:rgba(201,162,39,.12)}
+  transform:rotate(-8deg);background:rgba(201,162,39,.12);flex:0 0 auto}
 .stamp.pop{animation:pop .5s ease-out}
 @keyframes pop{0%{transform:scale(2.2) rotate(-30deg);opacity:0}70%{transform:scale(.95) rotate(-6deg);opacity:1}100%{transform:scale(1) rotate(-8deg)}}
 .sealgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0}
 .sealcell{text-align:center}
 .sealcell .s{width:58px;height:58px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-family:Georgia;font-weight:bold;font-size:16px;border:2.5px dashed var(--line);color:#B9B29E;background:#fff}
+  font-family:Georgia;font-weight:bold;font-size:16px;border:2.5px dashed var(--line);color:#A9A28E;background:#fff}
 .sealcell.got .s{border:3px solid var(--gold);border-style:solid;color:var(--gold);background:rgba(201,162,39,.14);transform:rotate(-8deg)}
 .sealcell .d{font-size:10.5px;color:var(--muted);margin-top:3px}
-/* progress bars */
 .meter{background:var(--lt);border-radius:8px;height:14px;overflow:hidden;margin:6px 0 2px}
 .meter>div{height:100%;background:var(--teal);border-radius:8px 0 0 8px}
-/* chat */
 .chatlog{max-height:330px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:4px 0}
-.msg{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14.5px;white-space:pre-wrap}
+.msg{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14.5px;white-space:pre-wrap;overflow-wrap:break-word}
 .msg.me{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:4px}
 .msg.ai{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
 textarea,input[type=text],select{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:10px;
-  padding:9px;background:#fff;color:var(--ink)}
+  padding:11px;background:#fff;color:var(--ink);min-height:44px}
 textarea{min-height:74px;resize:vertical}
 .inrow{display:flex;gap:8px;margin-top:8px}
 .inrow textarea{min-height:44px;flex:1}
-/* medal */
+.inform{border:1.5px dashed var(--goldBright);border-radius:12px;background:#FFFDF4;padding:11px;margin:9px 0}
+.inform input{margin-top:8px}
 .medal{background:radial-gradient(circle at 50% 30%,#24466b,var(--navy2));border-radius:18px;color:#fff;
   text-align:center;padding:26px 16px;margin:12px 0}
 .medal .ring{width:120px;height:120px;margin:0 auto 12px;border-radius:50%;border:5px solid var(--goldBright);
   display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Georgia}
 .medal .ring .n{font-size:38px;color:var(--goldBright);font-weight:bold;line-height:1}
 .medal h2{color:#fff;margin:4px 0}
-/* toast + confetti */
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--navy);color:#fff;
   padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .25s;z-index:99;pointer-events:none;max-width:86%}
 #toast.show{opacity:1}
 .cf{position:fixed;top:-12px;z-index:98;pointer-events:none;font-size:15px;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.6}}
 .hero{font-family:Georgia;font-size:30px;color:var(--navy);line-height:1.1}
-.emcard{border-left:4px solid var(--bad);}
+.emcard{border-left:4px solid var(--bad)}
 .prep{border:1.5px solid var(--warn);background:#FFF9EC;border-radius:12px;padding:10px 12px;margin:10px 0;font-size:14px}
 .footer-note{text-align:center;color:var(--muted);font-size:12px;margin:18px 0 8px}
+@media (prefers-reduced-motion: reduce){
+  .stamp.pop{animation:none}
+  .cf{display:none}
+  .btn:active{transform:none}
+}
 </style>
 </head>
-<body data-palette="#2F6F73,#C9A227">
+<body>
 <header><div class="wrap">
   <div class="brandrow">
-    <div class="seal">48</div>
+    <div class="seal" aria-hidden="true">48</div>
     <div class="brand"><h1>THE LOWER 48</h1><div class="sub">Aug 15–28, 2026 · the trip that finishes the map</div></div>
   </div>
   <div class="statrow" id="statrow"></div>
 </div></header>
 
 <div class="wrap">
-  <div class="banner" id="memBanner">⚠️ <span><b>State lives in this page only</b> — there is no auto-save here. Use <b>Sync → Copy state</b> before closing, and paste it back next time.</span><button class="btn sm subtle" onclick="dismissBanner()">Got it</button></div>
+  <div class="banner" id="memBanner" hidden></div>
   <main id="view"></main>
   <div class="footer-note">The Lower 48 · built by your Claude planning chat · prices verified Jul 19–20, 2026 — always confirm live before paying</div>
 </div>
 
-<nav class="tabbar" id="tabbar"></nav>
-<div id="toast"></div>
+<nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ============ STATE ============ */
-const S = {
- v: 2, dirty: false,
+/* ============ SEED DATA (trip content — do not edit casually) ============ */
+const SEED = {
+ v: 3, dirty: false, savedAt: null,
  meta: { start:'2026-08-15', end:'2026-08-28', base:38, goal:48,
   flightsOut:'AA 2599 BUR 7:00a → DFW 12:22p · AA 569 DFW 1:29p → AVL 4:44p',
   flightsBack:'DL 1515 PWM 6:05a → ATL 8:50a · DL 483 ATL 11:25a → BUR 1:01p',
@@ -295,140 +291,185 @@ const S = {
 };
 /* ============ HELPERS ============ */
 const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const REDUCED=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function deepClone(o){return JSON.parse(JSON.stringify(o))}
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),2600)}
-function dirty(){S.dirty=true;renderTabs()}
 function today(){return new Date()}
 function iso(dt){return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0')}
+
+/* ============ PERSISTENCE — fix (a): autosave + hydrate; fix (d): validate + migrate ============ */
+const LSKEY='lower48.state';
+let LS_OK=true;
+try{localStorage.setItem('lower48.probe','1');localStorage.removeItem('lower48.probe')}catch(e){LS_OK=false}
+let S=deepClone(SEED);
+function migrate(o){
+  if(!o||typeof o!=='object')return{ok:false,msg:'That doesn’t look like a Lower 48 state blob (not an object).'};
+  if(!Array.isArray(o.stops)||!Array.isArray(o.days)||!o.meta)return{ok:false,msg:'Blob is missing core sections (stops/days/meta) — not loading it.'};
+  const v=o.v||0;
+  if(v>3)return{ok:true,state:o,note:'newer'};
+  if(v<2)return{ok:false,msg:'Unrecognized blob version ('+v+') — not loading it.'};
+  o.v=3;o.savedAt=o.savedAt??null;o.claims=o.claims||{};o.chatLog=o.chatLog||[];o.dirty=!!o.dirty;o.bannerOff=!!o.bannerOff;
+  return{ok:true,state:o};
+}
+function save(){if(!LS_OK)return;try{S.savedAt=new Date().toISOString();localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){LS_OK=false;toast('Autosave unavailable on this phone — protect changes via Sync')}}
+function hydrate(){if(!LS_OK)return;try{const raw=localStorage.getItem(LSKEY);if(!raw)return;const m=migrate(JSON.parse(raw));if(m.ok&&m.note!=='newer')S=m.state}catch(e){}}
+function dirty(){S.dirty=true;save();renderHeader();renderTabs();renderBanner()}
+
+/* ephemeral UI state — never persisted or exported */
+const UI={bookForm:null,resConf:null,noteEdit:null,justClaimed:null,bannerHide:false};
+const KEEP_IDS=['chatIn','packNew','patchIn','syncBox','bfConf','bfTotal','rcConf','noteBox'];
+
+/* ============ DERIVED ============ */
 function tripDayIndex(){const t=iso(today());return S.days.findIndex(x=>x.d===t)}
-function phase(){const t=iso(today());if(t<S.meta.start)return 'plan';if(t>S.meta.end)return 'after';return 'trip'}
-function claimedCount(){return ['NC','VA','MD','DE','NJ','CT','RI','VT','NH','ME'].filter(c=>S.claims[c]).length}
-function bookingsDone(){return S.stops.filter(s=>s.booked).length + S.res.filter(r=>r.p<=2&&r.status==='booked').length}
-function bookingsTotal(){return S.stops.length + S.res.filter(r=>r.p<=2).length}
+function phase(){const t=iso(today());if(t<S.meta.start)return'plan';if(t>S.meta.end)return'after';return'trip'}
+function claimedCount(){return['NC','VA','MD','DE','NJ','CT','RI','VT','NH','ME'].filter(c=>S.claims[c]).length}
+function bookingsDone(){return S.stops.filter(s=>s.booked).length+S.res.filter(r=>r.p<=2&&r.status==='booked').length}
+function bookingsTotal(){return S.stops.length+S.res.filter(r=>r.p<=2).length}
 function daysToGo(){return Math.max(0,Math.ceil((new Date(S.meta.start+'T00:00:00')-today())/86400000))}
-function confetti(){const el=['🎉','✨','⭐','🧭','🗺️'];for(let i=0;i<44;i++){const s=document.createElement('span');s.className='cf';s.textContent=el[i%el.length];s.style.left=(Math.random()*100)+'vw';s.style.animationDuration=(1.4+Math.random()*1.6)+'s';s.style.fontSize=(12+Math.random()*14)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),3200)}}
-/* ============ HEADER + TABS ============ */
-let TAB = phase()==='plan' ? 'plan' : (phase()==='trip' ? 'trip' : 'ledger');
+function confetti(){if(REDUCED)return;const el=['🎉','✨','⭐','🧭','🗺️'];for(let i=0;i<44;i++){const s=document.createElement('span');s.className='cf';s.textContent=el[i%el.length];s.style.left=(Math.random()*100)+'vw';s.style.animationDuration=(1.4+Math.random()*1.6)+'s';s.style.fontSize=(12+Math.random()*14)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),3200)}}
+
+/* ============ HEADER / TABS / BANNER ============ */
+let TAB=phase()==='plan'?'plan':(phase()==='trip'?'trip':'ledger');
+let LAST_TAB=null;
 const TABS=[['plan','🧭','Plan'],['trip','🗺️','Trip'],['ledger','🏅','Ledger'],['chat','💬','Concierge'],['sync','🔄','Sync']];
 function renderHeader(){
- const done=bookingsDone(), tot=bookingsTotal(), pct=done/tot;
- const r=19,c=2*Math.PI*r;
- const ph=phase();
- const left = ph==='plan' ? `<div class="big">${daysToGo()}</div><div class="lbl">days to wheels-up</div>`
-   : ph==='trip' ? `<div class="big">Day ${tripDayIndex()+1}<span class="accent">/14</span></div><div class="lbl">on the road</div>`
-   : `<div class="big serif">🏅</div><div class="lbl">trip complete</div>`;
+ const done=bookingsDone(),tot=bookingsTotal(),pct=done/tot,r=19,c=2*Math.PI*r,ph=phase();
+ const left=ph==='plan'?`<div class="big">${daysToGo()}</div><div class="lbl">days to wheels-up</div>`
+  :ph==='trip'?`<div class="big">Day ${tripDayIndex()+1}<span class="accent">/14</span></div><div class="lbl">on the road</div>`
+  :`<div class="big serif">🏅</div><div class="lbl">trip complete</div>`;
  $('statrow').innerHTML=`
   <div class="stat">${left}</div>
-  <div class="stat"><div class="ringwrap"><svg width="46" height="46"><circle cx="23" cy="23" r="${r}" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="#C9A227" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(pct*c).toFixed(1)} ${c}"/></svg><div class="ringnum">${done}/${tot}</div></div><div class="lbl">bookings locked</div></div>
+  <div class="stat"><div class="ringwrap"><svg width="46" height="46" aria-hidden="true"><circle cx="23" cy="23" r="${r}" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="#C9A227" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(pct*c).toFixed(1)} ${c}"/></svg><div class="ringnum">${done}/${tot}</div></div><div class="lbl">bookings locked</div></div>
   <div class="stat"><div class="big">${S.meta.base+claimedCount()}<span class="accent">→48</span></div><div class="lbl">states claimed</div></div>`;
 }
 function renderTabs(){
- $('tabbar').innerHTML=TABS.map(([id,ico,lb])=>`<button class="${TAB===id?'on':''}" onclick="go('${id}')"><span class="ico">${ico}</span>${lb}${id==='sync'&&S.dirty?'<span class="dot"></span>':''}</button>`).join('');
+ $('tabbar').innerHTML=TABS.map(([id,ico,lb])=>`<button data-act="tab" data-t="${id}" class="${TAB===id?'on':''}" ${TAB===id?'aria-current="page"':''} aria-label="${lb}"><span class="ico" aria-hidden="true">${ico}</span>${lb}${id==='sync'&&S.dirty?'<span class="dot" title="unsynced changes"></span>':''}</button>`).join('');
+}
+function renderBanner(){
+ const b=$('memBanner');
+ if(!LS_OK){b.hidden=false;b.innerHTML=`⚠️ <span><b>Autosave is unavailable on this phone</b> — state lives in this page only. Use <b>Sync → Copy state</b> before closing.</span><button class="btn sm subtle" data-act="banner-x">Got it</button>`;if(UI.bannerHide)b.hidden=true;return}
+ if(S.dirty&&!UI.bannerHide){b.hidden=false;b.innerHTML=`🔄 <span><b>Saved on this phone</b> — but your partner hasn’t seen these changes. <b>Sync → Copy state</b> when you’re at a good stopping point.</span><button class="btn sm subtle" data-act="banner-x">Later</button>`}
+ else b.hidden=true;
 }
 function go(t){TAB=t;render()}
-function dismissBanner(){S.bannerOff=true;$('memBanner').style.display='none'}
-/* ============ RENDER DISPATCH ============ */
+
+/* ============ RENDER (full re-render; fine at this size — inputs & scroll preserved) ============ */
 function render(){
- renderHeader();renderTabs();
- $('memBanner').style.display=S.bannerOff?'none':'flex';
+ renderHeader();renderTabs();renderBanner();
+ const stash={};let focusId=null;
+ KEEP_IDS.forEach(id=>{const el=$(id);if(el){stash[id]=el.value;if(document.activeElement===el)focusId=id}});
  const v=$('view');
  if(TAB==='plan')v.innerHTML=viewPlan();
  else if(TAB==='trip')v.innerHTML=viewTrip();
  else if(TAB==='ledger')v.innerHTML=viewLedger();
- else if(TAB==='chat'){v.innerHTML=viewChat();const l=$('chatlog');if(l)l.scrollTop=l.scrollHeight}
+ else if(TAB==='chat')v.innerHTML=viewChat();
  else v.innerHTML=viewSync();
- window.scrollTo(0,0);
+ KEEP_IDS.forEach(id=>{const el=$(id);if(el&&stash[id]!==undefined&&!el.value)el.value=stash[id]});
+ if(focusId&&$(focusId))$(focusId).focus();
+ if(TAB==='chat'){const l=$('chatlog');if(l)l.scrollTop=l.scrollHeight}
+ if(TAB!==LAST_TAB){window.scrollTo(0,0);LAST_TAB=TAB}
+ UI.justClaimed=null; /* fix (f): pop class applied for exactly one render */
 }
+
 /* ============ PLAN VIEW ============ */
 function tagFor(o){let t='';if(o.mich)t+=`<span class="tag mich">★ ${esc(o.mich)}</span>`;
  t+=o.ver==='ver'?'<span class="tag ver">price verified 7/19</span>':o.ver==='med'?'<span class="tag med">partially verified</span>':'<span class="tag unver">unverified — check live</span>';return t}
+function bookFormHTML(kind,id,name){
+ return `<div class="inform"><b>Booking “${esc(name)}” — nice.</b><div class="small">Both fields optional; you can add them later.</div>
+  <input type="text" id="bfConf" inputmode="text" autocomplete="off" placeholder="Confirmation number">
+  <input type="text" id="bfTotal" inputmode="text" autocomplete="off" placeholder="Total cost all-in, e.g. $862">
+  <div class="btnrow"><button class="btn gold sm" data-act="book-save" data-kind="${kind}" data-id="${esc(id)}" data-name="${esc(name)}">Save booking ✓</button>
+  <button class="btn ghost sm" data-act="book-cancel">Cancel</button></div></div>`;
+}
 function viewPlan(){
  const live=s=>s.options.filter(o=>o.status==='live');
  const stops=S.stops.map(s=>{
   if(s.booked)return `<div class="card"><h3>${esc(s.name)}</h3><div class="small">${esc(s.nights)}</div>
    <div class="opt booked"><div class="nm">✓ ${esc(s.booked.name)}</div><div class="small">Conf ${esc(s.booked.conf||'—')} · ${esc(s.booked.total||'cost not entered')}</div>
-   <div class="btnrow"><button class="btn sm danger" onclick="unbookStop('${s.id}')">Undo</button></div></div></div>`;
-  const opts=live(s).slice(0,3).map((o,i)=>`
-   <div class="opt"><span class="rank">#${i+1}</span>
+   <div class="btnrow"><button class="btn sm danger" data-act="unbook" data-stop="${esc(s.id)}">Undo</button></div></div></div>`;
+  const opts=live(s).slice(0,3).map((o,i)=>{
+   const form=UI.bookForm&&UI.bookForm.kind==='stop'&&UI.bookForm.id===s.id&&UI.bookForm.name===o.name?bookFormHTML('stop',s.id,o.name):'';
+   return `<div class="opt"><span class="rank">#${i+1}</span>
     <div class="nm">${esc(o.name)}</div><div>${tagFor(o)}</div>
     <div class="small" style="margin-top:5px">${esc(o.basis)}</div>
     ${o.caveat?`<div class="small" style="margin-top:4px">⚖️ ${esc(o.caveat)}</div>`:''}
     <div class="btnrow">
      <a href="${esc(o.url)}" target="_blank" rel="noopener"><button class="btn sm subtle">Open site ↗</button></a>
-     <button class="btn sm gold" onclick="bookStopUI('${s.id}','${esc(o.name)}')">We booked this ✓</button>
-     <button class="btn sm ghost" onclick="rejectOption('${s.id}','${esc(o.name)}')">Not for us ✕</button>
-    </div></div>`).join('');
-  const dry = live(s).length<3 && s.pool.length===0 ? `<div class="opt"><div class="nm">Pool is dry</div><div class="small">Ask the concierge to research a replacement with your exact wishes.</div><div class="btnrow"><button class="btn sm" onclick="askReplace('${s.id}')">Draft the research request →</button></div></div>`:'';
+     <button class="btn sm gold" data-act="book-open" data-kind="stop" data-id="${esc(s.id)}" data-name="${esc(o.name)}">We booked this ✓</button>
+     <button class="btn sm ghost" data-act="reject" data-stop="${esc(s.id)}" data-name="${esc(o.name)}">Not for us ✕</button>
+    </div>${form}</div>`}).join('');
+  const dry=live(s).length<3&&s.pool.length===0?`<div class="opt"><div class="nm">Pool is dry</div><div class="small">Ask the concierge to research a replacement with your exact wishes.</div><div class="btnrow"><button class="btn sm" data-act="ask" data-stop="${esc(s.id)}">Draft the research request →</button></div></div>`:'';
   return `<div class="card"><h3>${esc(s.name)}</h3><div class="small">${esc(s.nights)} · <b style="color:var(--warn)">${esc(s.urgency)}</b></div>${opts}${dry}
-   <div class="btnrow"><button class="btn sm subtle" onclick="askReplace('${s.id}')">Want something specific? Ask the concierge</button></div></div>`;
+   <div class="btnrow"><button class="btn sm subtle" data-act="ask" data-stop="${esc(s.id)}">Want something specific? Ask the concierge</button></div></div>`;
  }).join('');
- const resRows=S.res.map(r=>`<div class="task ${r.status==='booked'?'done':''}">
-   <input type="checkbox" ${r.status==='booked'?'checked':''} onchange="toggleRes('${r.id}',this.checked)">
+ const resRows=S.res.map(r=>{
+  const confBit=r.status==='booked'?(UI.resConf===r.id?`<div class="inform"><input type="text" id="rcConf" placeholder="Confirmation number" autocomplete="off"><div class="btnrow"><button class="btn gold sm" data-act="res-conf-save" data-id="${esc(r.id)}">Save</button><button class="btn ghost sm" data-act="book-cancel">Cancel</button></div></div>`
+    :` · conf: <b>${esc(r.conf||'—')}</b> <button class="btn sm subtle" data-act="res-conf-open" data-id="${esc(r.id)}" style="min-height:28px;padding:2px 8px">✎</button>`):'';
+  return `<div class="task ${r.status==='booked'?'done':''}" style="cursor:default">
+   <input type="checkbox" data-chk="res" data-id="${esc(r.id)}" ${r.status==='booked'?'checked':''} aria-label="Booked: ${esc(r.what)}">
    <div style="flex:1"><div class="t"><b>${esc(r.what)}</b>${r.p===1?' <span class="tag med">book now</span>':''}</div>
-   <div class="small">${esc(r.when)}${r.cost?' · '+esc(r.cost):''} · <a href="${esc(r.url)}" target="_blank" rel="noopener">book ↗</a>${r.status==='booked'?` · conf: <b>${esc(r.conf||'—')}</b>`:''}</div></div></div>`).join('');
- const taskRows=S.tasks.map(t=>`<div class="task ${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask('${t.id}',this.checked)"><div class="t">${esc(t.t)}</div></div>`).join('');
- const packRows=S.packing.map((p,i)=>`<div class="task ${p.done?'done':''}"><input type="checkbox" ${p.done?'checked':''} onchange="togglePack(${i},this.checked)"><div class="t">${esc(p.t)}</div></div>`).join('');
+   <div class="small">${esc(r.when)}${r.cost?' · '+esc(r.cost):''} · <a href="${esc(r.url)}" target="_blank" rel="noopener">book ↗</a>${confBit}</div></div></div>`}).join('');
+ const taskRows=S.tasks.map(t=>`<label class="task ${t.done?'done':''}"><input type="checkbox" data-chk="task" data-id="${esc(t.id)}" ${t.done?'checked':''}><div class="t">${esc(t.t)}</div></label>`).join('');
+ const packRows=S.packing.map((p,i)=>`<label class="task ${p.done?'done':''}"><input type="checkbox" data-chk="pack" data-i="${i}" ${p.done?'checked':''}><div class="t">${esc(p.t)}</div></label>`).join('');
  const booked=S.stops.filter(x=>x.booked).length;
  return `
   <div class="card"><h2>Mission control</h2>
    <div class="small">Lodging locked: <b>${booked}/4 stops</b> · First-choice estimate ≈ $2,530–2,850 all-in (7 nights) · value-mix ≈ $2,050. Hard cap $500/night.</div>
-   <div class="meter"><div style="width:${(bookingsDone()/bookingsTotal()*100).toFixed(0)}%"></div></div>
+   <div class="meter" role="img" aria-label="${bookingsDone()} of ${bookingsTotal()} core bookings done"><div style="width:${(bookingsDone()/bookingsTotal()*100).toFixed(0)}%"></div></div>
    <div class="small">${bookingsDone()} of ${bookingsTotal()} core bookings done</div></div>
   <div class="card"><h2>Book-next queue</h2><div class="small">In priority order: <b>Thorn Hill → Cape → Regency → Green Mountain Inn → ferry / Biltmore / Monticello → dinners</b>. Every price below was verified live Jul 19–20; confirm at booking.</div></div>
   ${stops}
   <div class="card"><h2>Reservations & tickets</h2>${resRows}</div>
   <div class="card"><h2>Pre-trip tasks</h2>${taskRows}</div>
   <div class="card"><h2>Packing</h2>${packRows}
-   <div class="inrow"><textarea id="packNew" placeholder="Add an item…"></textarea><button class="btn" onclick="addPack()">Add</button></div></div>
+   <div class="inrow"><textarea id="packNew" placeholder="Add an item…"></textarea><button class="btn" data-act="pack-add">Add</button></div></div>
   <div class="card"><h2>The flights (booked ✓)</h2>
    <div class="small"><b>Out:</b> ${esc(S.meta.flightsOut)}<br><b>Home:</b> ${esc(S.meta.flightsBack)}<br><b>Car:</b> ${esc(S.meta.rental)}</div></div>`;
 }
 /* plan actions */
 function findStop(id){return S.stops.find(s=>s.id===id)}
-function promote(s){while(s.options.filter(o=>o.status==='live').length<3 && s.pool.length){const b=s.pool.shift();
-  s.options.push({name:b.name,url:b.url||'#',ver:'unver',basis:b.note,caveat:'Promoted from the backup pool — verify price & availability live before booking',status:'live'})}}
-function rejectOption(id,name){const s=findStop(id);const o=s.options.find(x=>x.name===name&&x.status==='live');if(!o)return;
+function promote(s){while(s.options.filter(o=>o.status==='live').length<3&&s.pool.length){const b=s.pool.shift();
+ s.options.push({name:b.name,url:b.url||'#',ver:'unver',basis:b.note,caveat:'Promoted from the backup pool — verify price & availability live before booking',status:'live'})}}
+function rejectOption(id,name){const s=findStop(id);if(!s)return;const o=s.options.find(x=>x.name===name&&x.status==='live');if(!o)return;
  o.status='rejected';promote(s);dirty();toast(`Rejected “${name}” — promoted the next candidate`);render()}
-function bookStopUI(id,name){const conf=prompt(`Confirmation number for ${name}? (optional)`)??'';
- const total=prompt('Total cost, all-in? e.g. $862 (optional)')??'';bookLodging(id,name,conf,total)}
 function bookLodging(id,name,conf,total){const s=findStop(id);if(!s)return toast('Unknown stop');
- s.booked={name,conf,total};const o=s.options.find(x=>x.name===name);if(o)o.status='booked';
- dirty();confetti();toast(`${s.name}: booked ✓`);render()}
-function unbookStop(id){const s=findStop(id);if(!confirm('Undo this booking?'))return;
+ s.booked={name,conf:conf||'',total:total||''};const o=s.options.find(x=>x.name===name);if(o)o.status='booked';
+ UI.bookForm=null;dirty();confetti();toast(`${s.name}: booked ✓`);render()}
+function unbookStop(id){const s=findStop(id);if(!s||!s.booked)return;if(!confirm('Undo this booking?'))return;
  const o=s.options.find(x=>x.name===s.booked.name);if(o)o.status='live';s.booked=null;dirty();render()}
-function toggleRes(id,ck){const r=S.res.find(x=>x.id===id);if(ck){r.status='booked';r.conf=prompt('Confirmation number? (optional)')??''}else{r.status='todo';r.conf=''}dirty();render()}
-function toggleTask(id,ck){S.tasks.find(x=>x.id===id).done=ck;dirty();renderHeader();renderTabs()}
-function togglePack(i,ck){S.packing[i].done=ck;dirty()}
-function addPack(){const v=$('packNew').value.trim();if(!v)return;S.packing.push({t:v,done:false});dirty();render()}
+
 /* ============ TRIP VIEW ============ */
 let DAYSEL=null;
 function viewTrip(){
- const idx = DAYSEL!==null?DAYSEL:Math.max(0,tripDayIndex()===-1?(phase()==='after'?13:0):tripDayIndex());
+ const idx=DAYSEL!==null?DAYSEL:Math.max(0,tripDayIndex()===-1?(phase()==='after'?13:0):tripDayIndex());
  const chips=S.days.map((dd,i)=>{const done=dd.claims.length&&dd.claims.every(c=>c.bonus||S.claims[c.code]);
-  return `<div class="chip ${i===idx?'on':''} ${done?'done':''}" onclick="DAYSEL=${i};render()">${dd.dow} ${+dd.d.slice(8)}</div>`}).join('');
+  return `<button class="chip ${i===idx?'on':''} ${done?'done':''}" data-act="chip" data-i="${i}">${dd.dow} ${+dd.d.slice(8)}</button>`}).join('');
  const d=S.days[idx];
  const claims=d.claims.map(c=>{
   const got=S.claims[c.code];
+  const noteBit=UI.noteEdit===c.code?`<div class="inform"><textarea id="noteBox" placeholder="Journal note…">${esc(got&&got.note||'')}</textarea><div class="btnrow"><button class="btn gold sm" data-act="note-save" data-code="${esc(c.code)}">Save note</button><button class="btn ghost sm" data-act="book-cancel">Cancel</button></div></div>`:'';
   return `<div class="claimcard">
    <div style="display:flex;gap:12px;align-items:center">
-    ${got?`<div class="stamp pop">${c.code}</div>`:`<div class="stamp" style="opacity:.35;border-style:dashed">${c.code}</div>`}
+    ${got?`<div class="stamp ${UI.justClaimed===c.code?'pop':''}">${esc(c.code)}</div>`:`<div class="stamp" style="opacity:.35;border-style:dashed">${esc(c.code)}</div>`}
     <div style="flex:1"><div class="st">${esc(c.label)}${c.bonus?' <span class="tag mich">bonus</span>':''}</div>
     <div style="font-size:14px">${esc(c.text)}</div></div></div>
    <div class="small" style="margin-top:7px">☔ If it rains: ${esc(c.rain)}</div>
    ${got?`<div class="small" style="margin-top:6px;color:var(--gold)"><b>Claimed ${esc(got.at)}</b></div>
     <div class="btnrow">
-     <button class="btn sm ${got.meal?'gold':'subtle'}" onclick="ev('${c.code}','meal')">${got.meal?'✓':''} local meal</button>
-     <button class="btn sm ${got.photo?'gold':'subtle'}" onclick="ev('${c.code}','photo')">${got.photo?'✓':''} photo of us</button>
-     <button class="btn sm ghost" onclick="claimNote('${c.code}')">journal note</button></div>
-    ${got.note?`<div class="small" style="margin-top:6px">📝 ${esc(got.note)}</div>`:''}`
-   :`<div class="btnrow"><button class="btn gold" style="width:100%;font-size:16px" onclick="claimIt('${c.code}','${esc(c.label)}',${!!c.bonus})">🏅 CLAIM ${c.bonus?'THE BONUS':'IT'}</button></div>`}
+     <button class="btn sm ${got.meal?'gold':'subtle'}" data-act="ev" data-code="${esc(c.code)}" data-k="meal">${got.meal?'✓':''} local meal</button>
+     <button class="btn sm ${got.photo?'gold':'subtle'}" data-act="ev" data-code="${esc(c.code)}" data-k="photo">${got.photo?'✓':''} photo of us</button>
+     <button class="btn sm ghost" data-act="note-open" data-code="${esc(c.code)}">journal note</button>
+     <button class="btn sm danger" data-act="unclaim" data-code="${esc(c.code)}">undo</button></div>
+    ${got.note?`<div class="small" style="margin-top:6px">📝 ${esc(got.note)}</div>`:''}${noteBit}`
+   :`<div class="btnrow"><button class="btn gold" style="width:100%;font-size:16px" data-act="claim" data-code="${esc(c.code)}" data-label="${esc(c.label)}" data-bonus="${c.bonus?'1':''}">🏅 CLAIM ${c.bonus?'THE BONUS':'IT'}</button></div>`}
   </div>`}).join('');
  const resToday=S.res.filter(r=>r.when.includes('Aug '+(+d.d.slice(8))));
- const resHtml=resToday.length?`<div class="card"><h3>Today’s reservations</h3>${resToday.map(r=>`<div class="task ${r.status==='booked'?'done':''}"><div class="t">${r.status==='booked'?'✓':'○'} <b>${esc(r.what)}</b><div class="small">${esc(r.when)}${r.conf?' · conf '+esc(r.conf):''}${r.status!=='booked'?' · <span style="color:var(--bad)">not booked yet</span>':''}</div></div></div>`).join('')}</div>`:'';
+ const resHtml=resToday.length?`<div class="card"><h3>Today’s reservations</h3>${resToday.map(r=>`<div class="task" style="cursor:default"><div class="t">${r.status==='booked'?'✓':'○'} <b>${esc(r.what)}</b><div class="small">${esc(r.when)}${r.conf?' · conf '+esc(r.conf):''}${r.status!=='booked'?' · <span style="color:var(--bad)">not booked yet</span>':''}</div></div></div>`).join('')}</div>`:'';
  const tomorrow=S.days[idx+1];
- const medal = d.medal ? medalBlock() : '';
+ const medal=d.medal?medalBlock():'';
  return `
-  <div class="chips">${chips}</div>
+  <div class="chips" role="tablist" aria-label="Trip days">${chips}</div>
   <div class="card"><div class="k">${esc(d.dow)}, Aug ${+d.d.slice(8)} · Day ${idx+1} of 14</div>
    <div class="hero">${esc(d.title)}</div>
    <div class="small" style="margin-top:4px">🏨 ${esc(d.hotel)}</div></div>
@@ -437,7 +478,7 @@ function viewTrip(){
    <div><b>Depart:</b> ${esc(d.depart)}</div><div class="small" style="margin-top:3px">${esc(d.drive)}</div>
    ${d.note?`<div class="small" style="margin-top:6px">📌 ${esc(d.note)}</div>`:''}</div>
   ${d.prep?`<div class="prep"><b>⏰ Tonight’s prep:</b> ${esc(d.prep)}</div>`:''}
-  <div class="card"><h3>Today</h3>${d.todo.map(x=>`<div class="task"><div class="t">▸ ${esc(x)}</div></div>`).join('')}
+  <div class="card"><h3>Today</h3>${d.todo.map(x=>`<div class="task" style="cursor:default"><div class="t">▸ ${esc(x)}</div></div>`).join('')}
    <div class="divider"></div><div class="small">🍽 ${esc(d.eat)}</div></div>
   ${resHtml}
   ${tomorrow?`<div class="card"><div class="k">Tomorrow</div><b>${esc(tomorrow.title)}</b><div class="small">${esc(tomorrow.depart)}</div></div>`:''}
@@ -451,51 +492,51 @@ function medalBlock(){const n=claimedCount();
  :`<div class="medal"><div class="ring"><div class="n">${S.meta.base+n}</div><div style="color:#C7D3E0;font-size:12px">of 50</div></div>
   <h2 class="serif">${10-n} claim${10-n>1?'s':''} still open</h2><div style="color:#C7D3E0">Check the Ledger — stamp what you finished.</div></div>`}
 function claimIt(code,label,bonus){S.claims[code]={at:new Date().toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}),meal:false,photo:false,note:''};
- dirty();confetti();toast(bonus?`${label} — bonus stamped!`:`${label} CLAIMED — ${S.meta.base+claimedCount()} of 50 🏅`);render()}
-function ev(code,k){S.claims[code][k]=!S.claims[code][k];dirty();render()}
-function claimNote(code){const n=prompt('Journal note for this claim:',S.claims[code].note||'');if(n!==null){S.claims[code].note=n;dirty();render()}}
+ UI.justClaimed=code;dirty();confetti();toast(bonus?`${label} — bonus stamped!`:`${label} CLAIMED — ${S.meta.base+claimedCount()} of 50 🏅`);render()}
+function unclaim(code){if(!S.claims[code])return;if(!confirm('Un-stamp '+code+'? (Use this only for a mis-tap.)'))return;delete S.claims[code];dirty();render()}
+
 /* ============ LEDGER ============ */
 function viewLedger(){
  const order=[['NC','Aug 16'],['VA','Aug 18'],['MD','Aug 19'],['DE','Aug 19'],['NJ','Aug 20'],['CT','Aug 20'],['RI','Aug 21'],['VT','Aug 24'],['NH','Aug 26'],['ME','Aug 27'],['MA','Aug 22 · bonus']];
  const cells=order.map(([c,dt])=>{const got=S.claims[c];
   return `<div class="sealcell ${got?'got':''}"><div class="s">${c}</div><div class="d">${got?esc(got.at):dt}</div></div>`}).join('');
  const rows=S.days.flatMap(d=>d.claims.map(c=>({c,d}))).map(({c,d})=>{const got=S.claims[c.code];
-  return `<div class="task ${got?'done':''}" style="align-items:center"><div style="width:34px;font-family:Georgia;font-weight:bold;color:${got?'var(--gold)':'var(--muted)'}">${c.code}</div>
+  return `<div class="task ${got?'done':''}" style="align-items:center;cursor:default"><div style="width:34px;font-family:Georgia;font-weight:bold;color:${got?'var(--gold)':'var(--muted)'}">${esc(c.code)}</div>
    <div style="flex:1"><div class="t" style="text-decoration:none"><b>${esc(c.text)}</b></div><div class="small">${esc(d.dow)} Aug ${+d.d.slice(8)} · ☔ ${esc(c.rain)}${got&&got.note?` · 📝 ${esc(got.note)}`:''}</div></div>
-   <div>${got?'🏅':'○'}</div></div>`}).join('');
+   <div aria-hidden="true">${got?'🏅':'○'}</div></div>`}).join('');
  return `<div class="card"><h2>The State-Claim Ledger</h2>
   <div class="small">The rule: an anchor experience + one local meal + one photo of the two of you. Overnights don’t count — experiences do.</div>
   <div class="sealgrid">${cells}</div></div>
   ${claimedCount()>=10?medalBlock():''}
   <div class="card"><h3>Claims in detail</h3>${rows}</div>`;
 }
+
 /* ============ CHAT / CONCIERGE ============ */
-const HAS_AI = typeof window!=='undefined' && window.claude && typeof window.claude.complete==='function';
+/* fix (e): kept as documented portability — window.claude.complete exists only when this file
+   is hosted inside an AI-artifact context. On GitHub Pages it is intentionally absent and the
+   composer (below) is the designed default, not a failure mode. */
+const HAS_AI=typeof window!=='undefined'&&window.claude&&typeof window.claude.complete==='function';
 function stateBrief(){
  const un=S.stops.filter(s=>!s.booked).map(s=>`${s.name}: ${s.options.filter(o=>o.status==='live').map(o=>o.name).join(' / ')}`).join(' | ');
  const resT=S.res.filter(r=>r.status!=='booked'&&r.p<=3).map(r=>r.what).join('; ');
  return `TRIP: East Coast, Aug 15–28 2026, couple, completes lower-48 (claims: ${Object.keys(S.claims).join(',')||'none yet'}). UNBOOKED STOPS → ${un||'all booked'}. OPEN RESERVATIONS → ${resT||'none'}. BUDGET: ≤$500/night hard cap, value preferred. Flights: out ${S.meta.flightsOut}; home ${S.meta.flightsBack}.`}
 function viewChat(){
- const log=S.chatLog.map(m=>`<div class="msg ${m.who}">${esc(m.text)}</div>`).join('')||'<div class="small">No messages yet. Ask about the plan, reject a hotel, or request a change — I’ll answer from the trip data and propose updates.</div>';
+ const log=S.chatLog.map(m=>`<div class="msg ${m.who==='me'?'me':'ai'}">${esc(m.text)}</div>`).join('')||'<div class="small">No messages yet. Ask about the plan, reject a hotel, or request a change — I’ll answer from the trip data and draft anything web-bound for your Claude planning chat.</div>';
  return `<div class="card"><h2>Concierge ${HAS_AI?'<span class="tag ver">AI live</span>':'<span class="tag med">composer mode</span>'}</h2>
-  <div class="small">${HAS_AI?'Answers come from your embedded trip data. Anything needing the live web gets drafted for your Claude planning chat.':'No in-page AI available here — I’ll draft perfect, copy-ready requests for your Claude planning chat, and you can paste its STATE_PATCH replies below to update the dashboard.'}</div>
+  <div class="small">${HAS_AI?'Answers come from your embedded trip data. Anything needing the live web gets drafted for your Claude planning chat.':'Offline by design: instant answers from trip data, plus copy-ready research requests for your Claude planning chat. Paste its STATE_PATCH replies below.'}</div>
   <div class="chatlog" id="chatlog">${log}</div>
   <div class="inrow"><textarea id="chatIn" placeholder="e.g. We don’t love option 1 in Portland — find something ON the water under $450"></textarea>
-  <button class="btn" onclick="chatSend()">Send</button></div>
+  <button class="btn" data-act="chat-send">Send</button></div>
   <div class="btnrow">
-   <button class="btn sm subtle" onclick="quick('replace')">Replace a hotel option</button>
-   <button class="btn sm subtle" onclick="quick('specific')">We want something specific</button>
-   <button class="btn sm subtle" onclick="quick('today')">What’s next today?</button></div></div>
+   <button class="btn sm subtle" data-act="quick" data-k="replace">Replace a hotel option</button>
+   <button class="btn sm subtle" data-act="quick" data-k="specific">We want something specific</button>
+   <button class="btn sm subtle" data-act="quick" data-k="today">What’s next today?</button></div></div>
  <div class="card"><h3>Apply an update from Claude</h3>
   <div class="small">Paste a STATE_PATCH block from the planning chat; the dashboard applies it.</div>
   <textarea id="patchIn" placeholder='{"op":"bookLodging","stop":"jackson","name":"Inn at Thorn Hill & Spa","conf":"ABC123","total":"$304"}'></textarea>
-  <div class="btnrow"><button class="btn" onclick="applyPatchUI()">Apply patch</button></div></div>`;
+  <div class="btnrow"><button class="btn" data-act="patch-apply">Apply patch</button></div></div>`;
 }
 function pushMsg(who,text){S.chatLog.push({who,text});if(S.chatLog.length>60)S.chatLog.shift()}
-function quick(k){const t=$('chatIn');
- t.value = k==='replace'?'We want to swap one of the hotel options — here’s the stop and what we didn’t like: '
-  : k==='specific'?'For our next unbooked stop we’re looking for: '
-  : 'What should we be doing right now, and what’s coming next?';t.focus()}
 function localAnswer(q){
  const ql=q.toLowerCase();
  if(/next|today|now|doing/.test(ql)){const ph=phase();
@@ -506,7 +547,7 @@ function localAnswer(q){
  return null;
 }
 async function chatSend(){
- const inp=$('chatIn');const q=inp.value.trim();if(!q)return;inp.value='';pushMsg('me',q);render();
+ const inp=$('chatIn');const q=(inp&&inp.value||'').trim();if(!q)return;inp.value='';pushMsg('me',q);dirty();render();
  const local=localAnswer(q);
  if(local){pushMsg('ai',local);dirty();render();return}
  if(HAS_AI){
@@ -521,50 +562,110 @@ async function chatSend(){
  pushMsg('ai',draftRequest(q));dirty();render();
 }
 function draftRequest(q){
- return `COPY THIS TO OUR CLAUDE PLANNING CHAT:\n———\n${q}\n\nContext: ${stateBrief()}\nPlease answer with (1) your recommendation with verified evidence and (2) a STATE_PATCH json block I can paste into the dashboard (ops: rejectOption / bookLodging / bookReservation / addTask / claimState; stops: cape, stowe, jackson, portland).\n———`;
+ return `COPY THIS TO OUR CLAUDE PLANNING CHAT:\n———\n${q}\n\nContext: ${stateBrief()}\nPlease answer with (1) your recommendation with verified evidence and (2) a STATE_PATCH json block I can paste into the dashboard (ops: rejectOption / bookLodging / bookReservation / addOption / addTask / claimState; stops: cape, stowe, jackson, portland).\n———`;
 }
-function askReplace(id){const s=findStop(id);TAB='chat';render();
- $('chatIn').value=`For ${s.name} (${s.nights}): we'd like a different option than [${s.options.filter(o=>o.status==='live').map(o=>o.name).join(' / ')}]. What we want instead: `;$('chatIn').focus()}
-function applyPatchUI(){const t=$('patchIn').value.trim();if(!t)return;
- try{const arr=JSON.parse(t);(Array.isArray(arr)?arr:[arr]).forEach(applyPatch);toast('Patch applied ✓');$('patchIn').value='';dirty();render()}
+function askReplace(id){const s=findStop(id);if(!s)return;TAB='chat';render();
+ const t=$('chatIn');if(t){t.value=`For ${s.name} (${s.nights}): we'd like a different option than [${s.options.filter(o=>o.status==='live').map(o=>o.name).join(' / ')}]. What we want instead: `;t.focus()}}
+function applyPatchUI(){const el=$('patchIn');const t=(el&&el.value||'').trim();if(!t)return toast('Paste a patch first');
+ try{const arr=JSON.parse(t);(Array.isArray(arr)?arr:[arr]).forEach(applyPatch);toast('Patch applied ✓');el.value='';dirty();render()}
  catch(e){toast('Could not parse that patch — expecting JSON')}}
 function applyPatch(p){
  switch(p.op){
   case 'rejectOption':rejectOption(p.stop,p.name);break;
   case 'bookLodging':bookLodging(p.stop,p.name,p.conf||'',p.total||'');break;
   case 'bookReservation':{const r=S.res.find(x=>x.id===p.id);if(r){r.status='booked';r.conf=p.conf||''}break}
-  case 'addOption':{const s=findStop(p.stop);if(s){s.options.push({name:p.name,url:p.url||'#',ver:p.ver||'unver',basis:p.basis||'',caveat:p.caveat||'',status:'live'})}break}
+  case 'addOption':{const s=findStop(p.stop);if(s)s.options.push({name:p.name,url:p.url||'#',ver:p.ver||'unver',basis:p.basis||'',caveat:p.caveat||'',status:'live'});break}
   case 'addTask':S.tasks.push({id:'t'+Date.now(),t:p.text,done:false});break;
   case 'claimState':if(!S.claims[p.code])S.claims[p.code]={at:'via chat',meal:false,photo:false,note:p.note||''};break;
   case 'noteDay':{const d=S.days.find(x=>x.d===p.date);if(d)d.note=(d.note?d.note+' · ':'')+p.note;break}
-  default:toast('Unknown patch op: '+p.op)}
+  default:toast('Unknown patch op: '+(p.op||'?'))}
 }
+
 /* ============ SYNC ============ */
 function viewSync(){
+ const saved=LS_OK?`<span class="tag ver">autosave ON — this phone</span>${S.savedAt?` <span class="small">last saved ${esc(new Date(S.savedAt).toLocaleString())}</span>`:''}`:'<span class="tag unver">autosave unavailable — export before closing!</span>';
+ const shareBtn=navigator.share?`<button class="btn subtle" data-act="sync-share">Share to partner…</button>`:'';
  return `<div class="card"><h2>Sync between phones</h2>
-  <div class="small">No account, no server: the trip state is a text blob. Copy it here, send it to your partner (Notes, iMessage, email), and they paste it into <b>Load</b> on their phone. Whoever edited last, exports.</div>
-  <div class="btnrow"><button class="btn" onclick="exportState()">Copy state ⇪</button>
-   <button class="btn subtle" onclick="downloadState()">Download .json</button></div>
+  <div>${saved}</div>
+  <div class="small" style="margin-top:6px">Your changes save to this phone automatically. To get them onto your partner’s phone: <b>Copy state</b> here, send it (iMessage/Notes/email), and they paste it into their <b>Load</b> box. Whoever edited last, exports.</div>
+  <div class="btnrow"><button class="btn" data-act="sync-copy">Copy state ⇪</button>${shareBtn}
+   <button class="btn subtle" data-act="sync-download">Download .json</button></div>
   <textarea id="syncBox" placeholder="Exported state appears here — or paste a blob and hit Load"></textarea>
-  <div class="btnrow"><button class="btn gold" onclick="importState()">Load pasted state</button></div>
-  ${S.dirty?'<div class="small" style="color:var(--bad);margin-top:6px"><b>You have unsaved changes</b> — copy the state before closing this page.</div>':'<div class="small" style="margin-top:6px">No unsaved changes since last export.</div>'}</div>
+  <div class="btnrow"><button class="btn gold" data-act="sync-load">Load pasted state</button></div>
+  ${S.dirty?'<div class="small" style="color:var(--bad);margin-top:6px"><b>Unsynced changes</b> — your partner hasn’t seen your latest edits yet.</div>':'<div class="small" style="margin-top:6px">In sync: nothing new since your last export.</div>'}</div>
  <div class="card"><h2>Install on your phones</h2>
   <div class="small"><b>iPhone (Safari):</b> visit https://professorchickenstrips.github.io/lower48/ → Share □↑ → “Add to Home Screen.”<br><br>
   <b>Samsung (Chrome):</b> open it → ⋮ menu → “Add to Home screen” (or “Install”).<br><br>
-  It opens full-screen with the 48 seal as its icon. Remember: state is memory-only — export before closing.</div></div>
- <div class="card"><h2>About</h2><div class="small">Built by your Claude planning chat from research verified Jul 19–20, 2026. Prices move — every booking deep-links to the official site so you pay the real number, never mine. Hard rules honored: no browser storage, no invented availability, budget cap $500/night.</div></div>`;
+  It opens full-screen with the 48 seal as its icon, and your data stays saved on each phone.</div></div>
+ <div class="card"><h2>About</h2><div class="small">Built by your Claude planning chat from research verified Jul 19–20, 2026. Prices move — every booking deep-links to the official site so you pay the real number, never mine. Hard rules honored: no invented availability, budget cap $500/night, your data never leaves your phones except when you share it.</div></div>`;
 }
-function exportState(){const j=JSON.stringify(S);$('syncBox').value=j;$('syncBox').select();
- try{document.execCommand('copy');toast('State copied to clipboard ✓')}catch(e){toast('Select-all and copy the box contents')}
- S.dirty=false;render();$('syncBox').value=j}
+async function copyText(t){
+ try{await navigator.clipboard.writeText(t);return true}
+ catch(e){ /* fallback: select the box so a manual copy (or legacy command) works */
+  const box=$('syncBox');if(box){box.value=t;box.focus();box.select();try{if(document.execCommand&&document.execCommand('copy'))return true}catch(_){}}
+  return false}
+}
+async function exportState(){const j=JSON.stringify(S);const box=$('syncBox');if(box)box.value=j;
+ const ok=await copyText(j);toast(ok?'State copied to clipboard ✓':'Couldn’t auto-copy — the box is selected, copy manually');
+ S.dirty=false;save();render();const b2=$('syncBox');if(b2)b2.value=j}
+async function shareState(){const j=JSON.stringify(S);
+ try{await navigator.share({title:'The Lower 48 — trip state',text:j});S.dirty=false;save();toast('Shared ✓');render();const b=$('syncBox');if(b)b.value=j}
+ catch(e){/* user cancelled — no-op */}}
 function downloadState(){const a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(S));
- a.download='lower48-state.json';a.click();S.dirty=false;render()}
-function importState(){const t=$('syncBox').value.trim();if(!t)return toast('Paste a state blob first');
- try{const o=JSON.parse(t);if(!o.stops||!o.days)throw 0;Object.keys(S).forEach(k=>delete S[k]);Object.assign(S,o);S.dirty=false;toast('State loaded ✓');render()}
- catch(e){toast('That doesn’t look like a Lower 48 state blob')}}
-/* ============ BOOT ============ */
-render();
+ a.download='lower48-state.json';a.click();S.dirty=false;save();render()}
+function importState(){const el=$('syncBox');const t=(el&&el.value||'').trim();if(!t)return toast('Paste a state blob first');
+ let o;try{o=JSON.parse(t)}catch(e){return toast('That isn’t valid JSON — check the paste')}
+ const m=migrate(o);
+ if(!m.ok)return toast(m.msg);
+ if(m.note==='newer'&&!confirm('This blob is from a NEWER version of the app (v'+o.v+' > v3). Loading it may lose fields. Load anyway?'))return;
+ S=m.state;UI.bookForm=null;UI.resConf=null;UI.noteEdit=null;S.dirty=false;save();toast('State loaded ✓');render();
+}
 
+/* ============ DELEGATED EVENTS — fix (b): no inline handlers, names live in data-attributes ============ */
+document.addEventListener('click',e=>{
+ const el=e.target.closest('[data-act]');if(!el)return;const a=el.dataset;
+ switch(a.act){
+  case 'tab':go(a.t);break;
+  case 'banner-x':UI.bannerHide=true;renderBanner();break;
+  case 'book-open':UI.bookForm={kind:a.kind,id:a.id,name:a.name};render();{const f=$('bfConf');if(f)f.focus()}break;
+  case 'book-cancel':UI.bookForm=null;UI.resConf=null;UI.noteEdit=null;render();break;
+  case 'book-save':{const conf=($('bfConf')&&$('bfConf').value||'').trim();const total=($('bfTotal')&&$('bfTotal').value||'').trim();bookLodging(a.id,a.name,conf,total);break}
+  case 'reject':rejectOption(a.stop,a.name);break;
+  case 'unbook':unbookStop(a.stop);break;
+  case 'ask':askReplace(a.stop);break;
+  case 'res-conf-open':UI.resConf=a.id;render();{const f=$('rcConf');if(f)f.focus()}break;
+  case 'res-conf-save':{const r=S.res.find(x=>x.id===a.id);if(r){r.conf=($('rcConf')&&$('rcConf').value||'').trim();UI.resConf=null;dirty();render()}break}
+  case 'pack-add':{const el2=$('packNew');const v=(el2&&el2.value||'').trim();if(!v)return;S.packing.push({t:v,done:false});if(el2)el2.value='';dirty();render();break}
+  case 'chip':DAYSEL=+a.i;render();break;
+  case 'claim':claimIt(a.code,a.label,a.bonus==='1');break;
+  case 'unclaim':unclaim(a.code);break;
+  case 'ev':{const g=S.claims[a.code];if(g){g[a.k]=!g[a.k];dirty();render()}break}
+  case 'note-open':UI.noteEdit=a.code;render();{const f=$('noteBox');if(f)f.focus()}break;
+  case 'note-save':{const g=S.claims[a.code];if(g){g.note=($('noteBox')&&$('noteBox').value||'').trim();UI.noteEdit=null;dirty();render()}break}
+  case 'chat-send':chatSend();break;
+  case 'quick':{const t=$('chatIn');if(!t)break;
+   t.value=a.k==='replace'?'We want to swap one of the hotel options — here’s the stop and what we didn’t like: '
+    :a.k==='specific'?'For our next unbooked stop we’re looking for: '
+    :'What should we be doing right now, and what’s coming next?';t.focus();break}
+  case 'patch-apply':applyPatchUI();break;
+  case 'sync-copy':exportState();break;
+  case 'sync-share':shareState();break;
+  case 'sync-download':downloadState();break;
+  case 'sync-load':importState();break;
+ }
+});
+document.addEventListener('change',e=>{
+ const el=e.target.closest('[data-chk]');if(!el)return;const a=el.dataset;
+ if(a.chk==='task'){const t=S.tasks.find(x=>x.id===a.id);if(t){t.done=el.checked;dirty();render()}}
+ else if(a.chk==='pack'){const p=S.packing[+a.i];if(p){p.done=el.checked;dirty();render()}}
+ else if(a.chk==='res'){const r=S.res.find(x=>x.id===a.id);if(!r)return;
+  if(el.checked){r.status='booked';UI.resConf=r.id;dirty();render();const f=$('rcConf');if(f)f.focus()}
+  else{r.status='todo';r.conf='';UI.resConf=null;dirty();render()}}
+});
+
+/* ============ BOOT ============ */
+hydrate();
+render();
 </script>
 </body>
 </html>
