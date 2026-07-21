@@ -49,10 +49,11 @@ jobs:
         run: |
           TODAY=$(TZ=America/New_York date "+%A, %B %d, %Y")
           W=$(head -c 300 weather.txt 2>/dev/null || true)
-          jq -n --rawfile p prompt.md --rawfile s status.md \
+          [ -f live/state.json ] || echo '{}' > live/state.json
+          jq -n --rawfile p prompt.md --rawfile s status.md --rawfile live live/state.json \
              --arg today "$TODAY" --arg w "$W" \
              '{model:"claude-sonnet-4-5", max_tokens:1800,
-               system:($p + "\n\nCURRENT TASK STATUS (from status.md):\n" + $s),
+               system:($p + "\n\nTASK DESCRIPTIONS (status.md — human-written catalog):\n" + $s + "\n\nLIVE DASHBOARD STATE (authoritative for what is booked, claimed, and done — it comes straight from their phones and OVERRIDES any contradicting checkbox in status.md; a stop id mapped to a hotel name means BOOKED, null means still open):\n" + $live + "\n\nFORMAT REMINDER: plain text only — no asterisks, no bold, no markdown syntax anywhere; section headers in PLAIN CAPS."),
                messages:[{role:"user",content:("Today is " + $today + " (US Eastern). " + (if $w != "" then ("Live weather for today: " + $w + ". ") else "" end) + "Compose the edition for this date now, following the OUTPUT CONTRACT exactly.")}]}' > req.json
           curl -sS --max-time 120 https://api.anthropic.com/v1/messages \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
