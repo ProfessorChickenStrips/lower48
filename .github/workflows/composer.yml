@@ -94,7 +94,7 @@ jobs:
           username: ${{ secrets.USER_NAME }}
           password: ${{ secrets.PASS }}
           subject: ${{ steps.pick.outputs.subject }}
-          to: cjohns0334@yahoo.com,cjohns0334@gmail.com
+          to: cjohns0334@yahoo.com
           from: ${{ secrets.USER_NAME }}
           body: file://body.txt
 
@@ -122,6 +122,6 @@ jobs:
           username: ${{ secrets.USER_NAME }}
           password: ${{ secrets.PASS }}
           subject: Morning Mile - composer hit a snag
-          to: cjohns0334@yahoo.com,cjohns0334@gmail.com
+          to: cjohns0334@yahoo.com
           from: ${{ secrets.USER_NAME }}
           body: "The Morning Mile could not compose or send this morning. Open the lower48 repo -> Actions tab and check the red run. Dashboard: https://professorchickenstrips.github.io/lower48/"
