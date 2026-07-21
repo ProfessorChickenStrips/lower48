@@ -1,0 +1,42 @@
+{
+ "v": 1,
+ "updatedAt": "2026-07-21T01:08:28.544Z",
+ "stops": {
+  "cape": null,
+  "stowe": null,
+  "jackson": null,
+  "portland": null
+ },
+ "res": {
+  "ferry": "todo",
+  "monticello": "todo",
+  "biltmore": "todo",
+  "curate": "todo",
+  "forestreet": "todo",
+  "thornhilldin": "todo",
+  "harrisons": "todo",
+  "scales": "todo",
+  "bowens": "todo",
+  "cog": "todo",
+  "lucky": "todo"
+ },
+ "tasks": {
+  "t1": false,
+  "t2": false,
+  "t3": false,
+  "t4": false,
+  "t5": false,
+  "t6": false,
+  "t7": false,
+  "t8": false
+ },
+ "packing": [
+  false,
+  false,
+  false,
+  false,
+  false,
+  false
+ ],
+ "claims": {}
+}
