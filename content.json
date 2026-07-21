@@ -1,5 +1,5 @@
 {
- "contentV": 8,
+ "contentV": 9,
  "days": [
   {
    "d": "2026-08-19",
@@ -23,7 +23,13 @@
  "stops": [
   {
    "id": "cape",
-   "urgency": "Clark’s pick: Queen Anne Inn — “1 left” Jul 19 · 6 candidates loaded; card shows top 3 — tap “Not for us ✕” to rotate others in"
+   "urgency": "Clark’s pick: Queen Anne Inn — “1 left” Jul 19 · 6 candidates loaded; card shows top 3 — tap “Not for us ✕” to rotate others in",
+   "options": [
+    {
+     "name": "Chapter House (Yarmouth Port)",
+     "caveat": "Mid-Cape base ≈ +20–30 min on each touring day, net ~35–45 min over the stay after an easier departure morning (corrected from ‘~1 hour’) — and the extra lands on the late P-town drive home · 10,000 sq-ft event lawn = August-weekend wedding risk · no breakfast served · a soundproofing complaint · fast traffic on 6A"
+    }
+   ]
   }
  ]
 }
