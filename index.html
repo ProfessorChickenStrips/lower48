@@ -42,7 +42,9 @@ header{background:linear-gradient(180deg,var(--navy),var(--navy2));color:#fff;
   font-family:Georgia;font-size:13.5px;color:#fff}
 .banner{background:var(--sand);border:1px solid #E4D6A8;color:var(--gold);border-radius:12px;
   padding:10px 12px;font-size:13.5px;margin:12px 0;display:flex;gap:10px;align-items:flex-start}
+.banner[hidden]{display:none}
 .banner button{margin-left:auto;flex:0 0 auto}
+.banner .bt{color:var(--navy);font-size:15px;font-weight:700;font-family:Georgia}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
   padding:14px;margin:12px 0;box-shadow:0 1px 3px rgba(27,58,92,.06)}
 .card h2{margin:0 0 8px;font-size:18px;color:var(--navy)}
@@ -660,15 +662,21 @@ function renderHeader(){
 function renderTabs(){
  $('tabbar').innerHTML=TABS.map(([id,ico,lb])=>`<button data-act="tab" data-t="${id}" class="${TAB===id?'on':''}" ${TAB===id?'aria-current="page"':''} aria-label="${lb}"><span class="ico" aria-hidden="true">${ico}</span>${lb}${id==='sync'&&S.dirty?'<span class="dot" title="unsynced changes"></span>':''}</button>`).join('');
 }
+const TAB_BLURBS={
+ plan:['🗂 The War Room','Hotels, reservations, tasks, packing — everything that must happen before wheels-up happens here.'],
+ trip:['🧭 The Fourteen Days','One page per day: the plan, the state claims, and the story you two write as you go. 📖 Pre holds everything before.'],
+ ledger:['🏅 The State Ledger','Ten stamps to collect — 38 becomes 48. Claim each state as you land it, evidence and all.'],
+ chat:['💬 The Concierge','Ask the trip anything — or paste an update block from your Claude planning chat and watch the app absorb it.'],
+ sync:['🔗 The Bridge','How your two phones, the repo, and the 6 AM email stay one brain — tokens, pulls, and backups live here.']
+};
 function renderBanner(){
- const b=$('memBanner');
- if(!LS_OK){b.hidden=false;b.innerHTML=`⚠️ <span><b>Autosave is unavailable on this phone</b> — state lives in this page only. Use <b>Sync → Copy state</b> before closing.</span><button class="btn sm subtle" data-act="banner-x">Got it</button>`;if(UI.bannerHide)b.hidden=true;return}
- if(getToken()){ /* bridge connected: statuses sync themselves — never nag for Copy state */
-  if(S.dirty&&UI.live==='err'&&!UI.bannerHide){b.hidden=false;b.innerHTML=`⚠️ <span><b>Bridge couldn’t reach GitHub just now</b> — your change is safe on this phone and will push automatically on the next change or reconnect.</span><button class="btn sm subtle" data-act="banner-x">OK</button>`}
-  else b.hidden=true;
-  return}
- if(S.dirty&&!UI.bannerHide){b.hidden=false;b.innerHTML=`🔄 <span><b>Saved on this phone</b> — but your partner hasn’t seen these changes. <b>Sync → Copy state</b> when you’re at a good stopping point.</span><button class="btn sm subtle" data-act="banner-x">Later</button>`}
- else b.hidden=true;
+ const b=$('memBanner');b.hidden=false;
+ /* nags take the slot only while they matter; otherwise the slot introduces the tab */
+ if(!LS_OK&&!UI.bannerHide){b.innerHTML=`⚠️ <span><b>Autosave is unavailable on this phone</b> — state lives in this page only. Use <b>Sync → Copy state</b> before closing.</span><button class="btn sm subtle" data-act="banner-x">Got it</button>`;return}
+ if(getToken()&&S.dirty&&UI.live==='err'&&!UI.bannerHide){b.innerHTML=`⚠️ <span><b>Bridge couldn’t reach GitHub just now</b> — your change is safe on this phone and will push automatically on the next change or reconnect.</span><button class="btn sm subtle" data-act="banner-x">OK</button>`;return}
+ if(!getToken()&&S.dirty&&!UI.bannerHide){b.innerHTML=`🔄 <span><b>Saved on this phone</b> — but your partner hasn’t seen these changes. <b>Sync → Copy state</b> when you’re at a good stopping point.</span><button class="btn sm subtle" data-act="banner-x">Later</button>`;return}
+ const bl=TAB_BLURBS[TAB]||TAB_BLURBS.plan;
+ b.innerHTML=`<span><span class="bt">${esc(bl[0])}</span><br>${esc(bl[1])}</span>`;
 }
 function go(t){TAB=t;render()}
 
