@@ -155,7 +155,7 @@ textarea{min-height:74px;resize:vertical}
 <script>
 /* ============ SEED DATA (trip content — do not edit casually) ============ */
 const SEED = {
- v: 4, dirty: false, savedAt: null, liveSyncedAt: null, livePushedAt: null,
+ v: 4, contentV: 3, dirty: false, savedAt: null, liveSyncedAt: null, livePushedAt: null,
  meta: { start:'2026-08-15', end:'2026-08-28', base:38, goal:48,
   flightsOut:'AA 2599 BUR 7:00a → DFW 12:22p · AA 569 DFW 1:29p → AVL 4:44p',
   flightsBack:'DL 1515 PWM 6:05a → ATL 8:50a · DL 483 ATL 11:25a → BUR 1:01p',
@@ -198,7 +198,7 @@ const SEED = {
  res: [
   {id:'ferry', what:'Cape May–Lewes Ferry — VEHICLE reservation', when:'Wed Aug 19 · target 4–5 PM sailing', cost:'$64 car + 2 (weekday)', url:'https://www.cmlf.com', p:1, status:'todo', conf:''},
   {id:'monticello', what:'Monticello — first Highlights tour', when:'Tue Aug 18 · earliest slot', cost:'$42/adult', url:'https://www.monticello.org', p:1, status:'todo', conf:''},
-  {id:'biltmore', what:'Biltmore — timed house entry', when:'Sun Aug 16 · earliest entry', cost:'from $80 (−$10 online)', url:'https://www.biltmore.com', p:1, status:'todo', conf:''},
+  {id:'biltmore', what:'Biltmore — timed house entry', when:'Sun Aug 16 · 10:45 AM house entry', cost:'from $80 (−$10 online)', url:'https://www.biltmore.com', p:1, status:'todo', conf:''},
   {id:'curate', what:'Cúrate dinner, Asheville', when:'Aug 15 ~8 PM (or Aug 16)', cost:'', url:'https://curatetapasbar.com', p:2, status:'todo', conf:''},
   {id:'forestreet', what:'Fore Street — FIRST seating ~5:30 PM', when:'Thu Aug 27 · ⚠️ reservations open ~JULY 28', cost:'', url:'https://forestreet.biz', p:2, status:'todo', conf:''},
   {id:'thornhilldin', what:'Forty at Thorn Hill dinner', when:'Tue Aug 25', cost:'', url:'https://www.innatthornhill.com', p:3, status:'todo', conf:''},
@@ -227,9 +227,9 @@ const SEED = {
    depart:'BUR 7:00 AM — wheels down AVL 4:44 PM', drive:'AVL → Montford ~20 min',
    todo:['Bags + one-way rental at AVL','Check in ~6 PM — the trip opens in a Michelin Key inn','Gentle stroll: Pack Square or Montford'],
    eat:'Cúrate ~8 PM if booked tonight · else White Duck Taco / Burial', note:'You woke at 4:30 AM Pacific. Keep it gentle.', claims:[]},
-  {d:'2026-08-16', dow:'Sun', title:'Biltmore early + Blue Ridge at golden hour', hotel:'Blind Tiger Asheville',
-   depart:'Earliest Biltmore entry slot', drive:'Local only',
-   todo:['Biltmore house + gardens + Antler Hill tasting (4–5h)','Blue Ridge Parkway: Craggy Gardens for golden hour'],
+  {d:'2026-08-16', dow:'Sun', title:'Gardens → Biltmore 10:45 → Blue Ridge golden hour', hotel:'Blind Tiger Asheville',
+   depart:'On the estate by 9:45 · house entry 10:45 ✓ booked', drive:'Local only · Parkway ~45–60 min from the estate',
+   todo:['Gardens + conservatory FIRST, 9:45–10:35 — cool and quiet before the house','Biltmore House at 10:45 — self-paced, ~1.5–2h','Antler Hill Village: included winery tasting + late estate lunch, ~1:30–3:30','On the Parkway by ~4:30: Craggy Gardens + optional Craggy Pinnacle walk · golden hour ~7:15 · sunset ~8:15'],
    eat:'Cúrate (if tonight) or Chai Pani', claims:[{code:'NC', label:'North Carolina', text:'Biltmore House + Blue Ridge Parkway at golden hour + Cúrate', rain:'Biltmore interiors · food halls · breweries'}]},
   {d:'2026-08-17', dow:'Mon', title:'Asheville → Charlottesville', hotel:'Oakhurst Inn',
    depart:'8:30–9:00 AM', drive:'334 mi · ~6h (I-26→I-81→I-64) · lunch Roanoke or Lexington',
@@ -310,11 +310,30 @@ function migrate(o){
   if(v>4)return{ok:true,state:o,note:'newer'};
   if(v<2)return{ok:false,msg:'Unrecognized blob version ('+v+') — not loading it.'};
   o.v=4;o.savedAt=o.savedAt??null;o.claims=o.claims||{};o.chatLog=o.chatLog||[];o.dirty=!!o.dirty;o.bannerOff=!!o.bannerOff;
-  o.liveSyncedAt=o.liveSyncedAt??null;o.livePushedAt=o.livePushedAt??null;
+  o.liveSyncedAt=o.liveSyncedAt??null;o.livePushedAt=o.livePushedAt??null;o.contentV=o.contentV??1;
   return{ok:true,state:o};
 }
 function save(){if(!LS_OK)return;try{S.savedAt=new Date().toISOString();localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){LS_OK=false;toast('Autosave unavailable on this phone — protect changes via Sync')}}
-function hydrate(){if(!LS_OK)return;try{const raw=localStorage.getItem(LSKEY);if(!raw)return;const m=migrate(JSON.parse(raw));if(m.ok&&m.note!=='newer')S=m.state}catch(e){}}
+function hydrate(){if(!LS_OK)return;try{const raw=localStorage.getItem(LSKEY);if(!raw)return;const m=migrate(JSON.parse(raw));if(m.ok&&m.note!=='newer'){S=(m.state.contentV||1)<SEED.contentV?mergeContent(m.state):m.state}}catch(e){}
+ try{const co=JSON.parse(localStorage.getItem(CKEY)||'null');if(co&&co.contentV>(S.contentV||1))applyContent(co)}catch(e){} /* reapply remote overlay after any shipped-content merge */
+}
+/* CONTENT REFRESH: a newly shipped file carries updated itinerary prose (days, option notes,
+   reservation labels). Fresh SEED content wins; everything the users OWN survives untouched. */
+function mergeContent(old){
+ const f=deepClone(SEED);
+ ['dirty','savedAt','liveSyncedAt','livePushedAt','bannerOff'].forEach(k=>{if(k in old)f[k]=old[k]});
+ f.claims=old.claims||{};f.chatLog=old.chatLog||[];
+ f.stops.forEach(s=>{const os=(old.stops||[]).find(x=>x.id===s.id);if(!os)return;
+  (os.options||[]).forEach(oo=>{const m2=s.options.find(x=>x.name===oo.name);
+   if(m2)m2.status=oo.status;else if(oo.status!=='rejected')s.options.push(oo)});
+  if(os.booked){s.booked=os.booked;const o=s.options.find(x=>x.name===os.booked.name);if(o)o.status='booked'}
+  if(os.pool&&os.pool.length<s.pool.length)s.pool=os.pool});
+ f.res.forEach(r=>{const or=(old.res||[]).find(x=>x.id===r.id);if(or){r.status=or.status;r.conf=or.conf||''}});
+ f.tasks.forEach(t=>{const ot=(old.tasks||[]).find(x=>x.id===t.id);if(ot)t.done=!!ot.done});
+ (old.tasks||[]).forEach(ot=>{if(!f.tasks.find(t=>t.id===ot.id))f.tasks.push(ot)});
+ (old.packing||[]).forEach(op=>{const m2=f.packing.find(p=>p.t===op.t);if(m2)m2.done=!!op.done;else f.packing.push(op)});
+ return f;
+}
 function dirty(){S.dirty=true;save();schedulePush();renderHeader();renderTabs();renderBanner()}
 
 /* ephemeral UI state — never persisted or exported */
@@ -323,7 +342,74 @@ const KEEP_IDS=['chatIn','packNew','patchIn','syncBox','bfConf','bfTotal','rcCon
 
 /* ============ LIVE BRIDGE — app ⇄ repo (statuses only, never conf numbers or notes) ============ */
 const GH={owner:'ProfessorChickenStrips',repo:'lower48',path:'live/state.json',
- api(){return `https://api.github.com/repos/${this.owner}/${this.repo}/contents/${this.path}`}};
+ api(p){return `https://api.github.com/repos/${this.owner}/${this.repo}/contents/${p||this.path}`}};
+const CKEY='lower48.content';
+
+/* ============ REMOTE CONTENT LAYER — itinerary prose ships as chat patches, not file uploads ============ */
+const C_DAY=['title','depart','drive','todo','eat','note','prep','hotel','claims'];
+const C_RES=['what','when','cost','url'];
+const C_STOP=['name','nights','urgency'];
+function applyContent(c){ /* whitelisted: patches PROSE only — never statuses, bookings, claims, confs */
+ if(!c||typeof c!=='object'||typeof c.contentV!=='number')throw new Error('bad content patch');
+ (c.days||[]).forEach(pd=>{const d=S.days.find(x=>x.d===pd.d);if(!d)return;C_DAY.forEach(k=>{if(k in pd)d[k]=pd[k]})});
+ (c.res||[]).forEach(pr=>{const r=S.res.find(x=>x.id===pr.id);if(!r)return;C_RES.forEach(k=>{if(k in pr)r[k]=pr[k]})});
+ (c.resAdd||[]).forEach(pr=>{if(pr.id&&pr.what&&!S.res.find(r=>r.id===pr.id))S.res.push(Object.assign({p:3,status:'todo',conf:'',cost:'',url:'#',when:''},pr))});
+ (c.stops||[]).forEach(ps=>{const s=S.stops.find(x=>x.id===ps.id);if(!s)return;C_STOP.forEach(k=>{if(k in ps)s[k]=ps[k]});
+  (ps.options||[]).forEach(po=>{const o=s.options.find(x=>x.name===po.name);if(o)['basis','caveat','url','mich','ver'].forEach(k=>{if(k in po)o[k]=po[k]})});
+  (ps.poolAdd||[]).forEach(pp=>{if(pp.name&&!s.pool.find(x=>x.name===pp.name)&&!s.options.find(x=>x.name===pp.name))s.pool.push(pp)})});
+ (c.tasksAdd||[]).forEach(pt=>{if(pt.id&&pt.t&&!S.tasks.find(t=>t.id===pt.id))S.tasks.push(Object.assign({done:false},pt))});
+ if(c.meta)['flightsOut','flightsBack','rental'].forEach(k=>{if(k in c.meta)S.meta[k]=c.meta[k]});
+ S.contentV=c.contentV;
+}
+function cacheContent(c){try{localStorage.setItem(CKEY,JSON.stringify(c))}catch(e){}}
+function getCachedContent(){try{return JSON.parse(localStorage.getItem(CKEY)||'null')}catch(e){return null}}
+function mergeOverlay(a,b){ /* union of two content patches (b newer). Keeps the cache & repo file CUMULATIVE,
+ so a rebuild from the shipped file can replay every patch ever applied — not just the latest. */
+ if(!a)return b; if(!b)return a;
+ const byKey=(la,lb,key)=>{const m=(la||[]).map(x=>Object.assign({},x));(lb||[]).forEach(x=>{const i=m.findIndex(y=>y[key]===x[key]);if(i>=0)m[i]=Object.assign({},m[i],x);else m.push(x)});return m};
+ const out={contentV:b.contentV};
+ out.days=byKey(a.days,b.days,'d');
+ out.res=byKey(a.res,b.res,'id');
+ out.resAdd=byKey(a.resAdd,b.resAdd,'id');
+ out.tasksAdd=byKey(a.tasksAdd,b.tasksAdd,'id');
+ const stops=(a.stops||[]).map(x=>Object.assign({},x));
+ (b.stops||[]).forEach(x=>{const i=stops.findIndex(y=>y.id===x.id);
+  if(i<0){stops.push(x);return}
+  const m=Object.assign({},stops[i],x);
+  m.options=byKey(stops[i].options,x.options,'name');
+  m.poolAdd=byKey(stops[i].poolAdd,x.poolAdd,'name');
+  if(!m.options.length)delete m.options; if(!m.poolAdd.length)delete m.poolAdd;
+  stops[i]=m});
+ out.stops=stops;
+ out.meta=Object.assign({},a.meta||{},b.meta||{});
+ ['days','res','resAdd','tasksAdd','stops'].forEach(k=>{if(!out[k].length)delete out[k]});
+ if(!Object.keys(out.meta).length)delete out.meta;
+ return out;
+}
+async function pullContent(manual){
+ try{
+  const headers={'Accept':'application/vnd.github.raw+json'};const tok=getToken();if(tok)headers['Authorization']='Bearer '+tok;
+  const r=await fetch(GH.api('content.json')+'?t='+Date.now(),{headers});
+  if(r.status===404)return; if(!r.ok)throw new Error('content read '+r.status);
+  const c=await r.json();
+  if(!c||typeof c.contentV!=='number'||c.contentV<=(S.contentV||1))return;
+  applyContent(c);cacheContent(mergeOverlay(getCachedContent(),c));save();render();
+  toast('Itinerary updated to v'+c.contentV+' ✓');
+ }catch(e){if(manual)toast('Content check failed: '+String(e.message||e))}
+}
+async function pushContent(c){
+ const tok=getToken();if(!tok){toast('Applied on this phone. Connect the bridge (or have your partner paste the same patch) to spread it.');return}
+ try{
+  let sha=null;
+  const head=await fetch(GH.api('content.json'),{headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'}});
+  if(head.status===200)sha=(await head.json()).sha;else if(head.status!==404)throw new Error('read '+head.status);
+  const body={message:'Content update v'+c.contentV,content:btoa(unescape(encodeURIComponent(JSON.stringify(c,null,1)))),branch:'main'};
+  if(sha)body.sha=sha;
+  const put=await fetch(GH.api('content.json'),{method:'PUT',headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(put.status<200||put.status>299)throw new Error('write '+put.status);
+  toast('Itinerary v'+c.contentV+' pushed — partner + morning email will pick it up ✓');
+ }catch(e){toast('Applied here, but the push failed ('+String(e.message||e)+') — will not retry automatically; paste the patch again later or on the other phone.')}
+}
 const TKEY='lower48.ghtoken';
 function getToken(){try{return localStorage.getItem(TKEY)||''}catch(e){return ''}}
 function setToken(t){try{t?localStorage.setItem(TKEY,t):localStorage.removeItem(TKEY)}catch(e){}}
@@ -624,7 +710,7 @@ function viewChat(){
    <button class="btn sm subtle" data-act="quick" data-k="specific">We want something specific</button>
    <button class="btn sm subtle" data-act="quick" data-k="today">What’s next today?</button></div></div>
  <div class="card"><h3>Apply an update from Claude</h3>
-  <div class="small">Paste a STATE_PATCH block from the planning chat; the dashboard applies it.</div>
+  <div class="small">Paste a STATE_PATCH or CONTENT_PATCH block from the planning chat; the dashboard applies it — content patches also push to the repo so your partner’s phone and the morning email get them automatically.</div>
   <textarea id="patchIn" placeholder='{"op":"bookLodging","stop":"jackson","name":"Inn at Thorn Hill & Spa","conf":"ABC123","total":"$304"}'></textarea>
   <div class="btnrow"><button class="btn" data-act="patch-apply">Apply patch</button></div></div>`;
 }
@@ -654,7 +740,7 @@ async function chatSend(){
  pushMsg('ai',draftRequest(q));dirty();render();
 }
 function draftRequest(q){
- return `COPY THIS TO OUR CLAUDE PLANNING CHAT:\n———\n${q}\n\nContext: ${stateBrief()}\nPlease answer with (1) your recommendation with verified evidence and (2) a STATE_PATCH json block I can paste into the dashboard (ops: rejectOption / bookLodging / bookReservation / addOption / addTask / claimState; stops: cape, stowe, jackson, portland).\n———`;
+ return `COPY THIS TO OUR CLAUDE PLANNING CHAT:\n———\n${q}\n\nContext: ${stateBrief()}\nPlease answer with (1) your recommendation with verified evidence and (2) a STATE_PATCH json block I can paste into the dashboard (ops: rejectOption / bookLodging / bookReservation / addOption / addTask / claimState; stops: cape, stowe, jackson, portland). If the itinerary PROSE itself should change (day plans, times, restaurants, notes), send a CONTENT_PATCH instead: {op:"contentPatch", content:{contentV:<current+1>, days/res/stops/tasksAdd…}} — my dashboard is at contentV ${S.contentV||1}.\n———`;
 }
 function askReplace(id){const s=findStop(id);if(!s)return;TAB='chat';render();
  const t=$('chatIn');if(t){t.value=`For ${s.name} (${s.nights}): we'd like a different option than [${s.options.filter(o=>o.status==='live').map(o=>o.name).join(' / ')}]. What we want instead: `;t.focus()}}
@@ -669,6 +755,9 @@ function applyPatch(p){
   case 'addOption':{const s=findStop(p.stop);if(s)s.options.push({name:p.name,url:p.url||'#',ver:p.ver||'unver',basis:p.basis||'',caveat:p.caveat||'',status:'live'});break}
   case 'addTask':S.tasks.push({id:'t'+Date.now(),t:p.text,done:false});break;
   case 'claimState':if(!S.claims[p.code])S.claims[p.code]={at:'via chat',meal:false,photo:false,note:p.note||''};break;
+  case 'contentPatch':{const cv=(p.content&&typeof p.content.contentV==='number')?p.content.contentV:0;
+   if(cv<=(S.contentV||1)){toast('Itinerary already at v'+(S.contentV||1)+' — patch v'+cv+' is older, skipped');break}
+   applyContent(p.content);const u=mergeOverlay(getCachedContent(),p.content);cacheContent(u);save();render();pushContent(u);break}
   case 'noteDay':{const d=S.days.find(x=>x.d===p.date);if(d)d.note=(d.note?d.note+' · ':'')+p.note;break}
   default:toast('Unknown patch op: '+(p.op||'?'))}
 }
@@ -724,7 +813,8 @@ function importState(){const el=$('syncBox');const t=(el&&el.value||'').trim();i
  const m=migrate(o);
  if(!m.ok)return toast(m.msg);
  if(m.note==='newer'&&!confirm('This blob is from a NEWER version of the app (v'+o.v+' > v4). Loading it may lose fields. Load anyway?'))return;
- S=m.state;UI.bookForm=null;UI.resConf=null;UI.noteEdit=null;S.dirty=false;save();toast('State loaded ✓');render();
+ S=(m.state.contentV||1)<SEED.contentV?mergeContent(m.state):m.state;
+ UI.bookForm=null;UI.resConf=null;UI.noteEdit=null;S.dirty=false;save();toast('State loaded ✓');render();
 }
 
 /* ============ DELEGATED EVENTS — fix (b): no inline handlers, names live in data-attributes ============ */
@@ -758,7 +848,7 @@ document.addEventListener('click',e=>{
    if(!/^gh[pou]_|^github_pat_/.test(t)){toast('That doesn’t look like a GitHub token');break}
    setToken(t);UI.live='ok';toast('Bridge connected — pushing current state…');render();pushLive();break}
   case 'bridge-off':if(confirm('Disconnect the live bridge on this phone? (The token is removed from this device.)')){setToken('');UI.live='off';render()}break;
-  case 'bridge-pull':pullLive(true);break;
+  case 'bridge-pull':pullLive(true);pullContent(true);break;
   case 'sync-copy':exportState();break;
   case 'sync-share':shareState();break;
   case 'sync-download':downloadState();break;
@@ -778,6 +868,7 @@ document.addEventListener('change',e=>{
 hydrate();
 render();
 pullLive(false); /* partner phones receive automatically; no token required for reads */
+pullContent(false); /* itinerary prose updates arrive the same way */
 if(S.dirty&&getToken())schedulePush(); /* heal any push interrupted by an app close */
 window.addEventListener('online',()=>{if(S.dirty&&getToken())pushLive()});
 </script>
