@@ -682,6 +682,7 @@ function go(t){TAB=t;render()}
 
 /* ============ RENDER (full re-render; fine at this size — inputs & scroll preserved) ============ */
 function render(){
+ ensureDailyLove(); /* creates today's note on first render of each date — both phones derive the same one */
  renderHeader();renderTabs();renderBanner();
  const stash={};let focusId=null;
  KEEP_IDS.forEach(id=>{const el=$(id);if(el){stash[id]=el.value;if(document.activeElement===el)focusId=id}});
@@ -739,10 +740,15 @@ function viewPlan(){
  const taskRows=S.tasks.map(t=>`<label class="task ${t.done?'done':''}"><input type="checkbox" data-chk="task" data-id="${esc(t.id)}" ${t.done?'checked':''}><div class="t">${esc(t.t)}</div></label>`).join('');
  const packRows=S.packing.map((p,i)=>`<label class="task ${p.done?'done':''}"><input type="checkbox" data-chk="pack" data-i="${i}" ${p.done?'checked':''}><div class="t">${esc(p.t)}</div></label>`).join('');
  const booked=S.stops.filter(x=>x.booked).length;
+ const openStops=S.stops.filter(s=>!s.booked).map(s=>s.name.split('(')[0].split('/')[0].trim());
+ const openRes=S.res.filter(r=>r.p<=2&&r.status!=='booked').map(r=>r.what.split(' — ')[0].split(',')[0]);
+ const lodgeLine=openStops.length?`Still to book: <b>${esc(openStops.join(' · '))}</b>`:'Every bed of the trip is booked ✓';
+ const resLine=openRes.length?` · Tables & tickets still open: ${esc(openRes.join(' · '))}`:' · Reservations all set ✓';
  return `
+  ${phase()==='plan'?dailyLoveHTML():''}
   ${noticesHTML('plan')}
   <div class="card"><h2>Mission control</h2>
-   <div class="small">Lodging locked: <b>${booked}/4 stops</b> · Cape ✓ $865 + Thorn Hill ✓ ~$304 · still open: Tälta ($292 verified) + Press (verify rate). Hard cap $500/night.</div>
+   <div class="small">Lodging locked: <b>${booked}/4 stops</b> · ${lodgeLine}${resLine} · Hard cap $500/night.</div>
    <div class="meter" role="img" aria-label="${bookingsDone()} of ${bookingsTotal()} core bookings done"><div style="width:${(bookingsDone()/bookingsTotal()*100).toFixed(0)}%"></div></div>
    <div class="small">${bookingsDone()} of ${bookingsTotal()} core bookings done</div></div>
   ${queueCard()}
@@ -768,6 +774,79 @@ function ackNotice(id){const n=S.notices.find(x=>x.id===id);if(!n||n.acked)retur
  if(navigator.vibrate){try{navigator.vibrate([18,60,18,60,40])}catch(e){}}
  loveConfetti();dirty();render();toast(getToken()?'💛 Accepted — his phone will know within seconds':'💛 Accepted — saved on this phone')}
 function loveConfetti(){if(REDUCED)return;const el=['💛','❤️','💕','💖','✨'];for(let i=0;i<64;i++){const s=document.createElement('span');s.className='cf';s.textContent=el[i%el.length];s.style.left=(Math.random()*100)+'vw';s.style.animationDuration=(1.6+Math.random()*1.8)+'s';s.style.fontSize=(14+Math.random()*18)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),3800)}}
+
+/* ============ THE DAILY LOVE NOTE — self-running, date-deterministic, forever ============
+   ~50 notes ship in this file: every pre-trip day (Jul 22–Aug 14) and every trip day (Aug 15–28)
+   individually written; all other dates draw from a rotation that never runs dry. Both phones
+   compute the same note for the same date — no server, no patches, no maintenance, through 2036+.
+   Acks ride the live bridge as booleans only; note text never enters live/state.json. */
+const LOVE_D={
+ '2026-07-22':{x:'First of the daily notes. There will be one every morning from now on — like coffee, but for whatever this feeling is. He asked the app to make sure you never miss a day.',c:'Tap to accept today’s love'},
+ '2026-07-23':{x:'He read the packing list again last night. You’re on every line of it, somehow.',c:'Tap to accept'},
+ '2026-07-24':{x:'Day 22 of the countdown. He checked the Asheville weather again today. It hasn’t changed. He checked anyway. That’s you, that effect.',c:'Tap to accept today’s love'},
+ '2026-07-25':{x:'Twenty-one days. Three weeks. He has started saying “when we’re on the Parkway” in present tense.',c:'Tap if you’ve noticed too'},
+ '2026-07-26':{x:'Somewhere in New Hampshire, an inn with two Michelin Keys is holding a fireplace room for you. He’s checked the reservation three times. It’s still there. So is he.',c:'Tap to accept'},
+ '2026-07-27':{x:'He told the app to remind you: you’re beautiful on ordinary Mondays too.',c:'Tap to accept today’s love'},
+ '2026-07-28':{x:'Fore Street opens its reservation book today — first seating, last full night of the trip. He’s been waiting for this date like it was a holiday. Dinner with you, planned 31 days early.',c:'Tap to accept'},
+ '2026-07-29':{x:'Seventeen days. He’s practicing closing the map app so he can look at the actual road with you instead.',c:'Tap to accept'},
+ '2026-07-30':{x:'The app watched him build all of this and can confirm: every single decision started with “would Maggie love it?”',c:'Tap to confirm you do'},
+ '2026-07-31':{x:'July’s last note: he loves you in at least 38 states, with 10 more pending verification.',c:'Tap to accept the audit'},
+ '2026-08-01':{x:'It’s August. The month with the ferry in it. The month with you in it, coast to coast.',c:'Tap to accept'},
+ '2026-08-02':{x:'“Two weeks” became “thirteen days” overnight. He noticed before coffee.',c:'Tap to accept today’s love'},
+ '2026-08-03':{x:'He keeps opening the Stowe page. The gondola, the notch, the bierhall. Mostly he’s picturing the passenger seat.',c:'Tap to accept'},
+ '2026-08-04':{x:'Eleven days. Reminder from management: pack the dinner-nice outfits. He intends to show you off at Thorn Hill.',c:'Tap to accept'},
+ '2026-08-05':{x:'Ten days. Single digits tomorrow. He’s been rounding down since Tuesday.',c:'Tap to accept'},
+ '2026-08-06':{x:'Nine days. The app suggested he calm down. He declined.',c:'Tap to accept today’s love'},
+ '2026-08-07':{x:'Eight days. Tonight he’ll fall asleep mid-sentence planning the Biltmore gardens. The sentence was about you.',c:'Tap to accept'},
+ '2026-08-08':{x:'One week from tomorrow: wheels up at 7 AM. He set three alarms, and one of them is just to look at you still asleep.',c:'Tap to accept'},
+ '2026-08-09':{x:'Six days. He loves you more than the trip. The trip knows. The trip is fine with it.',c:'Tap to accept'},
+ '2026-08-10':{x:'Five days. Weather check #41: Asheville, warm and clear. Him: unchanged, still yours.',c:'Tap to accept'},
+ '2026-08-11':{x:'Four days. The suitcases are out. He put your beach towel on top like it’s a trophy.',c:'Tap to accept'},
+ '2026-08-12':{x:'Three days. He confirmed the rental car, the ferry, and — quietly, for the third time — that you still say yes to adventures with him.',c:'Tap: yes'},
+ '2026-08-13':{x:'Two days. Tomorrow you check in for the flights. Tonight he’ll tell you the plan again like you haven’t heard it. Let him.',c:'Tap to accept'},
+ '2026-08-14':{x:'Tomorrow. Bags by the door, alarms set for cruel o’clock. Last note before the map starts moving: thank you for saying yes to all of this.',c:'Tap — then sleep, 4:30 comes early'},
+ '2026-08-15':{x:'Today the map starts moving: Burbank → Dallas → Asheville, and a Michelin Key with your name on it. Window seat, aisle seat — next to you is the itinerary.',c:'Tap to accept, then wheels up'},
+ '2026-08-16':{x:'Gardens at 9:45, the Biltmore at 10:45, golden hour on the Parkway by 7. A castle, a mountain range, and you — he designed today to show all three off at once.',c:'Tap to accept before the gardens'},
+ '2026-08-17':{x:'334 miles of Blue Ridge and valley today. Six hours in the passenger seat, and he’d still call it the best seat assignment of his life.',c:'Tap to accept at a rest stop'},
+ '2026-08-18':{x:'Jefferson’s mountain this morning, Annapolis crabs tonight. Two states, one claim, zero doubt about who he’d rather split a crab feast with.',c:'Tap to accept'},
+ '2026-08-19':{x:'Eighty-five minutes across the Delaware Bay this afternoon, and his favorite part will be watching you watch for dolphins. Terminal by 3:15 — the love note, however, has no cutoff time.',c:'Tap to accept before boarding'},
+ '2026-08-20':{x:'The long haul: Cape May to Newport with Mystic in between. Somewhere on the George Washington Bridge he’ll reach for your hand. It’s on the itinerary. It’s always on the itinerary.',c:'Tap to accept'},
+ '2026-08-21':{x:'Cliff Walk at 7:45, then over the bridge to the Cape. Tonight: fire pits and that ridiculous 9-foot pool. He booked the fun one because you smiled at the pictures.',c:'Tap to accept, then swim'},
+ '2026-08-22':{x:'Chatham seals, Wellfleet oysters, Race Point sunset. If today were a person it would be you: salty, bright, impossible not to love.',c:'Tap to accept'},
+ '2026-08-23':{x:'Cape to Stowe — the last long drive, rewarded with two Vermont nights that don’t move. Cider donuts on the approach. He’ll pretend the stop is for you.',c:'Tap to accept'},
+ '2026-08-24':{x:'The suitcase stays put today. Mansfield’s summit, Smugglers’ Notch, a bierhall lunch — and a man who keeps looking sideways at you on the gondola instead of at the view.',c:'Tap to accept mid-gondola'},
+ '2026-08-25':{x:'Crawford Notch today, then Jackson: two Michelin Keys, a fireplace, dinner at Forty. The trip’s signature night. He picked it months ago with exactly this evening in mind.',c:'Tap to accept before dinner'},
+ '2026-08-26':{x:'The Kanc or the summit — let the sky decide. Portland by evening either way, and the 48th state close enough to touch. You’ve been the whole point since state #1.',c:'Tap to accept'},
+ '2026-08-27':{x:'Last full day: the bay by boat, Portland Head Light, lobster on the rocks, Fore Street at 5:30. The toast tonight writes itself: to the woman who made forty-eight states feel small.',c:'Tap to accept before the ferry'},
+ '2026-08-28':{x:'4:15 AM, bags by the door, one map finished. Forty-eight states down — and he’d cross every one of them again tomorrow if you were riding shotgun. Only Alaska left. You in?',c:'Tap: I’m in'}
+};
+const LOVE_ROT=[
+ {x:'A while back you two drove fourteen days and made a map whole. He still loves you like day one of the countdown.',c:'Tap to accept'},
+ {x:'Remember the seals at Chatham? He remembers you laughing at them. Mostly that.',c:'Tap if you remember too'},
+ {x:'The 48 seal at the top of this app is really a picture of you two. Always was.',c:'Tap to accept'},
+ {x:'He’d set the 4:30 AM alarm again tomorrow for one more first morning in Asheville with you.',c:'Tap to accept'},
+ {x:'Somewhere in Vermont a gondola is running without you two on it. Feels wrong, honestly.',c:'Tap to agree'},
+ {x:'Today’s forecast: no long drives, no check-ins, still completely yours.',c:'Tap to accept'},
+ {x:'Alaska is still up there, being patient. So is he. 2036 is the deadline; loving you has none.',c:'Tap: we’re going'},
+ {x:'This app was built in one long night by a man who couldn’t stop adding things for you. It shows, doesn’t it?',c:'Tap to accept'},
+ {x:'The dolphins from the ferry send their regards.',c:'Tap to send yours back'},
+ {x:'He read your journal entries again last night. Best writing on the internet, he says. The app agrees.',c:'Tap to accept'},
+ {x:'New states or no states — the claim he’s proudest of is you.',c:'Tap to accept'},
+ {x:'The fire pits, the notch, the lighthouse, the 9-foot pool: good props. You were the show.',c:'Tap to accept'}
+];
+function doy(dt){return Math.floor((dt-new Date(dt.getFullYear(),0,0))/86400000)}
+function loveFor(d){if(LOVE_D[d])return LOVE_D[d];const dt=new Date(d+'T12:00:00');return LOVE_ROT[(dt.getFullYear()+doy(dt))%LOVE_ROT.length]}
+function ensureDailyLove(){const id='love-'+iso(today());if(!S.notices.find(n=>n.id===id)){S.notices.push({id,tab:'daily',acked:false,ackedAt:null});save()}}
+function loveCount(){return S.notices.filter(n=>n.acked&&(n.id.indexOf('love-')===0||n.id==='maggie-love-1')).length}
+function dailyLoveHTML(){
+ const dIso=iso(today());const id='love-'+dIso;const n=S.notices.find(x=>x.id===id);const L=loveFor(dIso);
+ const dateLbl=new Date(dIso+'T12:00:00').toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'});
+ if(n&&n.acked)return `<div class="card notice acked">💛 <b>Today’s note — accepted.</b> <span class="small">${esc(dateLbl)} · 💛 × ${loveCount()} and counting. A new one arrives with the morning.</span></div>`;
+ return `<div class="card notice"><div class="nheart">💛</div><div class="k">THE DAILY NOTE · ${esc(dateLbl)}</div>
+  <div class="ntext" style="margin-top:6px">${esc(L.x)}</div>
+  <button class="btn love" data-act="notice-ack" data-id="${esc(id)}">${esc(L.c)} ♥</button>
+  ${loveCount()?`<div class="small" style="margin-top:6px">💛 accepted × ${loveCount()} so far</div>`:''}</div>`;
+}
 /* plan actions */
 function findStop(id){return S.stops.find(s=>s.id===id)}
 function queueCard(){ /* live queue: renders from state, strikes what's done */
@@ -841,6 +920,7 @@ function viewTrip(){
  const tomorrow=S.days[idx+1];
  const medal=d.medal?medalBlock():'';
  return `
+  ${phase()!=='plan'?dailyLoveHTML():''}
   ${dayChips(idx)}
   <div class="card"><div class="k">${esc(d.dow)}, Aug ${+d.d.slice(8)} · Day ${idx+1} of 14</div>
    <div class="hero">${esc(d.title)}</div>
@@ -908,7 +988,7 @@ function viewPrologue(){
  const rows=pre.map(e=>journalEntryHTML(e,true)).join('');
  const saveD=iso(today())<S.meta.start?iso(today()):'2026-08-14';
  const d1=S.days[0];
- return `${dayChips(-1)}
+ return `${phase()!=='plan'?dailyLoveHTML():''}${dayChips(-1)}
   <div class="card"><div class="k">The Prologue · now → Fri Aug 14</div>
    <div class="hero">Before the wheels roll</div>
    <div class="small" style="margin-top:4px">⏳ <b>${daysToGo()}</b> day${daysToGo()===1?'':'s'} to wheels-up · ✈️ ${esc(S.meta.flightsOut)}</div></div>
