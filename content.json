@@ -1,0 +1,23 @@
+{
+ "contentV": 5,
+ "res": [
+  {
+   "id": "ferry",
+   "when": "Wed Aug 19 · 4:15 PM sailing ✓ · at terminal 3:15 · hard cutoff 3:45",
+   "cost": "$64 · paid in full"
+  }
+ ],
+ "days": [
+  {
+   "d": "2026-08-19",
+   "drive": "~120 mi · ~2h15 over the Bay Bridge · ferry 4:15→~5:40 PM (85 min)",
+   "todo": [
+    "Naval Academy via Gate 1 (photo ID!)",
+    "Lewes: lunch + Second St in the “first town in the first state”",
+    "Ferry: at the Lewes terminal by 3:15 — check-in closes 3:45, sails 4:15 — watch for dolphins",
+    "Cape May sunset promenade"
+   ],
+   "note": "Ferry is time-fixed now: miss the 3:45 check-in cutoff and the crossing is forfeit (+$26 no-show fee). Leave USNA by ~11:30 and a Lewes lunch still leaves an hour of slack. Same photo IDs work all day — Gate 1 and ferry check-in."
+  }
+ ]
+}
