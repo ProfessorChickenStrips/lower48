@@ -9,6 +9,9 @@ on:
     - cron: "47 13 1-14 8 *"
     - cron: "17 10 15-28 8 *"
     - cron: "47 10 15-28 8 *"
+    # The afterlife: Sep 1, 2026 epilogue + every Aug 15 anniversary (guard filters the years)
+    - cron: "17 13 1 9 *"
+    - cron: "17 13 15 8 *"
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -22,7 +25,9 @@ jobs:
         id: guard
         run: |
           D=$(TZ=America/New_York date +%Y-%m-%d)
-          if [ "$(date -u +%Y)" != "2026" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Season over."
+          MD=$(TZ=America/New_York date +%m-%d)
+          Y=$(date -u +%Y)
+          if [ "$Y" != "2026" ] && [ "$MD" != "08-15" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Sleeping between anniversaries."
           elif [ -f "editions/archive/${D}.txt" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Edition ${D} already sent — second pass standing down."
           else echo "skip=0" >> "$GITHUB_OUTPUT"; fi
 
@@ -94,7 +99,7 @@ jobs:
           username: ${{ secrets.USER_NAME }}
           password: ${{ secrets.PASS }}
           subject: ${{ steps.pick.outputs.subject }}
-          to: cjohns0334@yahoo.com
+          to: cjohns0334@yahoo.com,humphrey.maggie@gmail.com
           from: ${{ secrets.USER_NAME }}
           body: file://body.txt
 
