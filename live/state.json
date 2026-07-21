@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-07-21T04:29:51.774Z",
+ "updatedAt": "2026-07-21T04:43:56.958Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": null,
@@ -28,7 +28,8 @@
   "t5": false,
   "t6": false,
   "t7": false,
-  "t8": false
+  "t8": false,
+  "t_unccancel": false
  },
  "packing": [
   false,
