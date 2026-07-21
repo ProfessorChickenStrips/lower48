@@ -412,6 +412,10 @@ function renderTabs(){
 function renderBanner(){
  const b=$('memBanner');
  if(!LS_OK){b.hidden=false;b.innerHTML=`⚠️ <span><b>Autosave is unavailable on this phone</b> — state lives in this page only. Use <b>Sync → Copy state</b> before closing.</span><button class="btn sm subtle" data-act="banner-x">Got it</button>`;if(UI.bannerHide)b.hidden=true;return}
+ if(getToken()){ /* bridge connected: statuses sync themselves — never nag for Copy state */
+  if(S.dirty&&UI.live==='err'&&!UI.bannerHide){b.hidden=false;b.innerHTML=`⚠️ <span><b>Bridge couldn’t reach GitHub just now</b> — your change is safe on this phone and will push automatically on the next change or reconnect.</span><button class="btn sm subtle" data-act="banner-x">OK</button>`}
+  else b.hidden=true;
+  return}
  if(S.dirty&&!UI.bannerHide){b.hidden=false;b.innerHTML=`🔄 <span><b>Saved on this phone</b> — but your partner hasn’t seen these changes. <b>Sync → Copy state</b> when you’re at a good stopping point.</span><button class="btn sm subtle" data-act="banner-x">Later</button>`}
  else b.hidden=true;
 }
@@ -481,7 +485,7 @@ function viewPlan(){
    <div class="small">Lodging locked: <b>${booked}/4 stops</b> · First-choice estimate ≈ $2,530–2,850 all-in (7 nights) · value-mix ≈ $2,050. Hard cap $500/night.</div>
    <div class="meter" role="img" aria-label="${bookingsDone()} of ${bookingsTotal()} core bookings done"><div style="width:${(bookingsDone()/bookingsTotal()*100).toFixed(0)}%"></div></div>
    <div class="small">${bookingsDone()} of ${bookingsTotal()} core bookings done</div></div>
-  <div class="card"><h2>Book-next queue</h2><div class="small">In priority order: <b>Thorn Hill → Cape → Regency → Green Mountain Inn → ferry / Biltmore / Monticello → dinners</b>. Every price below was verified live Jul 19–20; confirm at booking.</div></div>
+  ${queueCard()}
   ${stops}
   <div class="card"><h2>Reservations & tickets</h2>${resRows}</div>
   <div class="card"><h2>Pre-trip tasks</h2>${taskRows}</div>
@@ -492,6 +496,19 @@ function viewPlan(){
 }
 /* plan actions */
 function findStop(id){return S.stops.find(s=>s.id===id)}
+function queueCard(){ /* live queue: renders from state, strikes what's done */
+ const lodgeOrder=[['jackson','Inn at Thorn Hill — Jackson · Aug 25'],['cape','Cape Cod stay · Aug 21–23'],['portland','Portland Regency · Aug 26–28'],['stowe','Green Mountain Inn — Stowe · Aug 23–25']];
+ const items=lodgeOrder.map(([id,label])=>{const s=findStop(id);
+  return {done:!!(s&&s.booked),label:s&&s.booked?`${label} — ${s.booked.name}`:label}});
+ S.res.filter(r=>r.p<=2).forEach(r=>items.push({done:r.status==='booked',label:r.what}));
+ const next=items.find(x=>!x.done);
+ const doneN=items.filter(x=>x.done).length;
+ return `<div class="card"><h2>Book-next queue</h2>
+  ${next?`<div class="prep" style="margin-top:2px"><b>NEXT UP → ${esc(next.label)}</b></div>`
+        :`<div class="tag ver" style="font-size:13px">Everything core is booked — the queue is empty 🎉</div>`}
+  ${items.map(x=>`<div class="task" style="cursor:default;padding:6px 2px"><div class="t" style="${x.done?'text-decoration:line-through;color:var(--muted)':''}">${x.done?'✓':'○'} ${esc(x.label)}</div></div>`).join('')}
+  <div class="small" style="margin-top:6px">${doneN} of ${items.length} locked · dinner tables live under Reservations below · prices verified Jul 19–20, confirm at booking.</div></div>`;
+}
 function promote(s){while(s.options.filter(o=>o.status==='live').length<3&&s.pool.length){const b=s.pool.shift();
  s.options.push({name:b.name,url:b.url||'#',ver:'unver',basis:b.note,caveat:'Promoted from the backup pool — verify price & availability live before booking',status:'live'})}}
 function rejectOption(id,name){const s=findStop(id);if(!s)return;const o=s.options.find(x=>x.name===name&&x.status==='live');if(!o)return;
@@ -668,7 +685,8 @@ function viewSync(){
    <button class="btn subtle" data-act="sync-download">Download .json</button></div>
   <textarea id="syncBox" placeholder="Exported state appears here — or paste a blob and hit Load"></textarea>
   <div class="btnrow"><button class="btn gold" data-act="sync-load">Load pasted state</button></div>
-  ${S.dirty?'<div class="small" style="color:var(--bad);margin-top:6px"><b>Unsynced changes</b> — your partner hasn’t seen your latest edits yet.</div>':'<div class="small" style="margin-top:6px">In sync: nothing new since your last export.</div>'}</div>
+  ${getToken()?(S.dirty?'<div class="small" style="color:var(--warn);margin-top:6px"><b>Pushing shortly via the live bridge…</b></div>':'<div class="small" style="margin-top:6px">Statuses in sync via the live bridge ✓ — confirmation numbers & journal notes stay on this phone; use Copy state only if you want to share those too.</div>')
+   :(S.dirty?'<div class="small" style="color:var(--bad);margin-top:6px"><b>Unsynced changes</b> — your partner hasn’t seen your latest edits yet.</div>':'<div class="small" style="margin-top:6px">In sync: nothing new since your last export.</div>')}</div>
  <div class="card"><h2>Install on your phones</h2>
   <div class="small"><b>iPhone (Safari):</b> visit https://professorchickenstrips.github.io/lower48/ → Share □↑ → “Add to Home Screen.”<br><br>
   <b>Samsung (Chrome):</b> open it → ⋮ menu → “Add to Home screen” (or “Install”).<br><br>
@@ -748,6 +766,7 @@ document.addEventListener('change',e=>{
 hydrate();
 render();
 pullLive(false); /* partner phones receive automatically; no token required for reads */
+if(S.dirty&&getToken())schedulePush(); /* heal any push interrupted by an app close */
 window.addEventListener('online',()=>{if(S.dirty&&getToken())pushLive()});
 </script>
 </body>
