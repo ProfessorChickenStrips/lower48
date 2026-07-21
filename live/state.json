@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-07-21T03:06:32.017Z",
+ "updatedAt": "2026-07-21T03:45:57.830Z",
  "stops": {
   "cape": null,
   "stowe": null,
@@ -38,5 +38,8 @@
   false,
   false
  ],
- "claims": {}
+ "claims": {},
+ "notices": {
+  "maggie-love-1": false
+ }
 }
