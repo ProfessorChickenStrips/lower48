@@ -1,5 +1,5 @@
 {
- "contentV": 9,
+ "contentV": 11,
  "days": [
   {
    "d": "2026-08-19",
@@ -11,6 +11,31 @@
     "Cape May sunset promenade"
    ],
    "note": "Ferry is time-fixed now: miss the 3:45 check-in cutoff and the crossing is forfeit (+$26 no-show fee). Leave USNA by ~11:30 and a Lewes lunch still leaves an hour of slack. Same photo IDs work all day — Gate 1 and ferry check-in."
+  },
+  {
+   "d": "2026-08-15",
+   "note": "You woke at 4:30 AM Pacific. Keep it gentle. · 📝 From the night the app was finished (Jul 20): “I had a lot of fun building the app today. I hope you enjoy experiencing our trip!” — Clark"
+  },
+  {
+   "d": "2026-08-21",
+   "drive": "~85 mi · 2h30–3h15 — Bourne Bridge before noon · hotel is ~20 min past the bridge",
+   "todo": [
+    "Cliff Walk, Forty Steps stretch (free)",
+    "Rt-28 to the Uncommoner (135 Route 28, W Yarmouth) — check-in from 3 PM; drop bags, maybe a pool hour",
+    "Nauset Light + Coast Guard Beach after 3:30 (≈30 min east · $25 lots, cards only)",
+    "Rock Harbor sunset (≈25 min home after)"
+   ],
+   "note": "Your base is mid-Cape: the outer Cape runs 25–35 min east, so batch those stops. Evenings end well here — fire pits + the 9-ft indoor pool."
+  },
+  {
+   "d": "2026-08-22",
+   "depart": "Leave 8:25 — Chatham by 9 (≈30 min from W Yarmouth)",
+   "drive": "Loop day: Chatham 30 min · Chatham→Wellfleet ~25 · P-town home leg ~55–60"
+  },
+  {
+   "d": "2026-08-23",
+   "depart": "8:30–9:00 AM — canal by 9:45 is easy from W Yarmouth",
+   "drive": "~265 mi · 5h45–6h30 door-to-door · lunch Concord NH"
   }
  ],
  "res": [
@@ -18,6 +43,12 @@
    "id": "ferry",
    "when": "Wed Aug 19 · 4:15 PM sailing ✓ · at terminal 3:15 · hard cutoff 3:45",
    "cost": "$64 · paid in full"
+  }
+ ],
+ "tasksAdd": [
+  {
+   "id": "t_unccancel",
+   "t": "Aug 17: final Cape gut-check — Uncommoner free cancellation ends Aug 18, 12:01 AM (property time)"
   }
  ],
  "stops": [
