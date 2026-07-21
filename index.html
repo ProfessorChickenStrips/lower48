@@ -134,6 +134,19 @@ textarea{min-height:74px;resize:vertical}
 .notice.acked{background:var(--sand);border:1.5px solid var(--goldBright);text-align:left;font-size:14px;padding:10px 14px}
 @keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.18)}24%{transform:scale(1)}36%{transform:scale(1.12)}}
 @media (prefers-reduced-motion: reduce){.notice .nheart{animation:none}}
+.jentry{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0;background:#FFFDF8}
+.jentry .jhead{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.jwho{background:var(--navy);color:#fff;border-radius:10px;padding:2px 9px;font-size:12px;font-weight:bold}
+.jwho.m{background:#8C4A5E}
+.jtext{font-family:Georgia;font-size:16px;line-height:1.5;white-space:normal}
+.jmedia{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.jmedia img,.jmedia video{width:100%;height:140px;object-fit:cover;border-radius:10px;border:1px solid var(--line);background:#EEE}
+.jmedia .one{grid-column:1/-1}.jmedia .one img,.jmedia .one video{height:220px;object-fit:contain;background:#111}
+.jstage{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.jstage img,.jstage .vthumb{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1.5px solid var(--goldBright)}
+.jstage .vthumb{display:flex;align-items:center;justify-content:center;background:#111;color:#fff;font-size:22px}
+.filebtn{display:inline-block}.filebtn input{display:none}
+.jpend{color:var(--warn);font-size:12px}
 .footer-note{text-align:center;color:var(--muted);font-size:12px;margin:18px 0 8px}
 @media (prefers-reduced-motion: reduce){
   .stamp.pop{animation:none}
@@ -300,7 +313,7 @@ const SEED = {
    depart:'Leave hotel 4:15–4:30 AM', drive:'10–12 min · bags by 5:20 · checkpoint opens ~3 AM (reported)',
    todo:['After-hours key drop if the counter is dark','ATL connection 2h35','BUR 1:01 PM — home mid-afternoon'],
    eat:'Airport coffee — you earned the nap', medal:true, claims:[]} ],
- claims:{}, chatLog:[], bannerOff:false
+ claims:{}, chatLog:[], bannerOff:false, journal:[], journalSyncedAt:null
 };
 /* ============ HELPERS ============ */
 const $=id=>document.getElementById(id);
@@ -324,6 +337,7 @@ function migrate(o){
   if(v<2)return{ok:false,msg:'Unrecognized blob version ('+v+') — not loading it.'};
   o.v=4;o.savedAt=o.savedAt??null;o.claims=o.claims||{};o.chatLog=o.chatLog||[];o.dirty=!!o.dirty;o.bannerOff=!!o.bannerOff;
   o.liveSyncedAt=o.liveSyncedAt??null;o.livePushedAt=o.livePushedAt??null;o.contentV=o.contentV??1;o.notices=o.notices||[];
+  o.journal=o.journal||[];o.journalSyncedAt=o.journalSyncedAt??null;
   return{ok:true,state:o};
 }
 function save(){if(!LS_OK)return;try{S.savedAt=new Date().toISOString();localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){LS_OK=false;toast('Autosave unavailable on this phone — protect changes via Sync')}}
@@ -347,13 +361,14 @@ function mergeContent(old){
  (old.packing||[]).forEach(op=>{const m2=f.packing.find(p=>p.t===op.t);if(m2)m2.done=!!op.done;else f.packing.push(op)});
  f.notices.forEach(n=>{const on=(old.notices||[]).find(x=>x.id===n.id);if(on){n.acked=!!on.acked;n.ackedAt=on.ackedAt||null}});
  (old.notices||[]).forEach(on=>{if(!f.notices.find(n=>n.id===on.id))f.notices.push(on)});
+ f.journal=old.journal||[];f.journalSyncedAt=old.journalSyncedAt??null;
  return f;
 }
 function dirty(){S.dirty=true;save();schedulePush();renderHeader();renderTabs();renderBanner()}
 
 /* ephemeral UI state — never persisted or exported */
-const UI={bookForm:null,resConf:null,noteEdit:null,justClaimed:null,bannerHide:false,live:'off',liveMsg:''};
-const KEEP_IDS=['chatIn','packNew','patchIn','syncBox','bfConf','bfTotal','rcConf','noteBox','ghTok'];
+const UI={bookForm:null,resConf:null,noteEdit:null,justClaimed:null,bannerHide:false,live:'off',liveMsg:'',jstage:[],jpriv:false};
+const KEEP_IDS=['chatIn','packNew','patchIn','syncBox','bfConf','bfTotal','rcConf','noteBox','ghTok','jText','jPriv'];
 
 /* ============ LIVE BRIDGE — app ⇄ repo (statuses only, never conf numbers or notes) ============ */
 const GH={owner:'ProfessorChickenStrips',repo:'lower48',path:'live/state.json',
@@ -486,6 +501,131 @@ function applyOverlay(live){ /* additive & conservative: local conf numbers and 
  if(Array.isArray(live.packing))live.packing.forEach((v,i)=>{if(v&&S.packing[i])S.packing[i].done=true});
  if(live.claims)Object.keys(live.claims).forEach(c=>{if(!S.claims[c]){const g=live.claims[c];S.claims[c]={at:g.at||'synced',meal:!!g.meal,photo:!!g.photo,note:''}}});
  if(live.notices)S.notices.forEach(n=>{if(live.notices[n.id]&&!n.acked){n.acked=true;n.ackedAt=n.ackedAt||new Date().toISOString()}});
+}
+
+/* ============ MEMORIAL JOURNAL — notes + photos + short videos, per day, forever ============
+   Text syncs via journal.json in the repo; media uploads to media/<date>/ via the bridge token.
+   The repo & site are PUBLIC — that is what makes the memorial shareable and everlasting.
+   Per-entry "keep on this phone" excludes an entry from every push. Media never touches localStorage. */
+const WHOKEY='lower48.author';
+function getWho(){try{return localStorage.getItem(WHOKEY)||''}catch(e){return ''}}
+function setWho(n){try{localStorage.setItem(WHOKEY,n)}catch(e){}}
+let IDB=null;
+function idb(){return IDB||(IDB=new Promise((res,rej)=>{const q=indexedDB.open('lower48',1);
+ q.onupgradeneeded=()=>q.result.createObjectStore('media');
+ q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)}))}
+async function idbPut(k,blob){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction('media','readwrite');t.objectStore('media').put(blob,k);t.oncomplete=res;t.onerror=()=>rej(t.error)})}
+async function idbGet(k){const db=await idb();return new Promise((res,rej)=>{const q=db.transaction('media').objectStore('media').get(k);q.onsuccess=()=>res(q.result||null);q.onerror=()=>rej(q.error)})}
+const URLCACHE=new Map();
+function mediaSrc(p){return URLCACHE.get(p)||`https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/main/${p}`}
+async function compressImage(file){
+ const url=URL.createObjectURL(file);
+ try{
+  const img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=url});
+  const scale=Math.min(1,1600/Math.max(img.naturalWidth,img.naturalHeight));
+  const w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
+  const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);
+  const blob=await new Promise(res=>c.toBlob(res,'image/jpeg',0.82));
+  return blob&&blob.size<file.size?blob:file;
+ }catch(e){return file}finally{URL.revokeObjectURL(url)}
+}
+async function stageMedia(day,files,kind){
+ const staged=UI.jstage||(UI.jstage=[]);
+ for(const f of files){
+  if(staged.length>=6){toast('Six per memory is the cap — save this one and start another');break}
+  let blob=f,ext;
+  if(kind==='img'){blob=await compressImage(f);ext='jpg';
+   if(blob.size>10*1024*1024){toast('That image wouldn’t compress under 10 MB — skipped');continue}}
+  else{if(f.size>25*1024*1024){toast('Keep videos short — under 25 MB (~20–30s). This one was skipped');continue}
+   ext=(f.type||'').includes('quicktime')?'mov':(f.type||'').includes('webm')?'webm':'mp4'}
+  const p=`media/${day}/${Date.now()}-${(getWho()||'x').toLowerCase()}-${staged.length}.${ext}`;
+  await idbPut(p,blob);URLCACHE.set(p,URL.createObjectURL(blob));
+  staged.push({path:p,type:kind==='img'?'img':'vid'});
+ }
+ render();
+}
+function saveJEntry(day){
+ const t=$('jText');const text=(t&&t.value||'').trim();const staged=UI.jstage||[];
+ if(!getWho())return toast('Tap who’s writing first — Clark or Maggie');
+ if(!text&&!staged.length)return toast('Write a line or add a photo first');
+ const priv=!!UI.jpriv;
+ const now=Date.now();
+ S.journal.push({id:'j'+now+Math.random().toString(36).slice(2,6),d:day,who:getWho(),text,at:new Date().toISOString(),ts:now,priv,
+  media:staged.map(m=>({path:m.path,type:m.type,up:false}))});
+ UI.jstage=[];UI.jpriv=false;if(t)t.value='';
+ save();render();
+ toast(priv?'Saved — this phone only 🔒':'Saved 💛 — publishing to the memorial…');
+ queueMediaUploads();schedJPush();
+}
+function delJEntry(id){const e=S.journal.find(x=>x.id===id);if(!e)return;
+ if(!confirm('Remove this memory? (Anything already shared lives on in the repo’s history.)'))return;
+ e.del=true;e.ts=Date.now();e.text='';e.media=[];save();render();schedJPush()}
+let MUP=false;
+async function queueMediaUploads(){
+ if(MUP)return;const tok=getToken();if(!tok)return;MUP=true;
+ try{
+  for(const e of S.journal){if(e.del)continue;
+   for(const m of (e.media||[])){if(m.up)continue;
+    const blob=await idbGet(m.path);if(!blob)continue;
+    const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(blob)});
+    const put=await fetch(GH.api(m.path),{method:'PUT',headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+     body:JSON.stringify({message:'Memory media '+m.path,content:b64,branch:'main'})});
+    if(put.status===422){m.up=true} /* already exists (retry after partial success) */
+    else if(put.status<200||put.status>299)throw new Error('media write '+put.status);
+    else m.up=true;
+    save();
+   }}
+  schedJPush();
+ }catch(e){toast('A photo/video upload didn’t finish — it will retry when you’re back on signal');}
+ MUP=false;if(TAB==='trip'||TAB==='sync')render();
+}
+function pendingMediaCount(){let n=0;S.journal.forEach(e=>{if(!e.del)(e.media||[]).forEach(m=>{if(!m.up)n++})});return n}
+function journalPayload(){
+ return {v:1,updatedAt:new Date().toISOString(),
+  entries:S.journal.filter(e=>!e.priv).map(e=>({id:e.id,d:e.d,who:e.who,text:e.text,at:e.at,ts:e.ts,del:!!e.del,
+   media:(e.media||[]).filter(m=>m.up).map(m=>({path:m.path,type:m.type,up:true}))}))};
+}
+function mergeJournal(entries){
+ (entries||[]).forEach(re=>{if(!re||!re.id)return;
+  const le=S.journal.find(e=>e.id===re.id);
+  if(!le)S.journal.push(re);
+  else if(!le.priv&&(re.ts||0)>(le.ts||0))Object.assign(le,re)});
+}
+let JPUSH_TIMER=null,JPUSHING=false;
+function schedJPush(){if(!getToken())return;clearTimeout(JPUSH_TIMER);JPUSH_TIMER=setTimeout(pushJournal,4000)}
+async function pushJournal(){
+ const tok=getToken();if(!tok||JPUSHING)return;JPUSHING=true;
+ try{
+  let sha=null;
+  const head=await fetch(GH.api('journal.json'),{headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'}});
+  if(head.status===200){const j=await head.json();sha=j.sha;
+   try{const remote=JSON.parse(decodeURIComponent(escape(atob((j.content||'').replace(/\n/g,'')))));mergeJournal(remote.entries)}catch(_){}}
+  else if(head.status!==404){throw new Error('read '+head.status)}
+  const payload=journalPayload();
+  const body={message:'Memories '+payload.updatedAt,content:btoa(unescape(encodeURIComponent(JSON.stringify(payload,null,1)))),branch:'main'};
+  if(sha)body.sha=sha;
+  const put=await fetch(GH.api('journal.json'),{method:'PUT',headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(put.status===409){JPUSHING=false;return pushJournal()}
+  if(put.status<200||put.status>299)throw new Error('write '+put.status);
+  S.journalSyncedAt=payload.updatedAt;save();
+ }catch(e){toast('Memory sync didn’t reach the repo — will retry on your next save or signal')}
+ JPUSHING=false;
+}
+async function pullJournal(manual){
+ try{
+  const headers={'Accept':'application/vnd.github.raw+json'};const tok=getToken();if(tok)headers['Authorization']='Bearer '+tok;
+  const r=await fetch(GH.api('journal.json')+'?t='+Date.now(),{headers});
+  if(r.status===404)return;if(!r.ok)throw new Error('read '+r.status);
+  const j=await r.json();if(!j||!j.updatedAt)return;
+  if(S.journalSyncedAt&&j.updatedAt<=S.journalSyncedAt){if(manual)toast('Memories already up to date ✓');return}
+  mergeJournal(j.entries);S.journalSyncedAt=j.updatedAt;save();render();
+ }catch(e){if(manual)toast('Couldn’t check memories: '+String(e.message||e))}
+}
+async function requeueMedia(){ /* after reload: restore previews + resume unfinished uploads */
+ for(const e of S.journal){if(e.del)continue;
+  for(const m of (e.media||[])){if(m.up||URLCACHE.has(m.path))continue;
+   try{const b=await idbGet(m.path);if(b)URLCACHE.set(m.path,URL.createObjectURL(b))}catch(_){}}}
+ if(pendingMediaCount())queueMediaUploads();
 }
 
 /* ============ DERIVED ============ */
@@ -693,10 +833,50 @@ function viewTrip(){
   <div class="card"><h3>Today</h3>${d.todo.map(x=>`<div class="task" style="cursor:default"><div class="t">▸ ${esc(x)}</div></div>`).join('')}
    <div class="divider"></div><div class="small">🍽 ${eatFor(d)}</div></div>
   ${resHtml}
+  ${journalCard(d)}
   ${tomorrow?`<div class="card"><div class="k">Tomorrow</div><b>${esc(tomorrow.title)}</b><div class="small">${esc(tomorrow.depart)}</div></div>`:''}
   <div class="card emcard"><h3>In a pinch</h3><div class="small">
    <b>Flights out:</b> ${esc(S.meta.flightsOut)}<br><b>Flights home:</b> ${esc(S.meta.flightsBack)}<br>
    <b>Car:</b> ${esc(S.meta.rental)}<br><b>Thorn Hill:</b> 603-383-4242 · <b>Ferry:</b> cmlf.com · 800-643-3779</div></div>`;
+}
+function journalCard(d){
+ const entries=S.journal.filter(e=>e.d===d.d&&!e.del).sort((a,b)=>(a.at||'')<(b.at||'')?-1:1);
+ const rows=entries.map(e=>{
+  const media=(e.media||[]).map(m=>{
+   const pend=!m.up?'<div class="jpend">⌛ still uploading from the phone that took it</div>':'';
+   const one=(e.media.length===1)?' class="one"':'';
+   return m.type==='vid'
+    ?`<div${one}><video controls playsinline preload="metadata" src="${esc(mediaSrc(m.path))}"></video>${pend}</div>`
+    :`<div${one}><img loading="lazy" alt="Trip memory" src="${esc(mediaSrc(m.path))}">${pend}</div>`}).join('');
+  const mine=e.who===getWho();
+  const when=e.at?new Date(e.at).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'';
+  return `<div class="jentry">
+   <div class="jhead"><span class="jwho ${e.who==='Maggie'?'m':''}">${esc(e.who||'?')}</span><span class="small">${esc(when)}</span>
+    ${e.priv?'<span class="tag med">🔒 this phone only</span>':''}
+    ${mine?`<button class="btn sm ghost" style="margin-left:auto;min-height:30px;padding:2px 9px" data-act="j-del" data-id="${esc(e.id)}">remove</button>`:''}</div>
+   ${e.text?`<div class="jtext">${esc(e.text).replace(/\n/g,'<br>')}</div>`:''}
+   ${media?`<div class="jmedia">${media}</div>`:''}
+  </div>`}).join('');
+ const stage=(UI.jstage||[]).map(m=>m.type==='vid'
+  ?`<div class="vthumb">🎬</div>`
+  :`<img src="${esc(mediaSrc(m.path))}" alt="staged">`).join('');
+ const who=getWho();
+ const whoPick=who?'':`<div class="small" style="margin:4px 0"><b>Who’s writing on this phone?</b></div>
+  <div class="btnrow"><button class="btn sm gold" data-act="jwho" data-n="Clark">I’m Clark</button><button class="btn sm gold" data-act="jwho" data-n="Maggie">I’m Maggie</button></div>`;
+ return `<div class="card"><h3>📖 The story of this day</h3>
+  ${rows||'<div class="small">Nothing written yet. First memory starts the page.</div>'}
+  <div class="divider"></div>
+  ${whoPick}
+  <textarea id="jText" placeholder="What happened? A quote, a thought, the thing you’ll want to remember…"></textarea>
+  <div class="jstage">${stage}</div>
+  <div class="btnrow">
+   <label class="filebtn"><span class="btn sm subtle">📷 Photos</span><input type="file" accept="image/*" multiple data-jf="img" data-d="${esc(d.d)}"></label>
+   <label class="filebtn"><span class="btn sm subtle">🎬 Video</span><input type="file" accept="video/*" data-jf="vid" data-d="${esc(d.d)}"></label>
+  </div>
+  <label class="task" style="padding:4px 2px"><input type="checkbox" id="jPriv" ${UI.jpriv?'checked':''}><div class="t small">🔒 Keep on this phone (don’t publish to the memorial site)</div></label>
+  <div class="btnrow"><button class="btn gold" style="width:100%" data-act="j-save" data-d="${esc(d.d)}">Save this memory</button></div>
+  <div class="small" style="margin-top:4px">Shared memories publish to your public trip site — that’s the memorial. Photos compress on the phone; keep videos ~20–30s.${pendingMediaCount()?` <b class="jpend">⌛ ${pendingMediaCount()} upload${pendingMediaCount()>1?'s':''} pending</b>`:''}</div>
+ </div>`;
 }
 function medalBlock(){const n=claimedCount();
  return n>=10?`<div class="medal"><div class="ring"><div class="n">48</div><div style="color:#C7D3E0;font-size:12px">of 50</div></div>
@@ -807,7 +987,8 @@ function viewSync(){
   :'<span class="tag med">bridge off — changes stay on this phone</span>';
  const bridge=`<div class="card"><h2>Live bridge</h2>
   <div>${liveStatus}</div>
-  <div class="small" style="margin-top:6px">The bridge writes a <b>statuses-only</b> file to your GitHub repo after each change (never confirmation numbers, costs, or journal notes — the repo is public). The 6 AM email reads it, and your partner’s phone pulls it automatically — no token needed just to receive.</div>
+  <div class="small" style="margin-top:6px">The bridge writes a <b>statuses-only</b> file to your GitHub repo after each change (never confirmation numbers, costs, or private notes — the repo is public). Shared memories + their photos/videos publish to the same repo — that’s the memorial. The 6 AM email reads it all, and your partner’s phone pulls automatically — no token needed just to receive.</div>
+  ${pendingMediaCount()?`<div class="small" style="margin-top:6px"><b class="jpend">⌛ ${pendingMediaCount()} photo/video upload${pendingMediaCount()>1?'s':''} pending</b></div><div class="btnrow"><button class="btn sm subtle" data-act="j-retry">Retry uploads now</button></div>`:''}
   ${tok?`<div class="btnrow"><button class="btn subtle" data-act="bridge-pull">Pull now</button><button class="btn danger" data-act="bridge-off">Disconnect bridge</button></div>`
    :`<input type="text" id="ghTok" autocomplete="off" placeholder="Paste fine-grained GitHub token (github_pat_…)">
     <div class="btnrow"><button class="btn gold" data-act="bridge-connect">Connect bridge</button><button class="btn subtle" data-act="bridge-pull">Pull only (no token)</button></div>
@@ -866,7 +1047,7 @@ document.addEventListener('click',e=>{
   case 'res-conf-open':UI.resConf=a.id;render();{const f=$('rcConf');if(f)f.focus()}break;
   case 'res-conf-save':{const r=S.res.find(x=>x.id===a.id);if(r){r.conf=($('rcConf')&&$('rcConf').value||'').trim();UI.resConf=null;dirty();render()}break}
   case 'pack-add':{const el2=$('packNew');const v=(el2&&el2.value||'').trim();if(!v)return;S.packing.push({t:v,done:false});if(el2)el2.value='';dirty();render();break}
-  case 'chip':DAYSEL=+a.i;render();break;
+  case 'chip':{DAYSEL=+a.i;UI.jstage=[];UI.jpriv=false;const jt=$('jText');if(jt)jt.value='';render();break}
   case 'claim':claimIt(a.code,a.label,a.bonus==='1');break;
   case 'unclaim':unclaim(a.code);break;
   case 'ev':{const g=S.claims[a.code];if(g){g[a.k]=!g[a.k];dirty();render()}break}
@@ -879,11 +1060,16 @@ document.addEventListener('click',e=>{
     :'What should we be doing right now, and what’s coming next?';t.focus();break}
   case 'patch-apply':applyPatchUI();break;
   case 'notice-ack':ackNotice(a.id);break;
+  case 'j-save':saveJEntry(a.d);break;
+  case 'j-del':delJEntry(a.id);break;
+  case 'jwho':setWho(a.n);render();toast('Got it — entries from this phone sign as '+a.n);break;
+  case 'j-retry':queueMediaUploads();schedJPush();toast('Retrying uploads…');break;
   case 'bridge-connect':{const el2=$('ghTok');const t=(el2&&el2.value||'').trim();
    if(!/^gh[pou]_|^github_pat_/.test(t)){toast('That doesn’t look like a GitHub token');break}
-   setToken(t);UI.live='ok';toast('Bridge connected — pushing current state…');render();pushLive();break}
+   setToken(t);UI.live='ok';toast('Bridge connected — pushing current state…');render();pushLive();
+   if(S.journal.some(e=>!e.priv))schedJPush();if(pendingMediaCount())queueMediaUploads();break}
   case 'bridge-off':if(confirm('Disconnect the live bridge on this phone? (The token is removed from this device.)')){setToken('');UI.live='off';render()}break;
-  case 'bridge-pull':pullLive(true);pullContent(true);break;
+  case 'bridge-pull':pullLive(true);pullContent(true);pullJournal(true);break;
   case 'sync-copy':exportState();break;
   case 'sync-share':shareState();break;
   case 'sync-download':downloadState();break;
@@ -891,6 +1077,9 @@ document.addEventListener('click',e=>{
  }
 });
 document.addEventListener('change',e=>{
+ if(e.target.id==='jPriv'){UI.jpriv=e.target.checked;return}
+ const jf=e.target.closest('[data-jf]');
+ if(jf){const files=[...(jf.files||[])];if(files.length)stageMedia(jf.dataset.d,files,jf.dataset.jf);return}
  const el=e.target.closest('[data-chk]');if(!el)return;const a=el.dataset;
  if(a.chk==='task'){const t=S.tasks.find(x=>x.id===a.id);if(t){t.done=el.checked;dirty();render()}}
  else if(a.chk==='pack'){const p=S.packing[+a.i];if(p){p.done=el.checked;dirty();render()}}
@@ -904,8 +1093,10 @@ hydrate();
 render();
 pullLive(false); /* partner phones receive automatically; no token required for reads */
 pullContent(false); /* itinerary prose updates arrive the same way */
+pullJournal(false); /* memories flow both ways too */
+requeueMedia(); /* resume any photo/video uploads cut off mid-flight */
 if(S.dirty&&getToken())schedulePush(); /* heal any push interrupted by an app close */
-window.addEventListener('online',()=>{if(S.dirty&&getToken())pushLive()});
+window.addEventListener('online',()=>{if(getToken()){if(S.dirty)pushLive();if(pendingMediaCount())queueMediaUploads()}});
 </script>
 </body>
 </html>
