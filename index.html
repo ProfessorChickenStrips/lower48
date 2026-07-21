@@ -521,6 +521,18 @@ function unbookStop(id){const s=findStop(id);if(!s||!s.booked)return;if(!confirm
 
 /* ============ TRIP VIEW ============ */
 let DAYSEL=null;
+function hotelFor(d){ /* day pages read live booking state, not frozen labels */
+ const s=S.stops.find(x=>x.dates.includes(d.d));
+ if(s)return s.booked?`${s.booked.name} ✓${s.booked.conf?' · conf '+s.booked.conf:''}`
+   :d.hotel.replace(' (book!)','')+' — not booked yet → Plan tab';
+ const hb=S.hotelsBooked.find(h=>h.dates.includes(d.d));
+ return hb?hb.name+' ✓':d.hotel;
+}
+const DAYRES={'2026-08-20':'bowens','2026-08-23':'harrisons','2026-08-25':'thornhilldin','2026-08-26':'scales','2026-08-27':'forestreet'};
+function eatFor(d){const id=DAYRES[d.d];const r=id?S.res.find(x=>x.id===id):null;
+ let t=esc(d.eat.replace(' (booked?)',''));
+ if(r)t+=r.status==='booked'?' <span class="tag ver">✓ reserved</span>':' <span class="tag med">not reserved yet</span>';
+ return t}
 function viewTrip(){
  const idx=DAYSEL!==null?DAYSEL:Math.max(0,tripDayIndex()===-1?(phase()==='after'?13:0):tripDayIndex());
  const chips=S.days.map((dd,i)=>{const done=dd.claims.length&&dd.claims.every(c=>c.bonus||S.claims[c.code]);
@@ -552,14 +564,14 @@ function viewTrip(){
   <div class="chips" role="tablist" aria-label="Trip days">${chips}</div>
   <div class="card"><div class="k">${esc(d.dow)}, Aug ${+d.d.slice(8)} · Day ${idx+1} of 14</div>
    <div class="hero">${esc(d.title)}</div>
-   <div class="small" style="margin-top:4px">🏨 ${esc(d.hotel)}</div></div>
+   <div class="small" style="margin-top:4px">🏨 ${esc(hotelFor(d))}</div></div>
   ${medal}${claims}
   <div class="card"><h3>🚗 The drive</h3>
    <div><b>Depart:</b> ${esc(d.depart)}</div><div class="small" style="margin-top:3px">${esc(d.drive)}</div>
    ${d.note?`<div class="small" style="margin-top:6px">📌 ${esc(d.note)}</div>`:''}</div>
   ${d.prep?`<div class="prep"><b>⏰ Tonight’s prep:</b> ${esc(d.prep)}</div>`:''}
   <div class="card"><h3>Today</h3>${d.todo.map(x=>`<div class="task" style="cursor:default"><div class="t">▸ ${esc(x)}</div></div>`).join('')}
-   <div class="divider"></div><div class="small">🍽 ${esc(d.eat)}</div></div>
+   <div class="divider"></div><div class="small">🍽 ${eatFor(d)}</div></div>
   ${resHtml}
   ${tomorrow?`<div class="card"><div class="k">Tomorrow</div><b>${esc(tomorrow.title)}</b><div class="small">${esc(tomorrow.depart)}</div></div>`:''}
   <div class="card emcard"><h3>In a pinch</h3><div class="small">
