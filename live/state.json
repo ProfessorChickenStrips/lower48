@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-07-21T01:23:37.797Z",
+ "updatedAt": "2026-07-21T02:10:07.569Z",
  "stops": {
   "cape": null,
   "stowe": null,
@@ -10,7 +10,7 @@
  "res": {
   "ferry": "todo",
   "monticello": "todo",
-  "biltmore": "todo",
+  "biltmore": "booked",
   "curate": "todo",
   "forestreet": "todo",
   "thornhilldin": "todo",
