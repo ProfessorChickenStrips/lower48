@@ -126,6 +126,14 @@ textarea{min-height:74px;resize:vertical}
 .hero{font-family:Georgia;font-size:30px;color:var(--navy);line-height:1.1}
 .emcard{border-left:4px solid var(--bad)}
 .prep{border:1.5px solid var(--warn);background:#FFF9EC;border-radius:12px;padding:10px 12px;margin:10px 0;font-size:14px}
+.notice{background:linear-gradient(135deg,#FFF6E3 0%,#FFE9EF 100%);border:2px solid var(--goldBright);text-align:center;overflow:hidden}
+.notice .nheart{font-size:52px;line-height:1;margin:2px 0 6px;display:inline-block;animation:heartbeat 1.6s ease-in-out infinite}
+.notice h2{font-family:Georgia;color:var(--navy);font-size:24px;margin:2px 0 8px}
+.notice .ntext{font-family:Georgia;font-size:18px;line-height:1.5;color:var(--ink);margin:0 auto 12px;max-width:32ch}
+.notice .btn.love{background:linear-gradient(135deg,var(--goldBright),#B3261E);color:#fff;font-size:16px;width:100%;min-height:52px;border:none}
+.notice.acked{background:var(--sand);border:1.5px solid var(--goldBright);text-align:left;font-size:14px;padding:10px 14px}
+@keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.18)}24%{transform:scale(1)}36%{transform:scale(1.12)}}
+@media (prefers-reduced-motion: reduce){.notice .nheart{animation:none}}
 .footer-note{text-align:center;color:var(--muted);font-size:12px;margin:18px 0 8px}
 @media (prefers-reduced-motion: reduce){
   .stamp.pop{animation:none}
@@ -155,7 +163,11 @@ textarea{min-height:74px;resize:vertical}
 <script>
 /* ============ SEED DATA (trip content — do not edit casually) ============ */
 const SEED = {
- v: 4, contentV: 3, dirty: false, savedAt: null, liveSyncedAt: null, livePushedAt: null,
+ v: 4, contentV: 6, dirty: false, savedAt: null, liveSyncedAt: null, livePushedAt: null,
+ notices: [
+  {id:'maggie-love-1', tab:'plan', title:'Maggie — this one’s for you',
+   text:'You are beautiful. And the human who created this app loves you — more than all forty-eight states put together.',
+   cta:'Tap here to accept his love', acked:false, ackedAt:null} ],
  meta: { start:'2026-08-15', end:'2026-08-28', base:38, goal:48,
   flightsOut:'AA 2599 BUR 7:00a → DFW 12:22p · AA 569 DFW 1:29p → AVL 4:44p',
   flightsBack:'DL 1515 PWM 6:05a → ATL 8:50a · DL 483 ATL 11:25a → BUR 1:01p',
@@ -167,15 +179,15 @@ const SEED = {
   {dates:['2026-08-19'], name:'Marquis de Lafayette', town:'Cape May, NJ'},
   {dates:['2026-08-20'], name:'The Wayfinder', town:'Newport, RI'} ],
  stops: [
-  {id:'cape', name:'Outer Cape (Eastham/Orleans)', nights:'Fri Aug 21 → Sun Aug 23 · 2 nights', dates:['2026-08-21','2026-08-22'], booked:null, urgency:'Book this week — cards showed “1–2 left” on Jul 19', options:[
-    {name:'Whalewalk Inn & Spa', url:'https://whalewalkinn.com', ver:'ver', basis:'Kings $290–365/nt pre-tax (2026 chart) ≈ $660–830 all-in for 2n; Expedia rendered the dates ($638 lead-in, “1 left”); 10/10', caveat:'Quiet-romance spa inn — you drive 5–10 min to dinner/beaches', status:'live'},
-    {name:'The Orleans Inn', url:'https://www.orleansinn.com', ver:'ver', basis:'Honeymoon King Waterfront Suite $400/nt seen live in engine (~$915 all-in 2n)', caveat:'Wedding venue + bar on site — call about Sat events; stairs, no elevator', status:'live'},
-    {name:'Queen Anne Inn (Chatham)', url:'https://www.queenanneinn.com', ver:'ver', basis:'$436/nt · $998 total verified (“1 left”)', caveat:'Recurring maintenance/musty reviews — book flexible, inspect room', status:'live'}],
+  {id:'cape', name:'Outer Cape / Chatham', nights:'Fri Aug 21 → Sun Aug 23 · 2 nights', dates:['2026-08-21','2026-08-22'], booked:null, urgency:'Clark’s pick: Queen Anne Inn — showed “1 left” Jul 19; book ASAP', options:[
+    {name:'Queen Anne Inn (Chatham)', url:'https://www.queenanneinn.com', ver:'ver', basis:'⭐ OUR PICK — $436/nt · $998 total verified (“1 left” Jul 19); Chatham base flips the Cape days (lighthouse/seals at the doorstep)', caveat:'Recurring maintenance/musty reviews — book flexible, inspect the room on arrival', status:'live'},
+    {name:'Whalewalk Inn & Spa', url:'https://whalewalkinn.com', ver:'ver', basis:'Backup · Kings $290–365/nt pre-tax (2026 chart) ≈ $660–830 all-in for 2n; Expedia rendered the dates ($638 lead-in, “1 left”); 10/10', caveat:'Quiet-romance spa inn — you drive 5–10 min to dinner/beaches', status:'live'},
+    {name:'The Orleans Inn', url:'https://www.orleansinn.com', ver:'ver', basis:'Backup · Honeymoon King Waterfront Suite $400/nt seen live in engine (~$915 all-in 2n)', caveat:'Wedding venue + bar on site — call about Sat events; stairs, no elevator', status:'live'}],
    pool:[{name:'Four Points Eastham', note:'Chain fallback — reliable, zero romance', url:'https://www.marriott.com'},
          {name:'Winstead Inn, Harwich Port', note:'Lovely but 3-night minimum blocks these dates', url:'https://www.winsteadinn.com'}]},
-  {id:'stowe', name:'Stowe, Vermont', nights:'Sun Aug 23 → Tue Aug 25 · 2 nights', dates:['2026-08-23','2026-08-24'], booked:null, urgency:'Low risk (101 rooms, midweek) — book within 2 weeks', options:[
-    {name:'Green Mountain Inn', url:'https://www.greenmountaininn.com', ver:'ver', basis:'Deluxe King $269 / Luxury King $329 ⇒ ≈$312–382/nt all-in; live render confirmed inventory (refundable, 72h cancel)', caveat:'Village Main St — whole town on foot; classic-inn (not designer) style', status:'live'},
-    {name:'Tälta Lodge', mich:'Michelin-listed', url:'https://www.larkhotels.com/vermont/stowe/talta-lodge', ver:'ver', basis:'$117/nt · $292 total verified — cheapest Michelin king of the route', caveat:'2.8 mi from village; upgraded-motel bones; some noise notes', status:'live'},
+  {id:'stowe', name:'Stowe, Vermont', nights:'Sun Aug 23 → Tue Aug 25 · 2 nights', dates:['2026-08-23','2026-08-24'], booked:null, urgency:'Clark’s pick: Tälta Lodge — verified cheap, low risk; book within 2 weeks', options:[
+    {name:'Tälta Lodge', mich:'Michelin-listed', url:'https://www.larkhotels.com/vermont/stowe/talta-lodge', ver:'ver', basis:'⭐ OUR PICK — $117/nt · $292 total verified — cheapest Michelin king of the route', caveat:'2.8 mi from village; upgraded-motel bones; some noise notes', status:'live'},
+    {name:'Green Mountain Inn', url:'https://www.greenmountaininn.com', ver:'ver', basis:'Backup · Deluxe King $269 / Luxury King $329 ⇒ ≈$312–382/nt all-in; live render confirmed inventory (refundable, 72h cancel)', caveat:'Village Main St — whole town on foot; classic-inn (not designer) style', status:'live'},
     {name:'The Lodge at Spruce Peak', mich:'Michelin-listed', url:'https://www.sprucepeak.com', ver:'med', basis:'Lead-in $299/nt · $790 total verified refundable ≈$395/nt', caveat:'$50+tax resort fee inclusion unconfirmed; kings likely higher category; valet $35', status:'live'}],
    pool:[{name:'Edson Hill', note:'THE romance pick (9.5/10, hilltop) — unverified $367–451; call 802-508-6106', url:'https://www.edsonhill.com'},
          {name:'Stone Hill Inn', note:'Adults-only 10/10 — $1,078/2n ≈ just over cap', url:'https://www.stonehillinn.com'},
@@ -187,16 +199,16 @@ const SEED = {
     {name:'The Wentworth', url:'https://www.thewentworth.com', ver:'unver', basis:'“From $193” indicative — Cottage King (four-poster, fireplace, whirlpool)', caveat:'Price unverified; best village-center walkability in Jackson', status:'live'}],
    pool:[{name:'The Lodge at Jackson Village', note:'$129 refundable, 9.0/10 — clean budget fallback', url:'https://www.lodgeatjacksonvillage.com'},
          {name:'Omni Mount Washington', note:'The grand hotel — ≈$610+ all-in, over cap', url:'https://www.omnihotels.com'}]},
-  {id:'portland', name:'Portland, Maine', nights:'Wed Aug 26 → Fri Aug 28 · 2 nights', dates:['2026-08-26','2026-08-27'], booked:null, urgency:'Was actively discounting ($916→$862) — lock refundable now, rebook if it drops', options:[
-    {name:'Portland Regency Hotel & Spa', url:'https://www.theregency.com', ver:'ver', basis:'$390/nt · $862 total verified, refundable · valet $40 ⇒ ≈$471/nt all-in', caveat:'Old Port center; pick the renovated Superior King (some rooms have small windows). Tell valet: car at 4:15 AM on the 28th', status:'live'},
-    {name:'The Francis', url:'https://thefrancismaine.com', ver:'ver', basis:'$354/nt · $831 total verified · FREE parking ⇒ ≈$416/nt all-in', caveat:'1881 West End mansion — 20–25 min walk to Old Port; request a king explicitly', status:'live'},
-    {name:'The Press Hotel', mich:'Michelin-listed', url:'https://www.thepresshotel.com', ver:'unver', basis:'Rate unverified (engine blocked) — likely $400s + $50 valet ≈ at cap', caveat:'Perfect Exchange St block; 9.4/10; check marriott.com', status:'live'}],
+  {id:'portland', name:'Portland, Maine', nights:'Wed Aug 26 → Fri Aug 28 · 2 nights', dates:['2026-08-26','2026-08-27'], booked:null, urgency:'Clark’s pick: The Press Hotel — VERIFY the rate at marriott.com before booking (cap: $500/nt)', options:[
+    {name:'The Press Hotel', mich:'Michelin-listed', url:'https://www.thepresshotel.com', ver:'unver', basis:'⭐ OUR PICK — rate unverified (engine blocked) — likely $400s + $50 valet ≈ at cap; check marriott.com and hold refundable', caveat:'Perfect Exchange St block; 9.4/10; on the 28th you leave at 4:15 AM — tell valet at check-in', status:'live'},
+    {name:'Portland Regency Hotel & Spa', url:'https://www.theregency.com', ver:'ver', basis:'Backup · $390/nt · $862 total verified, refundable · valet $40 ⇒ ≈$471/nt all-in', caveat:'Old Port center; pick the renovated Superior King (some rooms have small windows). Tell valet: car at 4:15 AM on the 28th', status:'live'},
+    {name:'The Francis', url:'https://thefrancismaine.com', ver:'ver', basis:'Backup · $354/nt · $831 total verified · FREE parking ⇒ ≈$416/nt all-in', caveat:'1881 West End mansion — 20–25 min walk to Old Port; request a king explicitly', status:'live'}],
    pool:[{name:'Portland Harbor Hotel', note:'Michelin-listed ≈$584 all-in (over cap); ask for courtyard room', url:'https://www.portlandharborhotel.com'},
          {name:'Canopy Portland Waterfront', note:'≈$561 all-in over cap; new-build', url:'https://www.hilton.com'},
          {name:'Blind Tiger – Danforth St', note:'1 MICHELIN KEY · ≈$691 all-in — the splurge card (bookends your Asheville Blind Tiger)', url:'https://www.larkhotels.com/maine/portland/blind-tiger-portland-danforth-street'},
          {name:'The Longfellow', note:'Michelin-listed ≈$686 all-in over cap', url:'https://www.longfellowhotel.com'}]}],
  res: [
-  {id:'ferry', what:'Cape May–Lewes Ferry — VEHICLE reservation', when:'Wed Aug 19 · target 4–5 PM sailing', cost:'$64 car + 2 (weekday)', url:'https://www.cmlf.com', p:1, status:'todo', conf:''},
+  {id:'ferry', what:'Cape May–Lewes Ferry — VEHICLE reservation', when:'Wed Aug 19 · 4:15 PM sailing ✓ · at terminal 3:15 · hard cutoff 3:45', cost:'$64 · paid in full', url:'https://www.cmlf.com', p:1, status:'todo', conf:''},
   {id:'monticello', what:'Monticello — first Highlights tour', when:'Tue Aug 18 · earliest slot', cost:'$42/adult', url:'https://www.monticello.org', p:1, status:'todo', conf:''},
   {id:'biltmore', what:'Biltmore — timed house entry', when:'Sun Aug 16 · 10:45 AM house entry', cost:'from $80 (−$10 online)', url:'https://www.biltmore.com', p:1, status:'todo', conf:''},
   {id:'curate', what:'Cúrate dinner, Asheville', when:'Aug 15 ~8 PM (or Aug 16)', cost:'', url:'https://curatetapasbar.com', p:2, status:'todo', conf:''},
@@ -240,9 +252,10 @@ const SEED = {
    todo:['Monticello Highlights ($42) — done by 11:30','City Dock + Ego Alley stroll','Crab dinner: Boatyard Bar & Grill, Eastport'],
    eat:'Boatyard crab feast (the Maryland ritual begins)', claims:[{code:'VA', label:'Virginia', text:'Monticello + UVA Lawn & Rotunda — the Jefferson UNESCO pair', rain:'Both largely indoor'}]},
   {d:'2026-08-19', dow:'Wed', title:'Naval Academy → Lewes → the ferry → Cape May', hotel:'Marquis de Lafayette',
-   depart:'USNA at opening · drive out ~11:30 AM', drive:'~120 mi · ~2h15 over the Bay Bridge · ferry 85 min',
-   todo:['Naval Academy via Gate 1 (photo ID!)','Lewes: lunch + Second St in the “first town in the first state”','Ferry ~4–5 PM — watch for dolphins','Cape May sunset promenade'],
+   depart:'USNA at opening · drive out ~11:30 AM', drive:'~120 mi · ~2h15 over the Bay Bridge · ferry 4:15→~5:40 PM (85 min)',
+   todo:['Naval Academy via Gate 1 (photo ID!)','Lewes: lunch + Second St in the “first town in the first state”','Ferry: at the Lewes terminal by 3:15 — check-in closes 3:45, sails 4:15 — watch for dolphins','Cape May sunset promenade'],
    eat:'Lewes lunch · Washington St Mall dinner',
+   note:'Ferry is time-fixed now: miss the 3:45 check-in cutoff and the crossing is forfeit (+$26 no-show fee). Leave USNA by ~11:30 and a Lewes lunch still leaves an hour of slack. Same photo IDs work all day — Gate 1 and ferry check-in.',
    claims:[{code:'MD', label:'Maryland', text:'Eastport crab feast + the Naval Academy', rain:'Academy museum + visitor center'},
            {code:'DE', label:'Delaware', text:'Historic Lewes, then boarding the ferry from Delaware sand', rain:'Rain-proof as designed'}]},
   {d:'2026-08-20', dow:'Thu', title:'Cape May → Mystic → Newport', hotel:'The Wayfinder',
@@ -251,20 +264,20 @@ const SEED = {
    eat:'Bowen’s Wharf dinner (booked?)',
    claims:[{code:'NJ', label:'New Jersey', text:'Arrival by sea + Victorian Cape May', rain:'Congress Hall + the covered mall'},
            {code:'CT', label:'Connecticut', text:'Mystic’s drawbridge village (or Pepe’s apizza)', rain:'Pepe’s — indoor by design'}]},
-  {d:'2026-08-21', dow:'Fri', title:'Cliff Walk → over the bridge → the Outer Cape', hotel:'Cape stay (book!)',
+  {d:'2026-08-21', dow:'Fri', title:'Cliff Walk → over the bridge → the Outer Cape', hotel:'Cape pick: Queen Anne Inn (book!)',
    depart:'Walk 7:45 · drive 9:15–9:30 AM', drive:'~95 mi · 2h45–3h45 — Bourne Bridge before noon',
    todo:['Cliff Walk, Forty Steps stretch (free)','Nauset Light + Coast Guard Beach after 3:30 ($25 lots, cards only)','Rock Harbor sunset'],
    eat:'Mahoney’s or The Knack, Orleans', claims:[{code:'RI', label:'Rhode Island', text:'Bowen’s Wharf evening + a morning mile of the Cliff Walk', rain:'Mansion interiors (The Breakers)'}]},
-  {d:'2026-08-22', dow:'Sat', title:'Chatham → Seashore → Provincetown', hotel:'Cape stay',
+  {d:'2026-08-22', dow:'Sat', title:'Chatham → Seashore → Provincetown', hotel:'Cape stay — Queen Anne Inn',
    depart:'Chatham by 9 AM', drive:'Segments only · Chatham 25 min · P-town 1h15–1h45',
    todo:['Chatham lighthouse + fish-pier seals','Wellfleet oysters at Mac’s on the Pier','Race Point sunset → Commercial St'],
    eat:'Oysters midday · P-town dinner (reserve)', note:'Carnival tail-week — festive and crowded; invert the day if you want calm.',
    claims:[{code:'MA', label:'Massachusetts', bonus:true, text:'BONUS (already visited): National Seashore + P-town', rain:'PAAM · shark center · Truro Vineyards'}]},
-  {d:'2026-08-23', dow:'Sun', title:'Cape Cod → Stowe, Vermont', hotel:'Stowe stay (book!)',
+  {d:'2026-08-23', dow:'Sun', title:'Cape Cod → Stowe, Vermont', hotel:'Stowe pick: Tälta Lodge (book!)',
    depart:'8:30–9:00 AM — canal by 10', drive:'~280 mi · 6–7h door-to-door · lunch Concord NH',
    todo:['Cold Hollow Cider Mill on the approach','Stowe village stroll + covered bridge'],
    eat:'Harrison’s (booked?)', note:'The second half’s only long drive — rewarded with two Vermont nights.', claims:[]},
-  {d:'2026-08-24', dow:'Mon', title:'Full Stowe day — the suitcase stays put', hotel:'Stowe stay',
+  {d:'2026-08-24', dow:'Mon', title:'Full Stowe day — the suitcase stays put', hotel:'Stowe stay — Tälta Lodge',
    depart:'Gondola opens 10 AM — mountain first in clear sky', drive:'None required',
    todo:['Mansfield: Gondola SkyRide or Auto Toll Road ($51/couple)','Smugglers’ Notch drive + Bingham Falls','Trapp Bierhall lunch (Resy)','Spa or pool hour'],
    eat:'Edson Hill dining room or Michael’s on the Hill',
@@ -273,12 +286,12 @@ const SEED = {
    depart:'9:30–10:00 AM', drive:'115 mi · 3–3.5h with Notch stops',
    todo:['Crawford Notch: Mount Washington Hotel overlook, Silver Cascade, Willey House','Optional: Cog Railway (~3h — booked?)','Jackson Falls + the honeymoon covered bridge'],
    eat:'Forty at Thorn Hill (book — town is thin midweek)', claims:[]},
-  {d:'2026-08-26', dow:'Wed', title:'Kancamagus or Mt Washington → Portland', hotel:'Portland stay (book!)',
+  {d:'2026-08-26', dow:'Wed', title:'Kancamagus or Mt Washington → Portland', hotel:'Portland pick: The Press Hotel (book!)',
    depart:'Decide by the sky at breakfast', drive:'Kanc 4–5h (NO GAS on the highway) or Auto Road ~2.5h · then 1h45–2h15 east',
    todo:['A: Kanc out-and-back — Albany bridge, Lower Falls, Rocky Gorge, Sabbaday','B: Auto Road if the summit is clear (fogged ~60%)','West Side Rd bypass → Portland ~4:30 · Old Port walk','Eastern Prom sunset'],
    eat:'Scales or Street & Co (booked?)',
    claims:[{code:'NH', label:'New Hampshire', text:'Crawford Notch + a night at NH’s only Michelin-Key inn + the Kanc or the summit', rain:'The Notch + Kanc drive fine in rain; skip the summit in fog'}]},
-  {d:'2026-08-27', dow:'Thu', title:'Casco Bay + Cape Elizabeth — last full day', hotel:'Portland stay',
+  {d:'2026-08-27', dow:'Thu', title:'Casco Bay + Cape Elizabeth — last full day', hotel:'Portland stay — The Press Hotel',
    depart:'Ferry or Lucky Catch mid-morning', drive:'Local · Peaks ferry 17 min, $16 RT',
    todo:['Peaks Island bike loop OR Lucky Catch 10:30 (passes Portland Head Light)','Portland Head Light + Two Lights','Lobster roll on the rocks','West End stroll'],
    eat:'Fore Street FIRST seating ~5:30 (booked?)', prep:'TONIGHT: fuel the car · confirm valet 4:15 AM · settle bill · pack · lights out 9:30',
@@ -310,7 +323,7 @@ function migrate(o){
   if(v>4)return{ok:true,state:o,note:'newer'};
   if(v<2)return{ok:false,msg:'Unrecognized blob version ('+v+') — not loading it.'};
   o.v=4;o.savedAt=o.savedAt??null;o.claims=o.claims||{};o.chatLog=o.chatLog||[];o.dirty=!!o.dirty;o.bannerOff=!!o.bannerOff;
-  o.liveSyncedAt=o.liveSyncedAt??null;o.livePushedAt=o.livePushedAt??null;o.contentV=o.contentV??1;
+  o.liveSyncedAt=o.liveSyncedAt??null;o.livePushedAt=o.livePushedAt??null;o.contentV=o.contentV??1;o.notices=o.notices||[];
   return{ok:true,state:o};
 }
 function save(){if(!LS_OK)return;try{S.savedAt=new Date().toISOString();localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){LS_OK=false;toast('Autosave unavailable on this phone — protect changes via Sync')}}
@@ -332,6 +345,8 @@ function mergeContent(old){
  f.tasks.forEach(t=>{const ot=(old.tasks||[]).find(x=>x.id===t.id);if(ot)t.done=!!ot.done});
  (old.tasks||[]).forEach(ot=>{if(!f.tasks.find(t=>t.id===ot.id))f.tasks.push(ot)});
  (old.packing||[]).forEach(op=>{const m2=f.packing.find(p=>p.t===op.t);if(m2)m2.done=!!op.done;else f.packing.push(op)});
+ f.notices.forEach(n=>{const on=(old.notices||[]).find(x=>x.id===n.id);if(on){n.acked=!!on.acked;n.ackedAt=on.ackedAt||null}});
+ (old.notices||[]).forEach(on=>{if(!f.notices.find(n=>n.id===on.id))f.notices.push(on)});
  return f;
 }
 function dirty(){S.dirty=true;save();schedulePush();renderHeader();renderTabs();renderBanner()}
@@ -358,6 +373,7 @@ function applyContent(c){ /* whitelisted: patches PROSE only — never statuses,
   (ps.options||[]).forEach(po=>{const o=s.options.find(x=>x.name===po.name);if(o)['basis','caveat','url','mich','ver'].forEach(k=>{if(k in po)o[k]=po[k]})});
   (ps.poolAdd||[]).forEach(pp=>{if(pp.name&&!s.pool.find(x=>x.name===pp.name)&&!s.options.find(x=>x.name===pp.name))s.pool.push(pp)})});
  (c.tasksAdd||[]).forEach(pt=>{if(pt.id&&pt.t&&!S.tasks.find(t=>t.id===pt.id))S.tasks.push(Object.assign({done:false},pt))});
+ (c.noticesAdd||[]).forEach(pn=>{if(pn.id&&pn.text&&!S.notices.find(n=>n.id===pn.id))S.notices.push(Object.assign({tab:'plan',title:'',cta:'Tap to acknowledge',acked:false,ackedAt:null},pn))});
  if(c.meta)['flightsOut','flightsBack','rental'].forEach(k=>{if(k in c.meta)S.meta[k]=c.meta[k]});
  S.contentV=c.contentV;
 }
@@ -372,6 +388,7 @@ function mergeOverlay(a,b){ /* union of two content patches (b newer). Keeps the
  out.res=byKey(a.res,b.res,'id');
  out.resAdd=byKey(a.resAdd,b.resAdd,'id');
  out.tasksAdd=byKey(a.tasksAdd,b.tasksAdd,'id');
+ out.noticesAdd=byKey(a.noticesAdd,b.noticesAdd,'id');
  const stops=(a.stops||[]).map(x=>Object.assign({},x));
  (b.stops||[]).forEach(x=>{const i=stops.findIndex(y=>y.id===x.id);
   if(i<0){stops.push(x);return}
@@ -382,7 +399,7 @@ function mergeOverlay(a,b){ /* union of two content patches (b newer). Keeps the
   stops[i]=m});
  out.stops=stops;
  out.meta=Object.assign({},a.meta||{},b.meta||{});
- ['days','res','resAdd','tasksAdd','stops'].forEach(k=>{if(!out[k].length)delete out[k]});
+ ['days','res','resAdd','tasksAdd','noticesAdd','stops'].forEach(k=>{if(!out[k].length)delete out[k]});
  if(!Object.keys(out.meta).length)delete out.meta;
  return out;
 }
@@ -418,7 +435,8 @@ function livePayload(){ /* sanitized: no conf, no totals, no notes, no chat, no 
  const res={};S.res.forEach(r=>res[r.id]=r.status);
  const tasks={};S.tasks.forEach(t=>tasks[t.id]=!!t.done);
  const claims={};Object.keys(S.claims).forEach(c=>{const g=S.claims[c];claims[c]={at:g.at||'',meal:!!g.meal,photo:!!g.photo}});
- return {v:1,updatedAt:new Date().toISOString(),stops,res,tasks,packing:S.packing.map(p=>!!p.done),claims};
+ const notices={};S.notices.forEach(n=>notices[n.id]=!!n.acked); /* ack booleans only — never the text */
+ return {v:1,updatedAt:new Date().toISOString(),stops,res,tasks,packing:S.packing.map(p=>!!p.done),claims,notices};
 }
 let PUSH_TIMER=null,PUSHING=false;
 function schedulePush(){if(!getToken())return;clearTimeout(PUSH_TIMER);PUSH_TIMER=setTimeout(pushLive,4000)}
@@ -467,6 +485,7 @@ function applyOverlay(live){ /* additive & conservative: local conf numbers and 
  if(live.tasks)S.tasks.forEach(t=>{if(live.tasks[t.id])t.done=true});
  if(Array.isArray(live.packing))live.packing.forEach((v,i)=>{if(v&&S.packing[i])S.packing[i].done=true});
  if(live.claims)Object.keys(live.claims).forEach(c=>{if(!S.claims[c]){const g=live.claims[c];S.claims[c]={at:g.at||'synced',meal:!!g.meal,photo:!!g.photo,note:''}}});
+ if(live.notices)S.notices.forEach(n=>{if(live.notices[n.id]&&!n.acked){n.acked=true;n.ackedAt=n.ackedAt||new Date().toISOString()}});
 }
 
 /* ============ DERIVED ============ */
@@ -567,8 +586,9 @@ function viewPlan(){
  const packRows=S.packing.map((p,i)=>`<label class="task ${p.done?'done':''}"><input type="checkbox" data-chk="pack" data-i="${i}" ${p.done?'checked':''}><div class="t">${esc(p.t)}</div></label>`).join('');
  const booked=S.stops.filter(x=>x.booked).length;
  return `
+  ${noticesHTML('plan')}
   <div class="card"><h2>Mission control</h2>
-   <div class="small">Lodging locked: <b>${booked}/4 stops</b> · First-choice estimate ≈ $2,530–2,850 all-in (7 nights) · value-mix ≈ $2,050. Hard cap $500/night.</div>
+   <div class="small">Lodging locked: <b>${booked}/4 stops</b> · Your picks (Queen Anne + Tälta + Press, w/ Thorn Hill ✓) ≈ $2.4–2.6k all-in for 7 nights — Press rate is the swing, verify it. Hard cap $500/night.</div>
    <div class="meter" role="img" aria-label="${bookingsDone()} of ${bookingsTotal()} core bookings done"><div style="width:${(bookingsDone()/bookingsTotal()*100).toFixed(0)}%"></div></div>
    <div class="small">${bookingsDone()} of ${bookingsTotal()} core bookings done</div></div>
   ${queueCard()}
@@ -580,10 +600,24 @@ function viewPlan(){
   <div class="card"><h2>The flights (booked ✓)</h2>
    <div class="small"><b>Out:</b> ${esc(S.meta.flightsOut)}<br><b>Home:</b> ${esc(S.meta.flightsBack)}<br><b>Car:</b> ${esc(S.meta.rental)}</div></div>`;
 }
+/* notices — messages from the app's creator; ack state travels the bridge */
+function noticesHTML(tab){
+ return S.notices.filter(n=>(n.tab||'plan')===tab).map(n=>{
+  if(n.acked)return `<div class="card notice acked">💛 <b>${esc(n.title||'Note')}</b> — love accepted ${n.ackedAt?esc(new Date(n.ackedAt).toLocaleDateString()):''}. The app has informed its creator.</div>`;
+  return `<div class="card notice"><div class="nheart">💛</div><h2>${esc(n.title)}</h2>
+   <div class="ntext">${esc(n.text)}</div>
+   <button class="btn love" data-act="notice-ack" data-id="${esc(n.id)}">${esc(n.cta||'Tap to acknowledge')} ♥</button></div>`;
+ }).join('');
+}
+function ackNotice(id){const n=S.notices.find(x=>x.id===id);if(!n||n.acked)return;
+ n.acked=true;n.ackedAt=new Date().toISOString();
+ if(navigator.vibrate){try{navigator.vibrate([18,60,18,60,40])}catch(e){}}
+ loveConfetti();dirty();render();toast(getToken()?'💛 Accepted — his phone will know within seconds':'💛 Accepted — saved on this phone')}
+function loveConfetti(){if(REDUCED)return;const el=['💛','❤️','💕','💖','✨'];for(let i=0;i<64;i++){const s=document.createElement('span');s.className='cf';s.textContent=el[i%el.length];s.style.left=(Math.random()*100)+'vw';s.style.animationDuration=(1.6+Math.random()*1.8)+'s';s.style.fontSize=(14+Math.random()*18)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),3800)}}
 /* plan actions */
 function findStop(id){return S.stops.find(s=>s.id===id)}
 function queueCard(){ /* live queue: renders from state, strikes what's done */
- const lodgeOrder=[['jackson','Inn at Thorn Hill — Jackson · Aug 25'],['cape','Cape Cod stay · Aug 21–23'],['portland','Portland Regency · Aug 26–28'],['stowe','Green Mountain Inn — Stowe · Aug 23–25']];
+ const lodgeOrder=[['jackson','Inn at Thorn Hill — Jackson · Aug 25'],['cape','Queen Anne Inn — Cape · Aug 21–23'],['portland','The Press Hotel — Portland · Aug 26–28'],['stowe','Tälta Lodge — Stowe · Aug 23–25']];
  const items=lodgeOrder.map(([id,label])=>{const s=findStop(id);
   return {done:!!(s&&s.booked),label:s&&s.booked?`${label} — ${s.booked.name}`:label}});
  S.res.filter(r=>r.p<=2).forEach(r=>items.push({done:r.status==='booked',label:r.what}));
@@ -844,6 +878,7 @@ document.addEventListener('click',e=>{
     :a.k==='specific'?'For our next unbooked stop we’re looking for: '
     :'What should we be doing right now, and what’s coming next?';t.focus();break}
   case 'patch-apply':applyPatchUI();break;
+  case 'notice-ack':ackNotice(a.id);break;
   case 'bridge-connect':{const el2=$('ghTok');const t=(el2&&el2.value||'').trim();
    if(!/^gh[pou]_|^github_pat_/.test(t)){toast('That doesn’t look like a GitHub token');break}
    setToken(t);UI.live='ok';toast('Bridge connected — pushing current state…');render();pushLive();break}
