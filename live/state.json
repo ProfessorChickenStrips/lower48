@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-07-21T01:08:52.680Z",
+ "updatedAt": "2026-07-21T01:09:05.684Z",
  "stops": {
   "cape": null,
   "stowe": null,
@@ -32,7 +32,7 @@
  },
  "packing": [
   false,
-  true,
+  false,
   false,
   false,
   false,
