@@ -1,5 +1,5 @@
 {
- "contentV": 7,
+ "contentV": 8,
  "days": [
   {
    "d": "2026-08-19",
@@ -23,7 +23,7 @@
  "stops": [
   {
    "id": "cape",
-   "urgency": "Clark’s pick: Queen Anne Inn — “1 left” Jul 19 · 5 candidates loaded; card shows top 3 — tap “Not for us ✕” on one to rotate the rest in"
+   "urgency": "Clark’s pick: Queen Anne Inn — “1 left” Jul 19 · 6 candidates loaded; card shows top 3 — tap “Not for us ✕” to rotate others in"
   }
  ]
 }
