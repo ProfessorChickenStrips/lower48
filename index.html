@@ -155,7 +155,7 @@ textarea{min-height:74px;resize:vertical}
 <script>
 /* ============ SEED DATA (trip content — do not edit casually) ============ */
 const SEED = {
- v: 3, dirty: false, savedAt: null,
+ v: 4, dirty: false, savedAt: null, liveSyncedAt: null, livePushedAt: null,
  meta: { start:'2026-08-15', end:'2026-08-28', base:38, goal:48,
   flightsOut:'AA 2599 BUR 7:00a → DFW 12:22p · AA 569 DFW 1:29p → AVL 4:44p',
   flightsBack:'DL 1515 PWM 6:05a → ATL 8:50a · DL 483 ATL 11:25a → BUR 1:01p',
@@ -307,18 +307,81 @@ function migrate(o){
   if(!o||typeof o!=='object')return{ok:false,msg:'That doesn’t look like a Lower 48 state blob (not an object).'};
   if(!Array.isArray(o.stops)||!Array.isArray(o.days)||!o.meta)return{ok:false,msg:'Blob is missing core sections (stops/days/meta) — not loading it.'};
   const v=o.v||0;
-  if(v>3)return{ok:true,state:o,note:'newer'};
+  if(v>4)return{ok:true,state:o,note:'newer'};
   if(v<2)return{ok:false,msg:'Unrecognized blob version ('+v+') — not loading it.'};
-  o.v=3;o.savedAt=o.savedAt??null;o.claims=o.claims||{};o.chatLog=o.chatLog||[];o.dirty=!!o.dirty;o.bannerOff=!!o.bannerOff;
+  o.v=4;o.savedAt=o.savedAt??null;o.claims=o.claims||{};o.chatLog=o.chatLog||[];o.dirty=!!o.dirty;o.bannerOff=!!o.bannerOff;
+  o.liveSyncedAt=o.liveSyncedAt??null;o.livePushedAt=o.livePushedAt??null;
   return{ok:true,state:o};
 }
 function save(){if(!LS_OK)return;try{S.savedAt=new Date().toISOString();localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){LS_OK=false;toast('Autosave unavailable on this phone — protect changes via Sync')}}
 function hydrate(){if(!LS_OK)return;try{const raw=localStorage.getItem(LSKEY);if(!raw)return;const m=migrate(JSON.parse(raw));if(m.ok&&m.note!=='newer')S=m.state}catch(e){}}
-function dirty(){S.dirty=true;save();renderHeader();renderTabs();renderBanner()}
+function dirty(){S.dirty=true;save();schedulePush();renderHeader();renderTabs();renderBanner()}
 
 /* ephemeral UI state — never persisted or exported */
-const UI={bookForm:null,resConf:null,noteEdit:null,justClaimed:null,bannerHide:false};
-const KEEP_IDS=['chatIn','packNew','patchIn','syncBox','bfConf','bfTotal','rcConf','noteBox'];
+const UI={bookForm:null,resConf:null,noteEdit:null,justClaimed:null,bannerHide:false,live:'off',liveMsg:''};
+const KEEP_IDS=['chatIn','packNew','patchIn','syncBox','bfConf','bfTotal','rcConf','noteBox','ghTok'];
+
+/* ============ LIVE BRIDGE — app ⇄ repo (statuses only, never conf numbers or notes) ============ */
+const GH={owner:'ProfessorChickenStrips',repo:'lower48',path:'live/state.json',
+ api(){return `https://api.github.com/repos/${this.owner}/${this.repo}/contents/${this.path}`}};
+const TKEY='lower48.ghtoken';
+function getToken(){try{return localStorage.getItem(TKEY)||''}catch(e){return ''}}
+function setToken(t){try{t?localStorage.setItem(TKEY,t):localStorage.removeItem(TKEY)}catch(e){}}
+function livePayload(){ /* sanitized: no conf, no totals, no notes, no chat, no token */
+ const stops={};S.stops.forEach(s=>stops[s.id]=s.booked?s.booked.name:null);
+ const res={};S.res.forEach(r=>res[r.id]=r.status);
+ const tasks={};S.tasks.forEach(t=>tasks[t.id]=!!t.done);
+ const claims={};Object.keys(S.claims).forEach(c=>{const g=S.claims[c];claims[c]={at:g.at||'',meal:!!g.meal,photo:!!g.photo}});
+ return {v:1,updatedAt:new Date().toISOString(),stops,res,tasks,packing:S.packing.map(p=>!!p.done),claims};
+}
+let PUSH_TIMER=null,PUSHING=false;
+function schedulePush(){if(!getToken())return;clearTimeout(PUSH_TIMER);PUSH_TIMER=setTimeout(pushLive,4000)}
+async function pushLive(){
+ const tok=getToken();if(!tok||PUSHING)return;PUSHING=true;UI.live='pending';
+ try{
+  let sha=null;
+  const head=await fetch(GH.api(),{headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'}});
+  if(head.status===200){const j=await head.json();sha=j.sha;
+   /* two-phone safety: merge the other phone's newer statuses BEFORE pushing ours */
+   try{const remote=JSON.parse(decodeURIComponent(escape(atob((j.content||'').replace(/\n/g,'')))));
+    if(remote&&remote.updatedAt&&(!S.liveSyncedAt||remote.updatedAt>S.liveSyncedAt)){applyOverlay(remote)}}catch(_){}}
+  else if(head.status!==404){throw new Error('read '+head.status)}
+  const payload=livePayload();
+  const body={message:'Dashboard sync '+payload.updatedAt,content:btoa(unescape(encodeURIComponent(JSON.stringify(payload,null,1)))),branch:'main'};
+  if(sha)body.sha=sha;
+  const put=await fetch(GH.api(),{method:'PUT',headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(put.status===409){PUSHING=false;return pushLive()} /* sha race — one retry with fresh sha */
+  if(put.status<200||put.status>299)throw new Error('write '+put.status);
+  S.liveSyncedAt=payload.updatedAt;S.livePushedAt=payload.updatedAt;S.dirty=false;save();
+  UI.live='ok';UI.liveMsg='';
+ }catch(e){UI.live='err';UI.liveMsg=String(e.message||e);toast('Live sync didn’t reach GitHub — will retry on your next change')}
+ PUSHING=false;renderHeader();renderTabs();renderBanner();if(TAB==='sync')render();
+}
+async function pullLive(manual){
+ try{
+  const headers={'Accept':'application/vnd.github.raw+json'};const tok=getToken();if(tok)headers['Authorization']='Bearer '+tok;
+  const r=await fetch(GH.api()+'?t='+Date.now(),{headers});
+  if(r.status===404){if(manual)toast('No live file yet — make a change (with the bridge on) to create it');return}
+  if(!r.ok)throw new Error('read '+r.status);
+  const live=await r.json();
+  if(!live||!live.updatedAt)return;
+  if(S.liveSyncedAt&&live.updatedAt<=S.liveSyncedAt){if(manual)toast('Already up to date ✓');return}
+  applyOverlay(live);S.liveSyncedAt=live.updatedAt;save();render();
+  if(manual)toast('Pulled latest from the repo ✓');else toast('Synced from your partner’s latest ✓');
+ }catch(e){if(manual)toast('Couldn’t reach the repo: '+String(e.message||e))}
+}
+function applyOverlay(live){ /* additive & conservative: local conf numbers and notes always survive */
+ S.stops.forEach(s=>{const nm=live.stops&&live.stops[s.id];
+  if(nm&&!s.booked){s.booked={name:nm,conf:'',total:'',synced:true};const o=s.options.find(x=>x.name===nm);if(o)o.status='booked'}
+  else if(nm&&s.booked&&s.booked.name!==nm){toast(`Heads up: repo says ${s.id} = “${nm}”, this phone says “${s.booked.name}” — keeping this phone’s. Reconcile via Sync blob if needed.`)}
+  else if(!nm&&s.booked&&s.booked.synced&&!s.booked.conf){const o=s.options.find(x=>x.name===s.booked.name);if(o)o.status='live';s.booked=null}});
+ /* monotonic merges: ticks combine across phones; nothing local gets un-done by an older remote.
+    (Deliberate un-dos therefore sync forward only from the next push — do them on the phone that owns the change.) */
+ if(live.res)S.res.forEach(r=>{if(live.res[r.id]==='booked'&&r.status!=='booked')r.status='booked'});
+ if(live.tasks)S.tasks.forEach(t=>{if(live.tasks[t.id])t.done=true});
+ if(Array.isArray(live.packing))live.packing.forEach((v,i)=>{if(v&&S.packing[i])S.packing[i].done=true});
+ if(live.claims)Object.keys(live.claims).forEach(c=>{if(!S.claims[c]){const g=live.claims[c];S.claims[c]={at:g.at||'synced',meal:!!g.meal,photo:!!g.photo,note:''}}});
+}
 
 /* ============ DERIVED ============ */
 function tripDayIndex(){const t=iso(today());return S.days.findIndex(x=>x.d===t)}
@@ -585,7 +648,20 @@ function applyPatch(p){
 function viewSync(){
  const saved=LS_OK?`<span class="tag ver">autosave ON — this phone</span>${S.savedAt?` <span class="small">last saved ${esc(new Date(S.savedAt).toLocaleString())}</span>`:''}`:'<span class="tag unver">autosave unavailable — export before closing!</span>';
  const shareBtn=navigator.share?`<button class="btn subtle" data-act="sync-share">Share to partner…</button>`:'';
- return `<div class="card"><h2>Sync between phones</h2>
+ const tok=getToken();
+ const liveStatus=tok?(UI.live==='err'?`<span class="tag unver">bridge error — will retry</span> <span class="small">${esc(UI.liveMsg)}</span>`
+   :UI.live==='pending'?'<span class="tag med">pushing…</span>'
+   :`<span class="tag ver">LIVE BRIDGE ON</span>${S.livePushedAt?` <span class="small">last push ${esc(new Date(S.livePushedAt).toLocaleString())}</span>`:' <span class="small">no pushes yet — make any change</span>'}`)
+  :'<span class="tag med">bridge off — changes stay on this phone</span>';
+ const bridge=`<div class="card"><h2>Live bridge</h2>
+  <div>${liveStatus}</div>
+  <div class="small" style="margin-top:6px">The bridge writes a <b>statuses-only</b> file to your GitHub repo after each change (never confirmation numbers, costs, or journal notes — the repo is public). The 6 AM email reads it, and your partner’s phone pulls it automatically — no token needed just to receive.</div>
+  ${tok?`<div class="btnrow"><button class="btn subtle" data-act="bridge-pull">Pull now</button><button class="btn danger" data-act="bridge-off">Disconnect bridge</button></div>`
+   :`<input type="text" id="ghTok" autocomplete="off" placeholder="Paste fine-grained GitHub token (github_pat_…)">
+    <div class="btnrow"><button class="btn gold" data-act="bridge-connect">Connect bridge</button><button class="btn subtle" data-act="bridge-pull">Pull only (no token)</button></div>
+    <div class="small" style="margin-top:6px">Token setup: GitHub → Settings → Developer settings → Fine-grained tokens → Generate. Repository access: <b>only lower48</b> · Permissions: <b>Contents — Read and write</b> · Expiration: Sep 1, 2026. The token stays in this phone’s storage only — never in exports, never in the live file.</div>`}
+ </div>`;
+ return bridge+`<div class="card"><h2>Sync between phones</h2>
   <div>${saved}</div>
   <div class="small" style="margin-top:6px">Your changes save to this phone automatically. To get them onto your partner’s phone: <b>Copy state</b> here, send it (iMessage/Notes/email), and they paste it into their <b>Load</b> box. Whoever edited last, exports.</div>
   <div class="btnrow"><button class="btn" data-act="sync-copy">Copy state ⇪</button>${shareBtn}
@@ -617,7 +693,7 @@ function importState(){const el=$('syncBox');const t=(el&&el.value||'').trim();i
  let o;try{o=JSON.parse(t)}catch(e){return toast('That isn’t valid JSON — check the paste')}
  const m=migrate(o);
  if(!m.ok)return toast(m.msg);
- if(m.note==='newer'&&!confirm('This blob is from a NEWER version of the app (v'+o.v+' > v3). Loading it may lose fields. Load anyway?'))return;
+ if(m.note==='newer'&&!confirm('This blob is from a NEWER version of the app (v'+o.v+' > v4). Loading it may lose fields. Load anyway?'))return;
  S=m.state;UI.bookForm=null;UI.resConf=null;UI.noteEdit=null;S.dirty=false;save();toast('State loaded ✓');render();
 }
 
@@ -648,6 +724,11 @@ document.addEventListener('click',e=>{
     :a.k==='specific'?'For our next unbooked stop we’re looking for: '
     :'What should we be doing right now, and what’s coming next?';t.focus();break}
   case 'patch-apply':applyPatchUI();break;
+  case 'bridge-connect':{const el2=$('ghTok');const t=(el2&&el2.value||'').trim();
+   if(!/^gh[pou]_|^github_pat_/.test(t)){toast('That doesn’t look like a GitHub token');break}
+   setToken(t);UI.live='ok';toast('Bridge connected — pushing current state…');render();pushLive();break}
+  case 'bridge-off':if(confirm('Disconnect the live bridge on this phone? (The token is removed from this device.)')){setToken('');UI.live='off';render()}break;
+  case 'bridge-pull':pullLive(true);break;
   case 'sync-copy':exportState();break;
   case 'sync-share':shareState();break;
   case 'sync-download':downloadState();break;
@@ -666,6 +747,8 @@ document.addEventListener('change',e=>{
 /* ============ BOOT ============ */
 hydrate();
 render();
+pullLive(false); /* partner phones receive automatically; no token required for reads */
+window.addEventListener('online',()=>{if(S.dirty&&getToken())pushLive()});
 </script>
 </body>
 </html>
