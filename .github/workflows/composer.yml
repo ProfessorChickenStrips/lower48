@@ -1,9 +1,14 @@
 name: Morning Mile Composer
 on:
   schedule:
-    - cron: "0 13 21-31 7 *"
-    - cron: "0 13 1-14 8 *"
-    - cron: "0 10 15-28 8 *"
+    # Off the :00 peak (GitHub drops top-of-hour crons under load) + a :47 second chance.
+    # The guard below makes two passes yield at most ONE email per day.
+    - cron: "17 13 21-31 7 *"
+    - cron: "47 13 21-31 7 *"
+    - cron: "17 13 1-14 8 *"
+    - cron: "47 13 1-14 8 *"
+    - cron: "17 10 15-28 8 *"
+    - cron: "47 10 15-28 8 *"
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -13,10 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Season guard (2026 only)
+      - name: Season + already-sent guard
         id: guard
         run: |
-          if [ "$(date -u +%Y)" != "2026" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Season over."; else echo "skip=0" >> "$GITHUB_OUTPUT"; fi
+          D=$(TZ=America/New_York date +%Y-%m-%d)
+          if [ "$(date -u +%Y)" != "2026" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Season over."
+          elif [ -f "editions/archive/${D}.txt" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; echo "Edition ${D} already sent — second pass standing down."
+          else echo "skip=0" >> "$GITHUB_OUTPUT"; fi
 
       - name: Live weather (trip days, best effort)
         if: steps.guard.outputs.skip != '1'
@@ -86,7 +94,7 @@ jobs:
           username: ${{ secrets.USER_NAME }}
           password: ${{ secrets.PASS }}
           subject: ${{ steps.pick.outputs.subject }}
-          to: cjohns0334@yahoo.com
+          to: cjohns0334@yahoo.com,cjohns0334@gmail.com
           from: ${{ secrets.USER_NAME }}
           body: file://body.txt
 
@@ -114,6 +122,6 @@ jobs:
           username: ${{ secrets.USER_NAME }}
           password: ${{ secrets.PASS }}
           subject: Morning Mile - composer hit a snag
-          to: cjohns0334@yahoo.com
+          to: cjohns0334@yahoo.com,cjohns0334@gmail.com
           from: ${{ secrets.USER_NAME }}
           body: "The Morning Mile could not compose or send this morning. Open the lower48 repo -> Actions tab and check the red run. Dashboard: https://professorchickenstrips.github.io/lower48/"
