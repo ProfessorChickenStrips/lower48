@@ -180,7 +180,7 @@ textarea{min-height:74px;resize:vertical}
 <script>
 /* ============ SEED DATA (trip content — do not edit casually) ============ */
 const SEED = {
- v: 4, contentV: 12, dirty: false, savedAt: null, liveSyncedAt: null, livePushedAt: null,
+ v: 4, contentV: 13, dirty: false, savedAt: null, liveSyncedAt: null, livePushedAt: null,
  notices: [
   {id:'maggie-love-1', tab:'plan', title:'Maggie — this one’s for you',
    text:'You are beautiful. And the human who created this app loves you — more than all forty-eight states put together.',
@@ -248,7 +248,8 @@ const SEED = {
   {id:'t6', t:'Card (not cash) for Cape Cod Seashore lots — $25, cashless', done:false},
   {id:'t7', t:'On Aug 26 check-in: tell Regency valet — car at 4:15 AM on the 28th', done:false},
   {id:'t8', t:'Thu Aug 27 evening: fuel the rental (no open stations at 4 AM)', done:false},
-  {id:'t_unccancel', t:'Aug 17: final Cape gut-check — Uncommoner free cancellation ends Aug 18, 12:01 AM (property time)', done:false} ],
+  {id:'t_unccancel', t:'Aug 17: final Cape gut-check — Uncommoner free cancellation ends Aug 18, 12:01 AM (property time)', done:false},
+  {id:'t_tokens', t:'Aug 25: mint two fresh bridge tokens (Contents R/W, expire Oct 15) so September memories can still publish', done:false} ],
  packing: [ {t:'Layers — 55° mountain mornings to 85° beach afternoons', done:false},
   {t:'Swimsuits + beach towels (Cape, lakes)', done:false},
   {t:'Light rain shells (afternoon mountain storms)', done:false},
@@ -646,7 +647,7 @@ function daysToGo(){return Math.max(0,Math.ceil((new Date(S.meta.start+'T00:00:0
 function confetti(){if(REDUCED)return;const el=['🎉','✨','⭐','🧭','🗺️'];for(let i=0;i<44;i++){const s=document.createElement('span');s.className='cf';s.textContent=el[i%el.length];s.style.left=(Math.random()*100)+'vw';s.style.animationDuration=(1.4+Math.random()*1.6)+'s';s.style.fontSize=(12+Math.random()*14)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),3200)}}
 
 /* ============ HEADER / TABS / BANNER ============ */
-let TAB=phase()==='plan'?'plan':(phase()==='trip'?'trip':'ledger');
+let TAB=phase()==='trip'?'trip':(phase()==='after'?'trip':'plan'); /* post-trip: the story greets you, not the ledger */
 let LAST_TAB=null;
 const TABS=[['plan','🧭','Plan'],['trip','🗺️','Trip'],['ledger','🏅','Ledger'],['chat','💬','Concierge'],['sync','🔄','Sync']];
 function renderHeader(){
@@ -675,7 +676,8 @@ function renderBanner(){
  if(!LS_OK&&!UI.bannerHide){b.innerHTML=`⚠️ <span><b>Autosave is unavailable on this phone</b> — state lives in this page only. Use <b>Sync → Copy state</b> before closing.</span><button class="btn sm subtle" data-act="banner-x">Got it</button>`;return}
  if(getToken()&&S.dirty&&UI.live==='err'&&!UI.bannerHide){b.innerHTML=`⚠️ <span><b>Bridge couldn’t reach GitHub just now</b> — your change is safe on this phone and will push automatically on the next change or reconnect.</span><button class="btn sm subtle" data-act="banner-x">OK</button>`;return}
  if(!getToken()&&S.dirty&&!UI.bannerHide){b.innerHTML=`🔄 <span><b>Saved on this phone</b> — but your partner hasn’t seen these changes. <b>Sync → Copy state</b> when you’re at a good stopping point.</span><button class="btn sm subtle" data-act="banner-x">Later</button>`;return}
- const bl=TAB_BLURBS[TAB]||TAB_BLURBS.plan;
+ let bl=TAB_BLURBS[TAB]||TAB_BLURBS.plan;
+ if(TAB==='trip'&&phase()==='after')bl=['🏁 The Trip, Complete','48 states, fourteen days, one promise kept. New here? Start at 📖 Pre and walk the days — every page holds their own words and photos.'];
  b.innerHTML=`<span><span class="bt">${esc(bl[0])}</span><br>${esc(bl[1])}</span>`;
 }
 function go(t){TAB=t;render()}
@@ -763,7 +765,7 @@ function viewPlan(){
 /* notices — messages from the app's creator; ack state travels the bridge */
 function noticesHTML(tab){
  return S.notices.filter(n=>(n.tab||'plan')===tab).map(n=>{
-  if(n.acked)return `<div class="card notice acked">💛 <b>${esc(n.title||'Note')}</b> — love accepted ${n.ackedAt?esc(new Date(n.ackedAt).toLocaleDateString()):''}. The app has informed its creator.</div>`;
+  if(n.acked)return ''; /* once accepted, the card retires quietly — the daily love note carries the ritual now */
   return `<div class="card notice"><div class="nheart">💛</div><h2>${esc(n.title)}</h2>
    <div class="ntext">${esc(n.text)}</div>
    <button class="btn love" data-act="notice-ack" data-id="${esc(n.id)}">${esc(n.cta||'Tap to acknowledge')} ♥</button></div>`;
@@ -905,7 +907,7 @@ function dayChips(activeIdx){
  return `<div class="chips" role="tablist" aria-label="Trip days">${pre}${rest}</div>`;
 }
 function viewTrip(){
- const idx=DAYSEL!==null?DAYSEL:(phase()==='plan'?-1:Math.max(0,tripDayIndex()===-1?(phase()==='after'?13:0):tripDayIndex()));
+ const idx=DAYSEL!==null?DAYSEL:((phase()==='plan'||phase()==='after')?-1:Math.max(0,tripDayIndex())); /* pre & post trip default to the Prologue — the story's first page */
  if(idx===-1)return viewPrologue();
  const chips=''; /* chips now rendered via dayChips() below */
  const d=S.days[idx];
@@ -1001,10 +1003,11 @@ function viewPrologue(){
  const rows=pre.map(e=>journalEntryHTML(e,true)).join('');
  const saveD=iso(today())<S.meta.start?iso(today()):'2026-08-14';
  const d1=S.days[0];
+ const after=phase()==='after';
  return `${phase()!=='plan'?dailyLoveHTML():''}${dayChips(-1)}
-  <div class="card"><div class="k">The Prologue · now → Fri Aug 14</div>
-   <div class="hero">Before the wheels roll</div>
-   <div class="small" style="margin-top:4px">⏳ <b>${daysToGo()}</b> day${daysToGo()===1?'':'s'} to wheels-up · ✈️ ${esc(S.meta.flightsOut)}</div></div>
+  <div class="card"><div class="k">${after?'The Prologue · where it all began':'The Prologue · now → Fri Aug 14'}</div>
+   <div class="hero">${after?'Before the wheels rolled':'Before the wheels roll'}</div>
+   <div class="small" style="margin-top:4px">${after?'🏁 The map is finished — 48 states down, only Alaska remains. Walk the days →':`⏳ <b>${daysToGo()}</b> day${daysToGo()===1?'':'s'} to wheels-up · ✈️ ${esc(S.meta.flightsOut)}`}</div></div>
   <div class="card"><h3>📖 The story so far</h3>
    <div class="small">Anticipation is part of the trip. Notes and photos here open the memorial — booking wins, countdown thoughts, the night the app was born.</div>
    <div class="divider"></div>
@@ -1128,7 +1131,8 @@ function viewSync(){
   ${tok?`<div class="btnrow"><button class="btn subtle" data-act="bridge-pull">Pull now</button><button class="btn danger" data-act="bridge-off">Disconnect bridge</button></div>`
    :`<input type="text" id="ghTok" autocomplete="off" placeholder="Paste fine-grained GitHub token (github_pat_…)">
     <div class="btnrow"><button class="btn gold" data-act="bridge-connect">Connect bridge</button><button class="btn subtle" data-act="bridge-pull">Pull only (no token)</button></div>
-    <div class="small" style="margin-top:6px">Token setup: GitHub → Settings → Developer settings → Fine-grained tokens → Generate. Repository access: <b>only lower48</b> · Permissions: <b>Contents — Read and write</b> · Expiration: Sep 1, 2026. The token stays in this phone’s storage only — never in exports, never in the live file.</div>`}
+    <div class="small" style="margin-top:6px">Token setup: GitHub → Settings → Developer settings → Fine-grained tokens → Generate. Repository access: <b>only lower48</b> · Permissions: <b>Contents — Read and write</b> · Expiration: Sep 1, 2026. The token stays in this phone’s storage only — never in exports, never in the live file.</div>
+    <div class="small" style="margin-top:6px">⏳ <b>Tokens expire Sep 1.</b> To keep publishing memories after the trip, mint fresh ones in late August (same settings, expire Oct 15) — there’s a task set for Aug 25. After they lapse, the memorial simply becomes read-only, which is a fine way to retire.</div>`}
  </div>`;
  return bridge+`<div class="card"><h2>Sync between phones</h2>
   <div>${saved}</div>
