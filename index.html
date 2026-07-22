@@ -689,11 +689,13 @@ function render(){
  const stash={};let focusId=null;
  KEEP_IDS.forEach(id=>{const el=$(id);if(el){stash[id]=el.value;if(document.activeElement===el)focusId=id}});
  const v=$('view');
+ const oldChips=v.querySelector('.chips');const chipScroll=oldChips?oldChips.scrollLeft:null; /* remember the date strip's horizontal position across a re-render */
  if(TAB==='plan')v.innerHTML=viewPlan();
  else if(TAB==='trip')v.innerHTML=viewTrip();
  else if(TAB==='ledger')v.innerHTML=viewLedger();
  else if(TAB==='chat')v.innerHTML=viewChat();
  else v.innerHTML=viewSync();
+ if(chipScroll!=null){const newChips=v.querySelector('.chips');if(newChips)newChips.scrollLeft=chipScroll} /* tapping a day no longer snaps the strip back to Pre */
  KEEP_IDS.forEach(id=>{const el=$(id);if(el&&stash[id]!==undefined&&!el.value)el.value=stash[id]});
  if(focusId&&$(focusId))$(focusId).focus();
  if(TAB==='chat'){const l=$('chatlog');if(l)l.scrollTop=l.scrollHeight}
