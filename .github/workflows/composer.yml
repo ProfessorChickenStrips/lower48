@@ -1,17 +1,31 @@
 name: Morning Mile Composer
 on:
   schedule:
-    # Off the :00 peak (GitHub drops top-of-hour crons under load) + a :47 second chance.
-    # The guard below makes two passes yield at most ONE email per day.
-    - cron: "17 13 21-31 7 *"
-    - cron: "47 13 21-31 7 *"
-    - cron: "17 13 1-14 8 *"
-    - cron: "47 13 1-14 8 *"
-    - cron: "17 10 15-28 8 *"
-    - cron: "47 10 15-28 8 *"
-    # The afterlife: Sep 1, 2026 epilogue + every Aug 15 anniversary (guard filters the years)
-    - cron: "17 13 1 9 *"
-    - cron: "17 13 15 8 *"
+    # GitHub's scheduler DROPS runs during the busy top-of-hour band, especially 13:00 UTC.
+    # So each morning gets FOUR spread attempts across ~2.5 hours; the archive-dedupe guard
+    # below means only the FIRST successful pass emails — the rest see the archive and stand down.
+    # Ideal delivery is the first slot; on a bad GitHub morning a later slot still lands it.
+    # PRE-TRIP (target 6:15 AM Pacific = 13:15 UTC in PDT), Jul 21-31:
+    - cron: "15 13 21-31 7 *"
+    - cron: "45 13 21-31 7 *"
+    - cron: "30 14 21-31 7 *"
+    - cron: "30 15 21-31 7 *"
+    # PRE-TRIP Aug 1-14 (same target):
+    - cron: "15 13 1-14 8 *"
+    - cron: "45 13 1-14 8 *"
+    - cron: "30 14 1-14 8 *"
+    - cron: "30 15 1-14 8 *"
+    # ON-ROAD Aug 15-28 (target 6:15 AM Eastern = 10:15 UTC in EDT):
+    - cron: "15 10 15-28 8 *"
+    - cron: "45 10 15-28 8 *"
+    - cron: "30 11 15-28 8 *"
+    - cron: "30 12 15-28 8 *"
+    # THE AFTERLIFE: Sep 1 2026 epilogue + every Aug 15 anniversary (guard filters the years),
+    # each with a backup pass an hour later:
+    - cron: "15 13 1 9 *"
+    - cron: "30 14 1 9 *"
+    - cron: "15 13 15 8 *"
+    - cron: "30 14 15 8 *"
   workflow_dispatch: {}
 permissions:
   contents: write
