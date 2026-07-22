@@ -837,6 +837,18 @@ const LOVE_ROT=[
 function doy(dt){return Math.floor((dt-new Date(dt.getFullYear(),0,0))/86400000)}
 function loveFor(d){if(LOVE_D[d])return LOVE_D[d];const dt=new Date(d+'T12:00:00');return LOVE_ROT[(dt.getFullYear()+doy(dt))%LOVE_ROT.length]}
 function ensureDailyLove(){const id='love-'+iso(today());if(!S.notices.find(n=>n.id===id)){S.notices.push({id,tab:'daily',acked:false,ackedAt:null});save()}}
+/* A past day's note is kept forever on its own day page ONLY if it was accepted that day.
+   Unaccepted mornings simply fade. Today's live note lives at the top of the tab, not here. */
+function dayLoveKeepsake(d){
+ if(!d||!d.d||d.d>=iso(today()))return '';
+ const n=S.notices.find(x=>x.id==='love-'+d.d);
+ if(!n||!n.acked)return '';
+ const L=loveFor(d.d);
+ return `<div class="card notice acked"><div style="text-align:center"><span class="nheart" style="font-size:34px">💛</span></div>
+  <div class="k" style="text-align:center">THAT MORNING’S NOTE</div>
+  <div class="ntext" style="margin-top:6px">${esc(L.x)}</div>
+  <div class="small" style="margin-top:6px;text-align:center">Accepted${n.ackedAt?' '+esc(new Date(n.ackedAt).toLocaleDateString()):''} 💛</div></div>`;
+}
 function loveCount(){return S.notices.filter(n=>n.acked&&(n.id.indexOf('love-')===0||n.id==='maggie-love-1')).length}
 function dailyLoveHTML(){
  const dIso=iso(today());const id='love-'+dIso;const n=S.notices.find(x=>x.id===id);const L=loveFor(dIso);
@@ -933,6 +945,7 @@ function viewTrip(){
   <div class="card"><h3>Today</h3>${d.todo.map(x=>`<div class="task" style="cursor:default"><div class="t">▸ ${esc(x)}</div></div>`).join('')}
    <div class="divider"></div><div class="small">🍽 ${eatFor(d)}</div></div>
   ${resHtml}
+  ${dayLoveKeepsake(d)}
   ${journalCard(d)}
   ${tomorrow?`<div class="card"><div class="k">Tomorrow</div><b>${esc(tomorrow.title)}</b><div class="small">${esc(tomorrow.depart)}</div></div>`:''}
   <div class="card emcard"><h3>In a pinch</h3><div class="small">
