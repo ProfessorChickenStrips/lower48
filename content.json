@@ -1,5 +1,5 @@
 {
- "contentV": 11,
+ "contentV": 14,
  "days": [
   {
    "d": "2026-08-19",
@@ -36,6 +36,15 @@
    "d": "2026-08-23",
    "depart": "8:30–9:00 AM — canal by 9:45 is easy from W Yarmouth",
    "drive": "~265 mi · 5h45–6h30 door-to-door · lunch Concord NH"
+  },
+  {
+   "d": "2026-08-18",
+   "depart": "Monticello Behind the Scenes tour 9:00 AM ✓ · on the road by noon",
+   "todo": [
+    "Monticello Behind the Scenes tour, 9:00 AM — booked ✓ · the full-house tour (upstairs + Dome Room) · done by ~11",
+    "City Dock + Ego Alley stroll",
+    "Crab dinner: Boatyard Bar & Grill, Eastport"
+   ]
   }
  ],
  "res": [
@@ -43,6 +52,12 @@
    "id": "ferry",
    "when": "Wed Aug 19 · 4:15 PM sailing ✓ · at terminal 3:15 · hard cutoff 3:45",
    "cost": "$64 · paid in full"
+  },
+  {
+   "id": "monticello",
+   "what": "Monticello — Behind the Scenes tour",
+   "when": "Tue Aug 18 · 9:00 AM ✓ booked · arrive ~8:40",
+   "cost": ""
   }
  ],
  "tasksAdd": [
