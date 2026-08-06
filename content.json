@@ -1,5 +1,5 @@
 {
- "contentV": 15,
+ "contentV": 16,
  "days": [
   {
    "d": "2026-08-19",
@@ -14,7 +14,8 @@
   },
   {
    "d": "2026-08-15",
-   "note": "You woke at 4:30 AM Pacific. Keep it gentle. · 📝 From the night the app was finished (Jul 20): “I had a lot of fun building the app today. I hope you enjoy experiencing our trip!” — Clark"
+   "note": "You woke at 4:30 AM Pacific. Keep it gentle. · 📝 From the night the app was finished (Jul 20): “I had a lot of fun building the app today. I hope you enjoy experiencing our trip!” — Clark",
+   "eat": "Keep tonight easy: White Duck Taco or Burial — the Cúrate play is tomorrow (Day 2)"
   },
   {
    "d": "2026-08-21",
@@ -35,7 +36,8 @@
   {
    "d": "2026-08-23",
    "depart": "8:30–9:00 AM — canal by 9:45 is easy from W Yarmouth",
-   "drive": "~265 mi · 5h45–6h30 door-to-door · lunch Concord NH"
+   "drive": "~265 mi · 5h45–6h30 door-to-door · lunch Concord NH",
+   "eat": "Harrison’s: call or walk the bar early · plan B: Michael’s on the Hill or Edson Hill"
   },
   {
    "d": "2026-08-18",
@@ -48,7 +50,23 @@
   },
   {
    "d": "2026-08-27",
-   "eat": "Street & Co ~5:30–6 (book!) — Fore Street is full through Sept · fallbacks: 5 PM walk-in try at Fore Street’s held tables, Eventide early, Union at the Press"
+   "eat": "Street & Co, 5:30 bar ✓ booked — the farewell · long-shot bonus: Fore Street’s 5 PM walk-in tables if you still want to try"
+  },
+  {
+   "d": "2026-08-16",
+   "eat": "Cúrate: Resy notify or ~5 PM bar walk-in · La Bodega by Cúrate as the sister fallback · else Chai Pani"
+  },
+  {
+   "d": "2026-08-20",
+   "eat": "Bowen’s Wharf district: 22 Bowen’s · Clarke Cooke House · The Mooring — book one or stroll + choose"
+  },
+  {
+   "d": "2026-08-25",
+   "eat": "Forty at Thorn Hill — call the inn as HOUSE GUESTS (603-383-4242) · town is thin midweek, lock it by check-in"
+  },
+  {
+   "d": "2026-08-26",
+   "eat": "Scales is full — book Leeward or Chaval · or Eventide at 5 walk-in · Union at the Press is the zero-effort answer"
   }
  ],
  "res": [
@@ -65,10 +83,41 @@
   },
   {
    "id": "forestreet",
-   "what": "Farewell dinner — Street & Co (Old Port)",
-   "when": "Thu Aug 27 · book an early seating ~5:30–6 NOW — Fore Street is full through September",
+   "what": "Farewell dinner — Street & Co ✓",
+   "when": "Thu Aug 27 · 5:30 PM bar seats ✓ booked (OpenTable, cancellable) — watch for a dining-room upgrade",
    "cost": "",
    "url": "https://www.streetandcompany.net"
+  },
+  {
+   "id": "curate",
+   "what": "Cúrate, Asheville — no tables for 2 showing",
+   "when": "Aug 15/16 · set a Resy notify + plan the ~5 PM bar walk-in on the 16th · sisters: La Bodega by Cúrate · else Chai Pani",
+   "cost": ""
+  },
+  {
+   "id": "thornhilldin",
+   "what": "Forty at Thorn Hill — CALL as house guests",
+   "when": "Tue Aug 25 · site shows full — phone 603-383-4242; inns hold tables for their own guests. Lock it by check-in at latest",
+   "cost": ""
+  },
+  {
+   "id": "harrisons",
+   "what": "Harrison’s Stowe — online full",
+   "when": "Sun Aug 23 · call, or walk the bar early · plan B: Michael’s on the Hill or Edson Hill",
+   "cost": ""
+  },
+  {
+   "id": "scales",
+   "what": "Portland dinner #1 (Scales full thru Sept)",
+   "when": "Wed Aug 26 · book Leeward (Resy) or Chaval · walk-in ladder: Eventide at 5 → Central Provisions → Duckfat · easy answer: Union at the Press",
+   "url": "https://leewardmaine.com/reservations",
+   "cost": ""
+  },
+  {
+   "id": "bowens",
+   "what": "Bowen’s Wharf evening — a wharf district, not one room",
+   "when": "Thu Aug 20 · ~8 PM · book one room if you like (22 Bowen’s · Clarke Cooke House · The Mooring) or stroll and choose",
+   "cost": ""
   }
  ],
  "tasksAdd": [
