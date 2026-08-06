@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-03T20:07:52.582Z",
+ "updatedAt": "2026-08-06T02:06:34.050Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -12,7 +12,7 @@
   "monticello": "booked",
   "biltmore": "booked",
   "curate": "todo",
-  "forestreet": "todo",
+  "forestreet": "booked",
   "thornhilldin": "todo",
   "harrisons": "todo",
   "scales": "todo",
@@ -43,13 +43,19 @@
  "claims": {},
  "notices": {
   "maggie-love-1": true,
-  "love-2026-07-20": false,
   "love-2026-07-21": true,
   "love-2026-07-22": true,
   "love-2026-07-23": true,
   "love-2026-07-24": false,
   "love-2026-07-25": true,
+  "love-2026-07-26": false,
+  "love-2026-07-27": false,
+  "love-2026-07-28": false,
+  "love-2026-07-29": false,
   "love-2026-07-30": false,
-  "love-2026-08-03": true
+  "love-2026-08-01": false,
+  "love-2026-08-02": false,
+  "love-2026-08-03": true,
+  "love-2026-08-05": false
  }
 }
