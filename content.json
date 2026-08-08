@@ -1,5 +1,5 @@
 {
- "contentV": 16,
+ "contentV": 17,
  "days": [
   {
    "d": "2026-08-19",
@@ -62,7 +62,17 @@
   },
   {
    "d": "2026-08-25",
-   "eat": "Forty at Thorn Hill — call the inn as HOUSE GUESTS (603-383-4242) · town is thin midweek, lock it by check-in"
+   "eat": "Forty at Thorn Hill — call the inn as HOUSE GUESTS (603-383-4242) · town is thin midweek, lock it by check-in",
+   "depart": "8:15–8:30 AM (early — Zoom block 1–4 PM ET at the inn) · Jackson by ~noon",
+   "drive": "115 mi · ~3h15 with QUICK Notch hits only · ⚠️ Crawford Notch has no cell service — be through it before 12:30",
+   "todo": [
+    "Notch drive-through edition: Mt Washington Hotel overlook (10 min) · Silver Cascade (roadside, 5 min) · Willey House (15 min)",
+    "Arrive Thorn Hill ~noon: light lunch · settle into the parlor or room for Zoom",
+    "🎥 MEETINGS 1:00–2:30 + 3:00–4:00 ET (10–11:30 + 12–1 PT) · wifi test on arrival, phone hotspot as backup",
+    "Maggie's counter-programming 1–4: the inn's own SPA (book a treatment when you call about dinner)",
+    "4:15 PM — freed: Jackson Falls + the honeymoon covered bridge + village stroll, all minutes from the inn"
+   ],
+   "note": "Cog Railway is officially off (it was optional and the meetings claim its window). The Notch's big scenery still happens — as morning pull-offs instead of lingering stops. One call to the inn now covers three things: dinner at Forty, early check-in/quiet wifi spot for 1–4 ET, and Maggie's spa slot."
   },
   {
    "d": "2026-08-26",
