@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-10T05:05:08.450Z",
+ "updatedAt": "2026-08-11T03:33:40.968Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -11,6 +11,7 @@
   "ferry": "booked",
   "monticello": "booked",
   "biltmore": "booked",
+  "jettierae": "booked",
   "curate": "todo",
   "forestreet": "booked",
   "thornhilldin": "todo",
@@ -40,6 +41,47 @@
   false,
   false
  ],
+ "packdone": {
+  "sage1": false,
+  "sage2": false,
+  "sage3": false,
+  "sage4": false,
+  "ocean1": false,
+  "ocean2": false,
+  "ocean3": false,
+  "ibis1": false,
+  "ibis2": false,
+  "ibis3": false,
+  "rollmisc1": false,
+  "rollmisc2": false,
+  "shoe1": false,
+  "shoe2": false,
+  "wash1": false,
+  "wash2": false,
+  "wash3": false,
+  "tech1": false,
+  "tech2": false,
+  "tech3": false,
+  "tech4": false,
+  "tech5": false,
+  "tech6": false,
+  "tech7": false,
+  "aer1": false,
+  "aer2": false,
+  "aer3": false,
+  "aer4": false,
+  "aer5": false,
+  "aer6": false,
+  "aer7": false,
+  "aer8": false,
+  "aer9": false,
+  "aer10": false,
+  "aer11": false,
+  "sound1": false,
+  "sound2": false,
+  "sound3": false,
+  "sound4": false
+ },
  "claims": {},
  "notices": {
   "maggie-love-1": true,
@@ -52,6 +94,7 @@
   "love-2026-07-30": false,
   "love-2026-08-03": true,
   "love-2026-08-06": true,
-  "love-2026-08-09": true
+  "love-2026-08-09": true,
+  "love-2026-08-10": true
  }
 }
