@@ -1,5 +1,5 @@
 {
- "contentV": 21,
+ "contentV": 22,
  "days": [
   {
    "d": "2026-08-19",
@@ -92,6 +92,17 @@
    ],
    "eat": "EARLY seating ~5:30: C&O or Fleurie early slot (book!) · Mockingbird casual backup · plates cleared by 7:00",
    "note": "The NSO claims the evening: rehearsal 7:30 ET, live 8–9:30 ET. The drive already lands by ~4, so only two things move — dinner goes EARLY (5:30, not 8) and the Lawn walk trades golden hour for afternoon light. Do not linger at lunch: every Roanoke minute comes out of tonight’s margin. Off Zoom 9:30, lights out by 10:30 — Monticello’s 9 AM tour tomorrow is untouched."
+  },
+  {
+   "d": "2026-08-28",
+   "todo": [
+    "After-hours key drop if the counter is dark",
+    "ATL 8:50–11:25: walk to the DL 483 gate FIRST, then breakfast near it",
+    "🎥 10:00–11:00 AM ET (7–8 PT): AIB-SE Executive Board Planning — join from the gate, earbuds in (link lives in your calendar, not here)",
+    "Boarding ~10:55 overlaps the last minutes — sit AT the gate from 10:40, drop at 11:00 sharp and board",
+    "BUR 1:01 PM — home mid-afternoon"
+   ],
+   "note": "The AIB-SE Zoom fits entirely inside the Atlanta layover — nothing about the 4:15 AM choreography changes. It works as long as DL 1515 runs roughly on time (8:50 arrival = 70 min of slack before the call). If PWM slips badly: join late from whatever gate you're at, or send regrets — final boarding ~11:10 is the hard stop, and the board doesn't get to keep you off the flight home."
   }
  ],
  "res": [
