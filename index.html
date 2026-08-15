@@ -68,8 +68,8 @@ button{font:inherit;border:0;border-radius:10px;padding:11px 14px;cursor:pointer
 .chip.done{border-color:var(--goldBright)}
 nav.tabbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
   display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:50}
-nav.tabbar button{flex:1;min-width:0;background:none;border-radius:0;padding:9px 1px 7px;color:var(--muted);
-  font-size:10.5px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px;white-space:nowrap;overflow:hidden}
+nav.tabbar button{flex:1;background:none;border-radius:0;padding:9px 2px 7px;color:var(--muted);
+  font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px}
 nav.tabbar button .ico{font-size:19px;line-height:1}
 nav.tabbar button.on{color:var(--navy);font-weight:700}
 nav.tabbar button .dot{position:absolute;margin-left:26px;width:8px;height:8px;border-radius:50%;background:var(--bad)}
@@ -87,17 +87,6 @@ nav.tabbar button .dot{position:absolute;margin-left:26px;width:8px;height:8px;b
 .task:last-child{border-bottom:0}
 .task input[type=checkbox]{width:22px;height:22px;accent-color:var(--teal);margin-top:1px;flex:0 0 auto}
 .task.done .t{text-decoration:line-through;color:var(--muted)}
-/* Pack tab */
-.pkrow{align-items:center;gap:6px}
-.pkrow .t{flex:1;cursor:pointer;padding:2px 0}
-.pkhandle{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;color:var(--muted);padding:6px 10px 6px 2px;font-size:15px;flex:0 0 auto}
-.pkdel{flex:0 0 auto;background:none;border:0;color:#B4544A;font-size:15px;padding:6px 8px;cursor:pointer;line-height:1}
-.pkrow.pkover{box-shadow:inset 0 3px 0 #C9A227}
-.pkcont.pkoverc{outline:2px dashed #C9A227;outline-offset:2px}
-.pkdragging{opacity:.45}
-.pkadd{display:flex;gap:8px;margin-top:10px}
-.pkadd input{flex:1;min-width:0;border:1px solid #D8D2C0;border-radius:8px;padding:8px 10px;font:inherit;background:#fff}
-.pksub{margin:2px 0 6px}
 .claimcard{border:2px solid var(--goldBright);border-radius:14px;background:linear-gradient(180deg,#FFFDF6,#FBF4DF);
   padding:14px;margin:12px 0}
 .claimcard .st{font-family:Georgia;font-size:24px;color:var(--gold);letter-spacing:.04em}
@@ -268,55 +257,6 @@ const SEED = {
   {t:'Walking shoes broken in — Cliff Walk, Flume, Kanc pull-offs', done:false},
   {t:'Dinner-nice outfits ×2 (Cúrate, Thorn Hill, Fore Street)', done:false},
   {t:'Sunscreen + bug spray (Seashore + mountains)', done:false} ],
- packlist: [
-  {id:'sage', icon:'🟢', name:'Medium Cube — Sage · tops', sub:'Rides the roller, compressed', items:[
-   {id:'sage1', t:'7 tees/polos (≥2 quick-dry) — nine days to the Stowe wash', done:false},
-   {id:'sage2', t:'2 dinner shirts, collared — the dress ceiling, no blazer', done:false},
-   {id:'sage3', t:'2 shorts (one athletic)', done:false},
-   {id:'sage4', t:'Swimsuit — Uncommoner 9-ft pool + Coast Guard Beach', done:false} ]},
-  {id:'ocean', icon:'🔵', name:'Small Cube — Ocean · smalls', sub:'Clean/dirty divider = the pre-wash hamper, resets in Stowe', items:[
-   {id:'ocean1', t:'9 underwear', done:false},
-   {id:'ocean2', t:'9 socks — 2 wool pairs for 55° mornings + the long-walk days', done:false},
-   {id:'ocean3', t:'Sleepwear', done:false} ]},
-  {id:'ibis', icon:'🟠', name:'Small Cube — Ibis · THE WEATHER CUBE', sub:'Packed last, on top — the whole cube jumps to the Aer on summit/gondola/fire-pit days', items:[
-   {id:'ibis1', t:'Nano Puff Hoody', done:false},
-   {id:'ibis2', t:'Rain shell (sized over the Nano Puff)', done:false},
-   {id:'ibis3', t:'Cap', done:false} ]},
-  {id:'rollmisc', icon:'🧳', name:'Roller — loose', sub:'Base camp: opens only at hotels', items:[
-   {id:'rollmisc1', t:'2 pants flat-folded at the base (one dark/dinner-worthy)', done:false},
-   {id:'rollmisc2', t:'AirTag “L48 Roller” zipped in a cube pocket', done:false} ]},
-  {id:'shoe', icon:'⬛', name:'Shoe Pouch — Charcoal', sub:'Walking shoes are WORN every travel day', items:[
-   {id:'shoe1', t:'Dinner shoes', done:false},
-   {id:'shoe2', t:'Flip-flops, flat-packed beside the pouch', done:false} ]},
-  {id:'wash', icon:'🧼', name:'Small Wash Pouch — Ocean', sub:'Lives in the roller until the final night, then rides the Aer at 4:15 AM', items:[
-   {id:'wash1', t:'3-1-1 toiletries only', done:false},
-   {id:'wash2', t:'Sunscreen + bug spray — bought full-size at an Asheville CVS hour one', done:false},
-   {id:'wash3', t:'Soap sheets for the sink-wash fallback', done:false} ]},
-  {id:'tech', icon:'🟤', name:'Tech Pouch — Coyote', sub:'Then lives in the car console for two weeks as the rolling charging station', items:[
-   {id:'tech1', t:'2 phone cables + dual-port wall charger', done:false},
-   {id:'tech2', t:'Battery bank', done:false},
-   {id:'tech3', t:'Car charger + phone mount — the rental has neither', done:false},
-   {id:'tech4', t:'Card reader (nightly phone offloads)', done:false},
-   {id:'tech5', t:'Spare batteries, sleeved: 2 Nikon + 2 X5 — carry-on only, per FAA', done:false},
-   {id:'tech6', t:'SD ×3 + 256GB microSD — never wipe a card on the road', done:false},
-   {id:'tech7', t:'Both camera chargers', done:false} ]},
-  {id:'aer', icon:'🎒', name:'Aer Travel Pack 3 — the day bag', sub:'In the car every day; spare liters go east empty, come home full of Vermont', items:[
-   {id:'aer1', t:'Nikon + 24-120 in the padded wrap — top compartment, out at every overlook', done:false},
-   {id:'aer2', t:'Insta360 X5 + selfie stick — side pocket, the drive-through-something-gorgeous camera', done:false},
-   {id:'aer3', t:'Laptop + charger — the Aug 25 Zoom block earned its seat', done:false},
-   {id:'aer4', t:'Earbuds (also the Zoom audio)', done:false},
-   {id:'aer5', t:'Both photo IDs — Aug 19 uses them twice: Gate 1 + the ferry', done:false},
-   {id:'aer6', t:'Billfold (Kelp) with the Beacon card in it · ~$60 cash ceiling', done:false},
-   {id:'aer7', t:'Paper one-pager of every confirmation — paper has no battery %', done:false},
-   {id:'aer8', t:'Comfort ziplock: earplugs · sleep mask · meds · Dramamine (85-min crossing)', done:false},
-   {id:'aer9', t:'Collapsible tote + 3 gallon ziplocks (wet suit, sandy shoes, cable quarantine)', done:false},
-   {id:'aer10', t:'Collapsible water bottles ×2 — the Kanc has zero services', done:false},
-   {id:'aer11', t:'AirTag “L48 Aer” in an interior pocket', done:false} ]},
-  {id:'sound', icon:'🎙️', name:'Soundscape kit', sub:'Rides the Aer — the Mic Pro is the product', items:[
-   {id:'sound1', t:'Insta360 Mic Pro + furry windscreen (furry ALWAYS outdoors)', done:false},
-   {id:'sound2', t:'Spare furry windscreen set — coastal wind is the take-killer', done:false},
-   {id:'sound3', t:'GoPro HERO9 — the wet camera (spray, ferry rail)', done:false},
-   {id:'sound4', t:'SmallRig RM120 tripod', done:false} ]} ],
  days: [
   {d:'2026-08-15', dow:'Sat', title:'Fly west → east · arrive Asheville', hotel:'Blind Tiger Asheville (1 KEY)',
    depart:'BUR 7:00 AM — wheels down AVL 4:44 PM', drive:'AVL → Montford ~20 min',
@@ -409,7 +349,6 @@ function migrate(o){
   o.v=4;o.savedAt=o.savedAt??null;o.claims=o.claims||{};o.chatLog=o.chatLog||[];o.dirty=!!o.dirty;o.bannerOff=!!o.bannerOff;
   o.liveSyncedAt=o.liveSyncedAt??null;o.livePushedAt=o.livePushedAt??null;o.contentV=o.contentV??1;o.notices=o.notices||[];
   o.journal=o.journal||[];o.journalSyncedAt=o.journalSyncedAt??null;
-  o.packlist=Array.isArray(o.packlist)&&o.packlist.length?o.packlist:deepClone(SEED.packlist); /* Pack tab arrives on upgraded phones */
   return{ok:true,state:o};
 }
 function save(){if(!LS_OK)return;try{S.savedAt=new Date().toISOString();localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){LS_OK=false;toast('Autosave unavailable on this phone — protect changes via Sync')}}
@@ -431,7 +370,6 @@ function mergeContent(old){
  f.tasks.forEach(t=>{const ot=(old.tasks||[]).find(x=>x.id===t.id);if(ot)t.done=!!ot.done});
  (old.tasks||[]).forEach(ot=>{if(!f.tasks.find(t=>t.id===ot.id))f.tasks.push(ot)});
  (old.packing||[]).forEach(op=>{const m2=f.packing.find(p=>p.t===op.t);if(m2)m2.done=!!op.done;else f.packing.push(op)});
- if(Array.isArray(old.packlist)&&old.packlist.length)f.packlist=old.packlist; /* the customized pack list always outranks a shipped SEED */
  f.notices.forEach(n=>{const on=(old.notices||[]).find(x=>x.id===n.id);if(on){n.acked=!!on.acked;n.ackedAt=on.ackedAt||null}});
  (old.notices||[]).forEach(on=>{if(!f.notices.find(n=>n.id===on.id))f.notices.push(on)});
  f.journal=old.journal||[];f.journalSyncedAt=old.journalSyncedAt??null;
@@ -524,8 +462,7 @@ function livePayload(){ /* sanitized: no conf, no totals, no notes, no chat, no 
  const tasks={};S.tasks.forEach(t=>tasks[t.id]=!!t.done);
  const claims={};Object.keys(S.claims).forEach(c=>{const g=S.claims[c];claims[c]={at:g.at||'',meal:!!g.meal,photo:!!g.photo}});
  const notices={};S.notices.forEach(n=>notices[n.id]=!!n.acked); /* ack booleans only — never the text */
- const packdone={};(S.packlist||[]).forEach(c=>(c.items||[]).forEach(it=>{packdone[it.id]=!!it.done})); /* tick booleans only — structure stays per-phone */
- return {v:1,updatedAt:new Date().toISOString(),stops,res,tasks,packing:S.packing.map(p=>!!p.done),packdone,claims,notices};
+ return {v:1,updatedAt:new Date().toISOString(),stops,res,tasks,packing:S.packing.map(p=>!!p.done),claims,notices};
 }
 let PUSH_TIMER=null,PUSHING=false;
 function schedulePush(){if(!getToken())return;clearTimeout(PUSH_TIMER);PUSH_TIMER=setTimeout(pushLive,4000)}
@@ -573,7 +510,6 @@ function applyOverlay(live){ /* additive & conservative: local conf numbers and 
  if(live.res)S.res.forEach(r=>{if(live.res[r.id]==='booked'&&r.status!=='booked')r.status='booked'});
  if(live.tasks)S.tasks.forEach(t=>{if(live.tasks[t.id])t.done=true});
  if(Array.isArray(live.packing))live.packing.forEach((v,i)=>{if(v&&S.packing[i])S.packing[i].done=true});
- if(live.packdone)(S.packlist||[]).forEach(c=>(c.items||[]).forEach(it=>{if(live.packdone[it.id])it.done=true}));
  if(live.claims)Object.keys(live.claims).forEach(c=>{if(!S.claims[c]){const g=live.claims[c];S.claims[c]={at:g.at||'synced',meal:!!g.meal,photo:!!g.photo,note:''}}});
  if(live.notices)S.notices.forEach(n=>{if(live.notices[n.id]&&!n.acked){n.acked=true;n.ackedAt=n.ackedAt||new Date().toISOString()}});
 }
@@ -715,7 +651,7 @@ function confetti(){if(REDUCED)return;const el=['🎉','✨','⭐','🧭','🗺�
 /* ============ HEADER / TABS / BANNER ============ */
 let TAB=phase()==='trip'?'trip':(phase()==='after'?'trip':'plan'); /* post-trip: the story greets you, not the ledger */
 let LAST_TAB=null;
-const TABS=[['plan','🧭','Plan'],['pack','🧳','Pack'],['trip','🗺️','Trip'],['ledger','🏅','Ledger'],['chat','💬','Concierge'],['sync','🔄','Sync']];
+const TABS=[['plan','🧭','Plan'],['trip','🗺️','Trip'],['ledger','🏅','Ledger'],['chat','💬','Concierge'],['sync','🔄','Sync']];
 function renderHeader(){
  const done=bookingsDone(),tot=bookingsTotal(),pct=done/tot,r=19,c=2*Math.PI*r,ph=phase();
  const left=ph==='plan'?`<div class="big">${daysToGo()}</div><div class="lbl">days to wheels-up</div>`
@@ -731,7 +667,6 @@ function renderTabs(){
 }
 const TAB_BLURBS={
  plan:['🗂 The War Room','Hotels, reservations, tasks, packing — everything that must happen before wheels-up happens here.'],
- pack:['🧳 The Pack','Clark’s list, cube by cube. Tap an item to check it off, ✕ to drop it, ☰ to drag it to another bag, or add what we forgot.'],
  trip:['🧭 The Fourteen Days','One page per day: the plan, the state claims, and the story you two write as you go. 📖 Pre holds everything before.'],
  ledger:['🏅 The State Ledger','Ten stamps to collect — 38 becomes 48. Claim each state as you land it, evidence and all.'],
  chat:['💬 The Concierge','Ask the trip anything — or paste an update block from your Claude planning chat and watch the app absorb it.'],
@@ -755,18 +690,15 @@ function render(){
  renderHeader();renderTabs();renderBanner();
  const stash={};let focusId=null;
  KEEP_IDS.forEach(id=>{const el=$(id);if(el){stash[id]=el.value;if(document.activeElement===el)focusId=id}});
- document.querySelectorAll('input[data-keep]').forEach(el=>{stash[el.id]=el.value;if(document.activeElement===el)focusId=el.id}); /* per-container Pack inputs have dynamic ids */
  const v=$('view');
  const oldChips=v.querySelector('.chips');const chipScroll=oldChips?oldChips.scrollLeft:null; /* remember the date strip's horizontal position across a re-render */
  if(TAB==='plan')v.innerHTML=viewPlan();
- else if(TAB==='pack')v.innerHTML=viewPack();
  else if(TAB==='trip')v.innerHTML=viewTrip();
  else if(TAB==='ledger')v.innerHTML=viewLedger();
  else if(TAB==='chat')v.innerHTML=viewChat();
  else v.innerHTML=viewSync();
  if(chipScroll!=null){const newChips=v.querySelector('.chips');if(newChips)newChips.scrollLeft=chipScroll} /* tapping a day no longer snaps the strip back to Pre */
  KEEP_IDS.forEach(id=>{const el=$(id);if(el&&stash[id]!==undefined&&!el.value)el.value=stash[id]});
- document.querySelectorAll('input[data-keep]').forEach(el=>{if(stash[el.id]!==undefined&&!el.value)el.value=stash[el.id]});
  if(focusId&&$(focusId))$(focusId).focus();
  if(TAB==='chat'){const l=$('chatlog');if(l)l.scrollTop=l.scrollHeight}
  if(TAB!==LAST_TAB){window.scrollTo(0,0);LAST_TAB=TAB}
@@ -977,23 +909,6 @@ function dayChips(activeIdx){
  const rest=S.days.map((dd,i)=>{const done=dd.claims.length&&dd.claims.every(c=>c.bonus||S.claims[c.code]);
   return `<button class="chip ${i===activeIdx?'on':''} ${done?'done':''}" data-act="chip" data-i="${i}">${dd.dow} ${+dd.d.slice(8)}</button>`}).join('');
  return `<div class="chips" role="tablist" aria-label="Trip days">${pre}${rest}</div>`;
-}
-/* ============ PACK VIEW — Clark's list, cube by cube ============ */
-function pkFind(id){for(const c of (S.packlist||[]))for(let i=0;i<c.items.length;i++)if(c.items[i].id===id)return{c,it:c.items[i],i};return null}
-function viewPack(){
- let tot=0,don=0;(S.packlist||[]).forEach(c=>c.items.forEach(it=>{tot++;if(it.done)don++}));
- const head=`<div class="card"><h3>🧳 Clark’s bags — ${don}/${tot} packed</h3>
-  <div class="small">Pack from this on <b>Aug 13</b>. Walking shoes are worn, not packed · the wash happens in Stowe (day 9) · lithium batteries + the X5 fly in the Aer, never the roller.</div></div>`;
- const conts=(S.packlist||[]).map(c=>`<div class="card pkcont" data-pkcont="${esc(c.id)}">
-  <h3>${c.icon} ${esc(c.name)}</h3>${c.sub?`<div class="small pksub">${esc(c.sub)}</div>`:''}
-  <div>${c.items.map(it=>`<div class="task pkrow ${it.done?'done':''}" data-pkitem="${esc(it.id)}">
-    <span class="pkhandle" data-pkdrag="${esc(it.id)}" aria-label="drag to move">☰</span>
-    <div class="t" data-act="pk-toggle" data-id="${esc(it.id)}">${esc(it.t)}</div>
-    <button class="pkdel" data-act="pk-del" data-id="${esc(it.id)}" aria-label="delete item">✕</button>
-   </div>`).join('')||'<div class="small">Empty — drag something here or add below.</div>'}</div>
-  <div class="pkadd"><input type="text" id="pkin-${esc(c.id)}" data-keep autocomplete="off" placeholder="Add an item…"><button class="btn sm gold" data-act="pk-add" data-c="${esc(c.id)}">Add</button></div>
- </div>`).join('');
- return head+conts;
 }
 function viewTrip(){
  const idx=DAYSEL!==null?DAYSEL:((phase()==='plan'||phase()==='after')?-1:Math.max(0,tripDayIndex())); /* pre & post trip default to the Prologue — the story's first page */
@@ -1276,12 +1191,6 @@ document.addEventListener('click',e=>{
   case 'res-conf-open':UI.resConf=a.id;render();{const f=$('rcConf');if(f)f.focus()}break;
   case 'res-conf-save':{const r=S.res.find(x=>x.id===a.id);if(r){r.conf=($('rcConf')&&$('rcConf').value||'').trim();UI.resConf=null;dirty();render()}break}
   case 'pack-add':{const el2=$('packNew');const v=(el2&&el2.value||'').trim();if(!v)return;S.packing.push({t:v,done:false});if(el2)el2.value='';dirty();render();break}
-  case 'pk-toggle':{const r=pkFind(a.id);if(r){r.it.done=!r.it.done;dirty();render()}break}
-  case 'pk-del':{const r=pkFind(a.id);if(r&&confirm('Remove “'+r.it.t+'” from the packing list?')){r.c.items.splice(r.i,1);dirty();render()}break}
-  case 'pk-add':{const el2=$('pkin-'+a.c);const v=(el2&&el2.value||'').trim();if(!v)return;
-   const c=(S.packlist||[]).find(x=>x.id===a.c);if(!c)return;
-   c.items.push({id:'pku_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),t:v,done:false});
-   if(el2)el2.value='';dirty();render();break}
   case 'chip':{DAYSEL=+a.i;UI.jstage=[];UI.jpriv=false;const jt=$('jText');if(jt)jt.value='';render();break}
   case 'claim':claimIt(a.code,a.label,a.bonus==='1');break;
   case 'unclaim':unclaim(a.code);break;
@@ -1322,39 +1231,6 @@ document.addEventListener('change',e=>{
   if(el.checked){r.status='booked';UI.resConf=r.id;dirty();render();const f=$('rcConf');if(f)f.focus()}
   else{r.status='todo';r.conf='';UI.resConf=null;dirty();render()}}
 });
-
-/* ============ PACK DRAG — pointer events on the ☰ handle; works for touch + mouse ============ */
-let PKDRAG=null;
-function pkClearMarks(){document.querySelectorAll('.pkover').forEach(x=>x.classList.remove('pkover'));document.querySelectorAll('.pkoverc').forEach(x=>x.classList.remove('pkoverc'))}
-function pkEndDrag(){PKDRAG=null;pkClearMarks();document.querySelectorAll('.pkdragging').forEach(x=>x.classList.remove('pkdragging'))}
-document.addEventListener('pointerdown',e=>{
- const h=e.target.closest&&e.target.closest('[data-pkdrag]');if(!h)return;
- e.preventDefault(); /* touch-action:none on the handle makes this stick on mobile */
- PKDRAG={id:h.dataset.pkdrag,moved:false,tgt:null};
- const row=h.closest('[data-pkitem]');if(row)row.classList.add('pkdragging');
-});
-document.addEventListener('pointermove',e=>{
- if(!PKDRAG)return;PKDRAG.moved=true;pkClearMarks();
- const el=document.elementFromPoint(e.clientX,e.clientY);if(!el||!el.closest)return;
- const row=el.closest('[data-pkitem]');const cont=el.closest('[data-pkcont]');
- if(row&&row.dataset.pkitem!==PKDRAG.id){row.classList.add('pkover');PKDRAG.tgt={item:row.dataset.pkitem}}
- else if(cont){cont.classList.add('pkoverc');PKDRAG.tgt={cont:cont.dataset.pkcont}}
- else PKDRAG.tgt=null;
-});
-document.addEventListener('pointerup',()=>{
- if(!PKDRAG)return;const d=PKDRAG;pkEndDrag();
- if(!d.moved||!d.tgt)return;
- const src=pkFind(d.id);if(!src)return;
- if(d.tgt.item){const dst=pkFind(d.tgt.item);if(!dst||d.tgt.item===d.id)return;
-  src.c.items.splice(src.i,1);
-  const di=dst.c.items.indexOf(dst.it); /* index AFTER the removal — correct even within one cube */
-  dst.c.items.splice(di<0?dst.c.items.length:di,0,src.it)}
- else if(d.tgt.cont){const c=(S.packlist||[]).find(x=>x.id===d.tgt.cont);if(!c)return;
-  if(c.items.some(x=>x.id===d.id)&&c.items[c.items.length-1].id===d.id)return; /* already last in this cube — no-op */
-  src.c.items.splice(src.i,1);c.items.push(src.it)}
- dirty();render();toast('Moved ✓');
-});
-document.addEventListener('pointercancel',pkEndDrag);
 
 /* ============ BOOT ============ */
 hydrate();
