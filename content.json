@@ -1,5 +1,5 @@
 {
- "contentV": 22,
+ "contentV": 23,
  "days": [
   {
    "d": "2026-08-19",
@@ -54,7 +54,15 @@
   },
   {
    "d": "2026-08-16",
-   "eat": "Cúrate: Resy notify or ~5 PM bar walk-in · La Bodega by Cúrate as the sister fallback · else Chai Pani"
+   "eat": "Cúrate: Resy notify or ~5 PM bar walk-in · La Bodega by Cúrate as the sister fallback · else Chai Pani",
+   "todo": [
+    "Gardens + conservatory FIRST, 9:45–10:35 — cool and quiet before the house",
+    "Biltmore House at 10:45 ✓ — self-paced, ~1.5–2h · skip Antler Hill today",
+    "River Arts District from ~12:45: White Duck Taco lunch (388 Riverside Dr) · studios 1:20–3:30 — Contemporary Art Weekend is ON (NC Glass Center hot shop · Trackside · Jaime Byrd · let open doors lead) · park once, walk",
+    "Inn reset 3:30–4:30 · Ibis cube into the Aer — 63° + wind at Craggy by sunset",
+    "Parkway north by 4:45: Craggy Gardens + optional Pinnacle walk · golden hour ~7:15 · sunset 8:11 · phone light for the walk down"
+   ],
+   "note": "Antler Hill swapped for the River Arts District — the RAD sits ON the drive home from the estate, so the evening math is unchanged. Only cost: the included winery tasting. The district is still rebuilding from Helene: hours vary, treat any one studio as a hope and buy something small — it’s recovery money. Cúrate: keep the Resy notify for a LATE table (~8:45–9:15) to land after the mountain; else casual downtown (check Sunday kitchen hours)."
   },
   {
    "d": "2026-08-20",
