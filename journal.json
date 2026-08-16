@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-15T23:30:38.391Z",
+ "updatedAt": "2026-08-16T22:29:17.900Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -55,6 +55,22 @@
    "media": [
     {
      "path": "media/2026-08-15/1786836031959-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1786919353458fpl5",
+   "d": "2026-08-16",
+   "who": "Clark",
+   "text": "Note to self: Replicate Biltmore library, banquet hall, and glass ceiling rotunda in our future home.",
+   "at": "2026-08-16T22:29:13.458Z",
+   "ts": 1786919353458,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-16/1786919220439-clark-0.jpg",
      "type": "img",
      "up": true
     }
