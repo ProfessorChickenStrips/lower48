@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-16T22:42:13.067Z",
+ "updatedAt": "2026-08-16T23:11:01.591Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -102,6 +102,47 @@
    ]
   },
   {
+   "id": "j1786919850990g5lp",
+   "d": "2026-08-16",
+   "who": "Clark",
+   "text": "Pipe organ in the dining room. Serious flex.",
+   "at": "2026-08-16T22:37:30.990Z",
+   "ts": 1786919850990,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-16/1786919808149-clark-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919808218-clark-1.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919808280-clark-2.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919808321-clark-3.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919808390-clark-4.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919808449-clark-5.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
    "id": "j1786919821834qvm8",
    "d": "2026-08-16",
    "who": "Maggie",
@@ -109,13 +150,7 @@
    "at": "2026-08-16T22:37:01.834Z",
    "ts": 1786919821834,
    "del": false,
-   "media": [
-    {
-     "path": "media/2026-08-16/1786919604829-maggie-0.jpg",
-     "type": "img",
-     "up": true
-    }
-   ]
+   "media": []
   },
   {
    "id": "j17869199845415enq",
@@ -124,16 +159,6 @@
    "text": "More plants!!",
    "at": "2026-08-16T22:39:44.541Z",
    "ts": 1786919984541,
-   "del": false,
-   "media": []
-  },
-  {
-   "id": "j1786919850990g5lp",
-   "d": "2026-08-16",
-   "who": "Clark",
-   "text": "Pipe organ in the dining room. Serious flex.",
-   "at": "2026-08-16T22:37:30.990Z",
-   "ts": 1786919850990,
    "del": false,
    "media": []
   },
