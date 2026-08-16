@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-16T22:39:50.777Z",
+ "updatedAt": "2026-08-16T22:42:13.067Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -109,7 +109,13 @@
    "at": "2026-08-16T22:37:01.834Z",
    "ts": 1786919821834,
    "del": false,
-   "media": []
+   "media": [
+    {
+     "path": "media/2026-08-16/1786919604829-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
   },
   {
    "id": "j17869199845415enq",
@@ -128,6 +134,16 @@
    "text": "Pipe organ in the dining room. Serious flex.",
    "at": "2026-08-16T22:37:30.990Z",
    "ts": 1786919850990,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j1786920121617q45g",
+   "d": "2026-08-16",
+   "who": "Maggie",
+   "text": "Curate and Wine Tasting",
+   "at": "2026-08-16T22:42:01.617Z",
+   "ts": 1786920121617,
    "del": false,
    "media": []
   }
