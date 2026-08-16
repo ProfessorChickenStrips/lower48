@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-16T22:29:17.900Z",
+ "updatedAt": "2026-08-16T22:29:30.719Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -71,6 +71,31 @@
    "media": [
     {
      "path": "media/2026-08-16/1786919220439-clark-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919220584-clark-1.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919220646-clark-2.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919220681-clark-3.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919220743-clark-4.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919220801-clark-5.jpg",
      "type": "img",
      "up": true
     }
