@@ -75,6 +75,12 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           TODAY=$(TZ=America/New_York date "+%A, %B %d, %Y")
+          ISO=$(TZ=America/New_York date +%Y-%m-%d)
+          DAYLINE=""
+          if [ "$(TZ=America/New_York date +%Y-%m)" = "2026-08" ]; then
+            DOM=$(TZ=America/New_York date +%d); N=$((10#$DOM - 14))
+            if [ "$N" -ge 1 ] && [ "$N" -le 14 ]; then DAYLINE="This is trip Day $N of 14 (Aug 15 was Day 1). "; fi
+          fi
           W=$(head -c 300 weather.txt 2>/dev/null || true)
           [ -f live/state.json ] || echo '{}' > live/state.json
           [ -f content.json ] || echo '{}' > content.json
@@ -82,10 +88,10 @@ jobs:
           jq -c '{updatedAt, entries: ((.entries // []) | map({d, who, text, at}) | map(select((.text // "") != "")))}' journal.json > journal_slim.json 2>/dev/null || echo '{}' > journal_slim.json
           jq -n --rawfile p prompt.md --rawfile s status.md --rawfile live live/state.json \
              --rawfile cj content.json --rawfile jr journal_slim.json \
-             --arg today "$TODAY" --arg w "$W" \
+             --arg today "$TODAY" --arg iso "$ISO" --arg dayline "$DAYLINE" --arg w "$W" \
              '{model:"claude-sonnet-4-5", max_tokens:1800,
                system:($p + "\n\nTASK DESCRIPTIONS (status.md — human-written catalog):\n" + $s + "\n\nLIVE DASHBOARD STATE (authoritative for what is booked, claimed, and done — it comes straight from their phones and OVERRIDES any contradicting checkbox in status.md; a stop id mapped to a hotel name means BOOKED, null means still open):\n" + $live + "\n\nITINERARY REVISIONS (content.json — cumulative plan updates pushed from their dashboard AFTER the catalog above was written; keyed by day date under days[], by reservation id under res[], by stop id under stops[]. Where a day plan, departure time, restaurant, or note here contradicts anything above, THIS FILE WINS — write the edition from the revised plan without mentioning the revision mechanics):\n" + $cj + "\n\nTHEIR OWN JOURNAL (journal.json — memories Clark and Maggie typed into the dashboard themselves; each entry has d=date, who, text): If any entries exist for YESTERDAY'\''s date, add one short section titled YESTERDAY, IN YOUR OWN WORDS quoting 1–2 of the best lines verbatim with attribution (— Clark / — Maggie). Choose warm or funny lines over logistics. Never quote entries from any other date, never invent or paraphrase quotes, and omit the section entirely (without comment) if yesterday has no entries:\n" + $jr + "\n\nFORMAT REMINDER: plain text only — no asterisks, no bold, no markdown syntax anywhere; section headers in PLAIN CAPS."),
-               messages:[{role:"user",content:("Today is " + $today + " (US Eastern). " + (if $w != "" then ("Live weather for today: " + $w + ". ") else "" end) + "Compose the edition for this date now, following the OUTPUT CONTRACT exactly.")}]}' > req.json
+               messages:[{role:"user",content:("Today is " + $today + " (US Eastern). " + $dayline + "Compose the edition for TODAY ONLY: the itinerary entry whose date d equals " + $iso + ". They wake up this morning wherever YESTERDAY'"'"'s entry ended (yesterday'"'"'s hotel) — on a travel day that is NOT today'"'"'s destination city. Anything in today'"'"'s entry happens TODAY (an event marked tonight has not happened yet); never narrate the next day'"'"'s plan. " + (if $w != "" then ("Weather along today'"'"'s route, fetched for today'"'"'s DESTINATION city (this is not necessarily where they wake): " + $w + ". ") else "" end) + "Follow the OUTPUT CONTRACT exactly.")}]}' > req.json
           curl -sS --max-time 120 https://api.anthropic.com/v1/messages \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
             -H "anthropic-version: 2023-06-01" \
