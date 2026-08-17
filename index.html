@@ -649,9 +649,9 @@ function daysToGo(){return Math.max(0,Math.ceil((new Date(S.meta.start+'T00:00:0
 function confetti(){if(REDUCED)return;const el=['🎉','✨','⭐','🧭','🗺️'];for(let i=0;i<44;i++){const s=document.createElement('span');s.className='cf';s.textContent=el[i%el.length];s.style.left=(Math.random()*100)+'vw';s.style.animationDuration=(1.4+Math.random()*1.6)+'s';s.style.fontSize=(12+Math.random()*14)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),3200)}}
 
 /* ============ HEADER / TABS / BANNER ============ */
-let TAB=phase()==='trip'?'trip':(phase()==='after'?'trip':'plan'); /* post-trip: the story greets you, not the ledger */
+let TAB='trip'; /* the story is the front door now — Plan retired once the trip began */
 let LAST_TAB=null;
-const TABS=[['plan','🧭','Plan'],['trip','🗺️','Trip'],['ledger','🏅','Ledger'],['chat','💬','Concierge'],['sync','🔄','Sync']];
+const TABS=[['trip','🗺️','Trip'],['ledger','🏅','Ledger'],['chat','💬','Concierge'],['sync','🔄','Sync']];
 function renderHeader(){
  const done=bookingsDone(),tot=bookingsTotal(),pct=done/tot,r=19,c=2*Math.PI*r,ph=phase();
  const left=ph==='plan'?`<div class="big">${daysToGo()}</div><div class="lbl">days to wheels-up</div>`
@@ -666,7 +666,6 @@ function renderTabs(){
  $('tabbar').innerHTML=TABS.map(([id,ico,lb])=>`<button data-act="tab" data-t="${id}" class="${TAB===id?'on':''}" ${TAB===id?'aria-current="page"':''} aria-label="${lb}"><span class="ico" aria-hidden="true">${ico}</span>${lb}${id==='sync'&&S.dirty?'<span class="dot" title="unsynced changes"></span>':''}</button>`).join('');
 }
 const TAB_BLURBS={
- plan:['🗂 The War Room','Hotels, reservations, tasks, packing — everything that must happen before wheels-up happens here.'],
  trip:['🧭 The Fourteen Days','One page per day: the plan, the state claims, and the story you two write as you go. 📖 Pre holds everything before.'],
  ledger:['🏅 The State Ledger','Ten stamps to collect — 38 becomes 48. Claim each state as you land it, evidence and all.'],
  chat:['💬 The Concierge','Ask the trip anything — or paste an update block from your Claude planning chat and watch the app absorb it.'],
@@ -678,7 +677,7 @@ function renderBanner(){
  if(!LS_OK&&!UI.bannerHide){b.innerHTML=`⚠️ <span><b>Autosave is unavailable on this phone</b> — state lives in this page only. Use <b>Sync → Copy state</b> before closing.</span><button class="btn sm subtle" data-act="banner-x">Got it</button>`;return}
  if(getToken()&&S.dirty&&UI.live==='err'&&!UI.bannerHide){b.innerHTML=`⚠️ <span><b>Bridge couldn’t reach GitHub just now</b> — your change is safe on this phone and will push automatically on the next change or reconnect.</span><button class="btn sm subtle" data-act="banner-x">OK</button>`;return}
  if(!getToken()&&S.dirty&&!UI.bannerHide){b.innerHTML=`🔄 <span><b>Saved on this phone</b> — but your partner hasn’t seen these changes. <b>Sync → Copy state</b> when you’re at a good stopping point.</span><button class="btn sm subtle" data-act="banner-x">Later</button>`;return}
- let bl=TAB_BLURBS[TAB]||TAB_BLURBS.plan;
+ let bl=TAB_BLURBS[TAB]||TAB_BLURBS.trip;
  if(TAB==='trip'&&phase()==='after')bl=['🏁 The Trip, Complete','48 states, fourteen days, one promise kept. New here? Start at 📖 Pre and walk the days — every page holds their own words and photos.'];
  b.innerHTML=`<span><span class="bt">${esc(bl[0])}</span><br>${esc(bl[1])}</span>`;
 }
@@ -692,8 +691,7 @@ function render(){
  KEEP_IDS.forEach(id=>{const el=$(id);if(el){stash[id]=el.value;if(document.activeElement===el)focusId=id}});
  const v=$('view');
  const oldChips=v.querySelector('.chips');const chipScroll=oldChips?oldChips.scrollLeft:null; /* remember the date strip's horizontal position across a re-render */
- if(TAB==='plan')v.innerHTML=viewPlan();
- else if(TAB==='trip')v.innerHTML=viewTrip();
+ if(TAB==='trip')v.innerHTML=viewTrip();
  else if(TAB==='ledger')v.innerHTML=viewLedger();
  else if(TAB==='chat')v.innerHTML=viewChat();
  else v.innerHTML=viewSync();
@@ -939,6 +937,7 @@ function viewTrip(){
  const medal=d.medal?medalBlock():'';
  return `
   ${phase()!=='plan'?dailyLoveHTML():''}
+  ${noticesHTML('plan')}
   ${dayChips(idx)}
   <div class="card"><div class="k">${esc(d.dow)}, Aug ${+d.d.slice(8)} · Day ${idx+1} of 14</div>
    <div class="hero">${esc(d.title)}</div>
@@ -1008,7 +1007,7 @@ function viewPrologue(){
  const saveD=iso(today())<S.meta.start?iso(today()):'2026-08-14';
  const d1=S.days[0];
  const after=phase()==='after';
- return `${phase()!=='plan'?dailyLoveHTML():''}${dayChips(-1)}
+ return `${phase()!=='plan'?dailyLoveHTML():''}${noticesHTML('plan')}${dayChips(-1)}
   <div class="card"><div class="k">${after?'The Prologue · where it all began':'The Prologue · now → Fri Aug 14'}</div>
    <div class="hero">${after?'Before the wheels rolled':'Before the wheels roll'}</div>
    <div class="small" style="margin-top:4px">${after?'🏁 The map is finished — 48 states down, only Alaska remains. Walk the days →':`⏳ <b>${daysToGo()}</b> day${daysToGo()===1?'':'s'} to wheels-up · ✈️ ${esc(S.meta.flightsOut)}`}</div></div>
