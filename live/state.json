@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-18T12:58:11.777Z",
+ "updatedAt": "2026-08-18T23:40:06.415Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -50,6 +50,11 @@
   "VA": {
    "at": "Aug 18 at 8:56 AM",
    "meal": false,
+   "photo": false
+  },
+  "MD": {
+   "at": "Aug 18 at 7:39 PM",
+   "meal": true,
    "photo": false
   }
  },
