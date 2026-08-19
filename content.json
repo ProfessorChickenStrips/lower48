@@ -1,5 +1,5 @@
 {
- "contentV": 23,
+ "contentV": 24,
  "days": [
   {
    "d": "2026-08-19",
@@ -7,10 +7,14 @@
    "todo": [
     "Naval Academy via Gate 1 (photo ID!)",
     "Lewes: lunch + Second St in the “first town in the first state”",
-    "Ferry: at the Lewes terminal by 3:15 — check-in closes 3:45, sails 4:15 — watch for dolphins",
-    "Cape May sunset promenade"
+    "Ferry: terminal by 3:15 — check-in closes 3:45, sails 4:15 — watch for dolphins",
+    "Land Cape May ~5:40: promenade stroll + the Victorian photo (NJ claim material) — 30–40 min, no more",
+    "~6:30 drive the Parkway north ~50 min → Ocean Casino Resort, Atlantic City",
+    "Dinner at Ocean ~8 — the resort holds a dozen options, zero planning required"
    ],
-   "note": "Ferry is time-fixed now: miss the 3:45 check-in cutoff and the crossing is forfeit (+$26 no-show fee). Leave USNA by ~11:30 and a Lewes lunch still leaves an hour of slack. Same photo IDs work all day — Gate 1 and ferry check-in."
+   "note": "PLAN CHANGE: the Marquis was never actually booked — tonight is Ocean Casino Resort, Atlantic City (confirmation lives in your email + planning chat, deliberately NOT in this public app). The ferry stays exactly as booked. Cape May still happens as a 30–40 min landing stroll — it keeps the NJ claim honest and the sunset promenade photo. Then 50 min up the Parkway to a big, easy resort night.",
+   "hotel": "Ocean Casino Resort, Atlantic City",
+   "eat": "Dinner inside Ocean Casino Resort after the drive — pick by mood on arrival"
   },
   {
    "d": "2026-08-15",
