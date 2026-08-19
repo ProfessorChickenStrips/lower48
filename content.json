@@ -1,5 +1,5 @@
 {
- "contentV": 24,
+ "contentV": 26,
  "days": [
   {
    "d": "2026-08-19",
@@ -70,7 +70,32 @@
   },
   {
    "d": "2026-08-20",
-   "eat": "Bowen’s Wharf district: 22 Bowen’s · Clarke Cooke House · The Mooring — book one or stroll + choose"
+   "eat": "Oyster Club, Mystic ~5:45 (book!) — the Connecticut claim meal · S&P Oyster backup · Newport becomes the nightcap, not the dinner",
+   "depart": "9:15–9:30 AM from Atlantic City",
+   "drive": "~270 mi · 6–6.5h (50 min SHORTER than planned) · GWB midday only — never at 4 PM",
+   "todo": [
+    "Optional: 20-min boardwalk stroll before rolling — the ocean at morning, then go",
+    "Garden State Pkwy → GWB ~11:45–12:15 → I-95",
+    "Mystic ~3:15: village stroll, the drawbridge, Sift Bake Shop — unhurried",
+    "DINNER IN MYSTIC ~5:45: Oyster Club (13 Water St — book OpenTable from the car) · S&P Oyster at the drawbridge as the view-first backup",
+    "~7:15 roll the last 1h15 → Newport · Wayfinder check-in ~8:30",
+    "Nightcap stroll: Bowen’s Wharf + the harbor in the dark — dinner there traded to Mystic"
+   ],
+   "claims": [
+    {
+     "code": "NJ",
+     "label": "New Jersey",
+     "text": "Arrival by sea on Cape May sand + an Atlantic City boardwalk night",
+     "rain": "The resort IS the rain plan"
+    },
+    {
+     "code": "CT",
+     "label": "Connecticut",
+     "text": "Mystic’s drawbridge village (or Pepe’s apizza)",
+     "rain": "Pepe’s — indoor by design"
+    }
+   ],
+   "note": "Evening flipped: the banked Atlantic City hour buys a real Mystic dinner — Oyster Club is the state’s ritual meal, and the CT claim upgrades from stroll to feast. Trade accepted: Bowen’s Wharf becomes a harbor nightcap tonight (Newport still owns tomorrow’s 7:45 Cliff Walk morning). Book the 5:45 table from I-95, not at the door — Thursday August Mystic fills."
   },
   {
    "d": "2026-08-25",
