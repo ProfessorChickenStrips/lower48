@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-18T23:39:47.970Z",
+ "updatedAt": "2026-08-19T12:26:30.957Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -280,6 +280,32 @@
     },
     {
      "path": "media/2026-08-18/1787057826813-clark-5.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1787142386127ofpv",
+   "d": "2026-08-18",
+   "who": "Clark",
+   "text": "The world’s best crab cake dinner and sunset in Annapolis.",
+   "at": "2026-08-19T12:26:26.127Z",
+   "ts": 1787142386127,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-18/1787142349077-clark-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-18/1787142349212-clark-1.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-18/1787142349243-clark-2.jpg",
      "type": "img",
      "up": true
     }
