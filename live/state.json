@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-20T23:37:55.077Z",
+ "updatedAt": "2026-08-21T14:24:11.973Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -44,23 +44,23 @@
  "claims": {
   "NC": {
    "at": "Aug 16 at 12:43 PM",
-   "meal": false,
-   "photo": false
+   "meal": true,
+   "photo": true
   },
   "VA": {
    "at": "Aug 18 at 8:56 AM",
-   "meal": true,
-   "photo": true
+   "meal": false,
+   "photo": false
   },
   "MD": {
    "at": "Aug 18 at 7:39 PM",
    "meal": true,
-   "photo": true
+   "photo": false
   },
   "DE": {
    "at": "Aug 19 at 2:30 PM",
    "meal": true,
-   "photo": true
+   "photo": false
   },
   "NJ": {
    "at": "Aug 20 at 1:46 PM",
@@ -80,25 +80,18 @@
  },
  "notices": {
   "maggie-love-1": true,
+  "love-2026-07-20": false,
   "love-2026-07-21": true,
   "love-2026-07-22": true,
   "love-2026-07-23": true,
   "love-2026-07-24": false,
   "love-2026-07-25": true,
-  "love-2026-07-26": false,
-  "love-2026-07-27": false,
-  "love-2026-07-28": false,
-  "love-2026-07-29": false,
   "love-2026-07-30": false,
-  "love-2026-08-01": false,
-  "love-2026-08-02": false,
   "love-2026-08-03": true,
-  "love-2026-08-05": false,
   "love-2026-08-06": true,
-  "love-2026-08-07": false,
-  "love-2026-08-08": false,
   "love-2026-08-09": true,
   "love-2026-08-10": true,
+  "love-2026-08-11": true,
   "love-2026-08-12": true,
   "love-2026-08-13": true,
   "love-2026-08-14": true,
@@ -107,6 +100,7 @@
   "love-2026-08-17": true,
   "love-2026-08-18": true,
   "love-2026-08-19": true,
-  "love-2026-08-20": true
+  "love-2026-08-20": true,
+  "love-2026-08-21": true
  }
 }
