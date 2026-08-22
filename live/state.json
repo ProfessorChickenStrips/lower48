@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-22T02:54:24.150Z",
+ "updatedAt": "2026-08-22T02:54:44.304Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -272,7 +272,7 @@
    }
   },
   "acts": {
-   "cts": 0,
+   "cts": 1787367279980,
    "items": [
     {
      "id": "a_craggy",
@@ -321,11 +321,15 @@
     {
      "id": "a_peaks",
      "t": "Casco Bay: Peaks Island or Lucky Catch (Thu)"
+    },
+    {
+     "id": "rk_mt3sbvqkd32x",
+     "t": "UVA Lawn & Rotunda"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787367259766,
+     "ts": 1787367279980,
      "ids": [
       "a_biltmore",
       "a_craggy",
@@ -338,11 +342,12 @@
       "a_ptown",
       "a_mansfield",
       "a_kanc",
-      "a_peaks"
+      "a_peaks",
+      "rk_mt3sbvqkd32x"
      ]
     },
     "maggie": {
-     "ts": 0,
+     "ts": 1787367279980,
      "ids": [
       "a_craggy",
       "a_biltmore",
@@ -355,7 +360,8 @@
       "a_ptown",
       "a_mansfield",
       "a_kanc",
-      "a_peaks"
+      "a_peaks",
+      "rk_mt3sbvqkd32x"
      ]
     }
    }
