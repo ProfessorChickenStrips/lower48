@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-22T02:51:18.814Z",
+ "updatedAt": "2026-08-22T02:51:53.520Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -112,7 +112,7 @@
  },
  "rankings": {
   "food": {
-   "cts": 1787367046467,
+   "cts": 1787367108457,
    "items": [
     {
      "id": "f_blackcat",
@@ -157,11 +157,15 @@
     {
      "id": "rk_mt3s6vk2igaw",
      "t": "Tivola — Charlottesville"
+    },
+    {
+     "id": "rk_mt3s87e1eylc",
+     "t": "Skipper Chowder House — South Yarmouth"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787367074457,
+     "ts": 1787367113032,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -170,6 +174,7 @@
       "f_oysterclub",
       "f_striper",
       "f_jettierae",
+      "rk_mt3s87e1eylc",
       "f_macs",
       "f_casa",
       "f_forty",
@@ -177,7 +182,7 @@
      ]
     },
     "maggie": {
-     "ts": 1787367046467,
+     "ts": 1787367108457,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -189,7 +194,8 @@
       "f_casa",
       "f_forty",
       "f_streetco",
-      "rk_mt3s6vk2igaw"
+      "rk_mt3s6vk2igaw",
+      "rk_mt3s87e1eylc"
      ]
     }
    }
