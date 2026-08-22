@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-22T02:50:22.495Z",
+ "updatedAt": "2026-08-22T02:50:33.832Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -112,7 +112,7 @@
  },
  "rankings": {
   "food": {
-   "cts": 1787367018012,
+   "cts": 1787367029578,
    "items": [
     {
      "id": "f_blackcat",
@@ -153,15 +153,11 @@
     {
      "id": "f_streetco",
      "t": "Street & Co — Portland, the farewell (Thu)"
-    },
-    {
-     "id": "rk_mt3s69loesm6",
-     "t": "Tivola - Charlottesville"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787367018012,
+     "ts": 1787367029578,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -172,12 +168,11 @@
       "f_macs",
       "f_casa",
       "f_forty",
-      "f_streetco",
-      "rk_mt3s69loesm6"
+      "f_streetco"
      ]
     },
     "maggie": {
-     "ts": 1787367018012,
+     "ts": 1787367029578,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -188,8 +183,7 @@
       "f_macs",
       "f_casa",
       "f_forty",
-      "f_streetco",
-      "rk_mt3s69loesm6"
+      "f_streetco"
      ]
     }
    }
