@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-22T02:53:07.776Z",
+ "updatedAt": "2026-08-22T02:53:45.306Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -201,7 +201,7 @@
    }
   },
   "hotels": {
-   "cts": 0,
+   "cts": 1787367216976,
    "items": [
     {
      "id": "h_blindtiger",
@@ -234,14 +234,19 @@
     {
      "id": "h_press",
      "t": "The Press Hotel — Portland (Wed–Fri)"
+    },
+    {
+     "id": "rk_mt3saj4gyts6",
+     "t": "Wayfinder — Newport"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787367183561,
+     "ts": 1787367220893,
      "ids": [
       "h_oakhurst",
       "h_blindtiger",
+      "rk_mt3saj4gyts6",
       "h_uncommoner",
       "h_graduate",
       "h_ocean",
@@ -251,7 +256,7 @@
      ]
     },
     "maggie": {
-     "ts": 0,
+     "ts": 1787367216976,
      "ids": [
       "h_blindtiger",
       "h_uncommoner",
@@ -260,7 +265,8 @@
       "h_ocean",
       "h_talta",
       "h_thornhill",
-      "h_press"
+      "h_press",
+      "rk_mt3saj4gyts6"
      ]
     }
    }
