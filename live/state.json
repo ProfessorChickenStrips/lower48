@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-22T02:51:57.279Z",
+ "updatedAt": "2026-08-22T02:52:05.959Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -112,7 +112,7 @@
  },
  "rankings": {
   "food": {
-   "cts": 1787367108457,
+   "cts": 1787367121698,
    "items": [
     {
      "id": "f_blackcat",
@@ -125,10 +125,6 @@
     {
      "id": "f_curate",
      "t": "Cúrate — Asheville tapas lunch"
-    },
-    {
-     "id": "f_oysterclub",
-     "t": "Oyster Club — Mystic"
     },
     {
      "id": "f_jettierae",
@@ -165,14 +161,13 @@
    ],
    "orders": {
     "clark": {
-     "ts": 1787367117268,
+     "ts": 1787367121698,
      "ids": [
       "f_blackcat",
       "f_boatyard",
       "rk_mt3s6vk2igaw",
       "f_curate",
       "rk_mt3s87e1eylc",
-      "f_oysterclub",
       "f_striper",
       "f_jettierae",
       "f_macs",
@@ -182,12 +177,11 @@
      ]
     },
     "maggie": {
-     "ts": 1787367108457,
+     "ts": 1787367121698,
      "ids": [
       "f_blackcat",
       "f_boatyard",
       "f_curate",
-      "f_oysterclub",
       "f_jettierae",
       "f_striper",
       "f_macs",
