@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-22T02:54:49.616Z",
+ "updatedAt": "2026-08-22T02:55:26.271Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -272,7 +272,7 @@
    }
   },
   "acts": {
-   "cts": 1787367279980,
+   "cts": 1787367321867,
    "items": [
     {
      "id": "a_craggy",
@@ -293,10 +293,6 @@
     {
      "id": "a_annapolis",
      "t": "Annapolis: USNA + Spa Creek sunset"
-    },
-    {
-     "id": "a_rad",
-     "t": "River Arts District studios — Asheville"
     },
     {
      "id": "a_capemay",
@@ -329,7 +325,7 @@
    ],
    "orders": {
     "clark": {
-     "ts": 1787367285397,
+     "ts": 1787367321868,
      "ids": [
       "a_biltmore",
       "a_craggy",
@@ -337,7 +333,6 @@
       "a_monticello",
       "rk_mt3sbvqkd32x",
       "a_ferry",
-      "a_rad",
       "a_capemay",
       "a_seals",
       "a_ptown",
@@ -347,14 +342,13 @@
      ]
     },
     "maggie": {
-     "ts": 1787367279980,
+     "ts": 1787367321868,
      "ids": [
       "a_craggy",
       "a_biltmore",
       "a_monticello",
       "a_ferry",
       "a_annapolis",
-      "a_rad",
       "a_capemay",
       "a_seals",
       "a_ptown",
