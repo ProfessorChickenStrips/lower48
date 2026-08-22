@@ -1,5 +1,5 @@
 {
- "contentV": 30,
+ "contentV": 31,
  "days": [
   {
    "d": "2026-08-19",
@@ -53,8 +53,17 @@
   {
    "d": "2026-08-23",
    "depart": "8:30–9:00 AM — canal by 9:45 is easy from W Yarmouth",
-   "drive": "~265 mi · 5h45–6h30 door-to-door · lunch Concord NH",
-   "eat": "Harrison’s: call or walk the bar early · plan B: Michael’s on the Hill or Edson Hill"
+   "drive": "~275 mi · 6h15–7h with the Plymouth stop · Cape → Rt 3 → I-93 through NH → I-89 → Stowe",
+   "eat": "Harrison’s: call or walk the bar early · plan B: Michael’s on the Hill or Edson Hill",
+   "todo": [
+    "8:30 sharp — Sunday is Cape changeover day; the canal before 9:30 beats the exodus",
+    "Plymouth ~10:00–10:45: Plymouth Rock at Pilgrim Memorial State Park (free, waterfront) + Mayflower II from the pier — the 1620 photo, then go",
+    "Concord NH lunch ~12:45 — quick, it’s a driving day",
+    "Cold Hollow Cider Mill on the approach (~3:15) — donuts are mandatory, this is settled law",
+    "Tälta Lodge check-in ~4:00 · Stowe village stroll + the covered bridge",
+    "Harrison’s: call or walk the bar early · plan B: Michael’s on the Hill or Edson Hill"
+   ],
+   "note": "Plymouth is ON the route — Rt 3 passes its front door, so the Rock costs ~45 min, not a detour. Expectation management, with love: it is a modest boulder under a grand Greek portico, and that gap IS the charm — you two are collecting the story, not the geology. Mayflower II beside it is the better photograph. Then the day resumes: NH is drive-through today (its night comes Tuesday), Vermont by mid-afternoon, cider donuts as the state’s handshake."
   },
   {
    "d": "2026-08-18",
