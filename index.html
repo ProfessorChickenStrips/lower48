@@ -271,7 +271,8 @@ const SEED = {
   {t:'Dinner-nice outfits ×2 (Cúrate, Thorn Hill, Fore Street)', done:false},
   {t:'Sunscreen + bug spray (Seashore + mountains)', done:false} ],
  rankings: {
-  food:{ts:0,items:[
+  food:{cts:0,items:[
+
    {id:'f_blackcat',t:'Black Cat Tavern — Hyannis (“best meal yet” 🤤)'},
    {id:'f_boatyard',t:'Boatyard Bar & Grill — the world’s-best crab cakes, Annapolis'},
    {id:'f_curate',t:'Cúrate — Asheville tapas lunch'},
@@ -282,8 +283,10 @@ const SEED = {
    {id:'f_macs',t:'Mac’s on the Pier — Wellfleet (Sat lunch)'},
    {id:'f_casa',t:'Casa del Cabo — Eastham (Sat 6:00)'},
    {id:'f_forty',t:'Forty at Thorn Hill — Jackson (Tue)'},
-   {id:'f_streetco',t:'Street & Co — Portland, the farewell (Thu)'}]},
-  hotels:{ts:0,items:[
+   {id:'f_streetco',t:'Street & Co — Portland, the farewell (Thu)'}],
+   orders:{clark:{ts:0,ids:['f_blackcat','f_boatyard','f_curate','f_oysterclub','f_jettierae','f_local','f_striper','f_macs','f_casa','f_forty','f_streetco']},maggie:{ts:0,ids:['f_blackcat','f_boatyard','f_curate','f_oysterclub','f_jettierae','f_local','f_striper','f_macs','f_casa','f_forty','f_streetco']}}},
+  hotels:{cts:0,items:[
+
    {id:'h_blindtiger',t:'Blind Tiger — Asheville (1 Michelin Key)'},
    {id:'h_uncommoner',t:'Uncommoner — W Yarmouth (the 9-ft pool)'},
    {id:'h_graduate',t:'Graduate — Annapolis'},
@@ -291,8 +294,10 @@ const SEED = {
    {id:'h_ocean',t:'Ocean Casino Resort — Atlantic City'},
    {id:'h_talta',t:'Tälta Lodge — Stowe (Sun–Tue)'},
    {id:'h_thornhill',t:'Inn at Thorn Hill — Jackson (2 Keys, Tue)'},
-   {id:'h_press',t:'The Press Hotel — Portland (Wed–Fri)'}]},
-  acts:{ts:0,items:[
+   {id:'h_press',t:'The Press Hotel — Portland (Wed–Fri)'}],
+   orders:{clark:{ts:0,ids:['h_blindtiger','h_uncommoner','h_graduate','h_oakhurst','h_ocean','h_talta','h_thornhill','h_press']},maggie:{ts:0,ids:['h_blindtiger','h_uncommoner','h_graduate','h_oakhurst','h_ocean','h_talta','h_thornhill','h_press']}}},
+  acts:{cts:0,items:[
+
    {id:'a_craggy',t:'Craggy Pinnacle sunset — Blue Ridge golden hour'},
    {id:'a_biltmore',t:'Biltmore House + gardens'},
    {id:'a_monticello',t:'Monticello Behind the Scenes'},
@@ -304,7 +309,8 @@ const SEED = {
    {id:'a_ptown',t:'Provincetown + Carnival week (Sat)'},
    {id:'a_mansfield',t:'Mt Mansfield gondola — Stowe (Mon)'},
    {id:'a_kanc',t:'The Kanc or Mt Washington summit (Wed)'},
-   {id:'a_peaks',t:'Casco Bay: Peaks Island or Lucky Catch (Thu)'}]} },
+   {id:'a_peaks',t:'Casco Bay: Peaks Island or Lucky Catch (Thu)'}],
+   orders:{clark:{ts:0,ids:['a_craggy','a_biltmore','a_monticello','a_ferry','a_annapolis','a_rad','a_capemay','a_seals','a_ptown','a_mansfield','a_kanc','a_peaks']},maggie:{ts:0,ids:['a_craggy','a_biltmore','a_monticello','a_ferry','a_annapolis','a_rad','a_capemay','a_seals','a_ptown','a_mansfield','a_kanc','a_peaks']}}} },
  days: [
   {d:'2026-08-15', dow:'Sat', title:'Fly west → east · arrive Asheville', hotel:'Blind Tiger Asheville (1 KEY)',
    depart:'BUR 7:00 AM — wheels down AVL 4:44 PM', drive:'AVL → Montford ~20 min',
@@ -397,7 +403,10 @@ function migrate(o){
   o.v=4;o.savedAt=o.savedAt??null;o.claims=o.claims||{};o.chatLog=o.chatLog||[];o.dirty=!!o.dirty;o.bannerOff=!!o.bannerOff;
   o.liveSyncedAt=o.liveSyncedAt??null;o.livePushedAt=o.livePushedAt??null;o.contentV=o.contentV??1;o.notices=o.notices||[];
   o.journal=o.journal||[];o.journalSyncedAt=o.journalSyncedAt??null;
-  o.rankings=(o.rankings&&o.rankings.food)?o.rankings:deepClone(SEED.rankings); /* Rankings tab arrives on upgraded phones */
+  if(!(o.rankings&&o.rankings.food))o.rankings=deepClone(SEED.rankings);
+  else ['food','hotels','acts'].forEach(k=>{const L=o.rankings[k]||(o.rankings[k]=deepClone(SEED.rankings[k]));
+   if(!L.orders){const idl=(L.items||[]).map(x=>x.id); /* v19 single-list shape → both ballots start from it */
+    o.rankings[k]={cts:L.ts||0,items:L.items||[],orders:{clark:{ts:0,ids:idl.slice()},maggie:{ts:0,ids:idl.slice()}}}}});
   return{ok:true,state:o};
 }
 function save(){if(!LS_OK)return;try{S.savedAt=new Date().toISOString();localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){LS_OK=false;toast('Autosave unavailable on this phone — protect changes via Sync')}}
@@ -563,8 +572,12 @@ function applyOverlay(live){ /* additive & conservative: local conf numbers and 
  if(Array.isArray(live.packing))live.packing.forEach((v,i)=>{if(v&&S.packing[i])S.packing[i].done=true});
  if(live.claims)Object.keys(live.claims).forEach(c=>{if(!S.claims[c]){const g=live.claims[c];S.claims[c]={at:g.at||'synced',meal:!!g.meal,photo:!!g.photo,note:''}}});
  if(live.notices)S.notices.forEach(n=>{if(live.notices[n.id]&&!n.acked){n.acked=true;n.ackedAt=n.ackedAt||new Date().toISOString()}});
- if(live.rankings&&S.rankings)['food','hotels','acts'].forEach(k=>{const r=live.rankings[k];
-  if(r&&Array.isArray(r.items)&&(r.ts||0)>((S.rankings[k]&&S.rankings[k].ts)||0))S.rankings[k]={ts:r.ts,items:r.items}}); /* newest edit of each list wins across phones */
+ if(live.rankings&&S.rankings)['food','hotels','acts'].forEach(k=>{const r=live.rankings[k],L=S.rankings[k];
+  if(!r||!L||!r.orders)return; /* old-shape payloads are ignored */
+  if(Array.isArray(r.items)&&(r.cts||0)>(L.cts||0)){L.cts=r.cts;L.items=r.items} /* catalog: newest add/remove wins */
+  ['clark','maggie'].forEach(w=>{const ro=r.orders[w];
+   if(ro&&Array.isArray(ro.ids)&&(ro.ts||0)>((L.orders[w]&&L.orders[w].ts)||0))L.orders[w]={ts:ro.ts,ids:ro.ids}}); /* each ballot edited on its own phone — per-person newest wins */
+ });
 }
 
 /* ============ MEMORIAL JOURNAL — notes + photos + short videos, per day, forever ============
@@ -719,7 +732,7 @@ function renderTabs(){
  $('tabbar').innerHTML=TABS.map(([id,ico,lb])=>`<button data-act="tab" data-t="${id}" class="${TAB===id?'on':''}" ${TAB===id?'aria-current="page"':''} aria-label="${lb}"><span class="ico" aria-hidden="true">${ico}</span>${lb}${id==='sync'&&S.dirty?'<span class="dot" title="unsynced changes"></span>':''}</button>`).join('');
 }
 const TAB_BLURBS={
- rank:['🏆 The Rankings','Food, hotels, adventures — the great debates, settled by drag. ☰ to reorder, ✕ to drop, add what we forgot.'],
+ rank:['🏆 The Rankings','Two ballots, one truth: rank yours, Maggie ranks hers, and the maths crowns the combined champion.'],
  trip:['🧭 The Fourteen Days','One page per day: the plan, the state claims, and the story you two write as you go. 📖 Pre holds everything before.'],
  ledger:['🏅 The State Ledger','Ten stamps to collect — 38 becomes 48. Claim each state as you land it, evidence and all.'],
  chat:['💬 The Concierge','Ask the trip anything — or paste an update block from your Claude planning chat and watch the app absorb it.'],
@@ -965,22 +978,51 @@ function dayChips(activeIdx){
   return `<button class="chip ${i===activeIdx?'on':''} ${done?'done':''}" data-act="chip" data-i="${i}">${dd.dow} ${+dd.d.slice(8)}</button>`}).join('');
  return `<div class="chips" role="tablist" aria-label="Trip days">${pre}${rest}</div>`;
 }
-/* ============ RANKINGS — the great debates, settled by drag ============ */
-const RK_META={food:['🍽️','Food','Every memorable plate — reigning champion on top'],hotels:['🏨','Hotels','Where we slept, best bed first'],acts:['🥾','Activities','What we did — rank the memories']};
-function rkFind(id){for(const k of ['food','hotels','acts']){const L=S.rankings[k].items;for(let i=0;i<L.length;i++)if(L[i].id===id)return{k,list:L,it:L[i],i}}return null}
-function rkTouch(k){S.rankings[k].ts=Date.now();dirty()}
+/* ============ RANKINGS — two ballots + Borda-combined ============ */
+const RK_META={food:['🍽️','Food','Every memorable plate'],hotels:['🏨','Hotels','Where we slept'],acts:['🥾','Activities','What we did']};
+function rkWhoKey(){const w=(getWho()||'').toLowerCase();return w==='maggie'?'maggie':'clark'}
+if(!('rkview' in UI))UI.rkview=null; /* null = follow this phone's identity */
+function rkView(){return UI.rkview||rkWhoKey()}
+function rkNorm(k,w){ /* ballot = permutation of catalog: drop ghosts, append newcomers at the bottom */
+ const L=S.rankings[k];const have=new Set(L.items.map(x=>x.id));
+ const o=L.orders[w];const ids=o.ids.filter(id=>have.has(id));
+ L.items.forEach(x=>{if(!ids.includes(x.id))ids.push(x.id)});o.ids=ids;return ids}
+function rkFind(id){for(const k of ['food','hotels','acts']){const L=S.rankings[k].items;for(let i=0;i<L.length;i++)if(L[i].id===id)return{k,it:L[i],i}}return null}
+function rkCombined(k){ /* Borda: sum of the two ranks, lower wins; tie → whoever's best rank is better; then Clark's order */
+ const c=rkNorm(k,'clark'),m=rkNorm(k,'maggie');const pos=(a,id)=>a.indexOf(id)+1;
+ return S.rankings[k].items.map(it=>{const pc=pos(c,it.id),pm=pos(m,it.id);
+  return {it,pc,pm,sum:pc+pm,best:Math.min(pc,pm)}})
+  .sort((a,b)=>a.sum-b.sum||a.best-b.best||a.pc-b.pc);
+}
 function viewRank(){
- return ['food','hotels','acts'].map(k=>{const m=RK_META[k],L=S.rankings[k].items;
-  return `<div class="card rkcont" data-rkcont="${k}">
-   <h3>${m[0]} ${esc(m[1])}</h3><div class="small" style="margin:2px 0 6px">${esc(m[2])}</div>
-   <div>${L.map((it,i)=>`<div class="rkrow ${i===0?'top1':''}" data-rkitem="${esc(it.id)}">
-     <span class="rkhandle" data-rkdrag="${esc(it.id)}" aria-label="drag to reorder">☰</span>
+ const v=rkView();const me=rkWhoKey();
+ const seg=w=>`<button class="btn sm ${v===w?'gold':'subtle'}" data-act="rk-view" data-v="${w}">${w==='combined'?'🏆 Combined':(w==='clark'?'Clark':'Maggie')}</button>`;
+ const head=`<div class="card"><div class="btnrow" style="justify-content:center">${seg('clark')}${seg('maggie')}${seg('combined')}</div>
+  <div class="small" style="text-align:center;margin-top:6px">${v==='combined'
+   ?'Average of your two ballots — lowest combined rank wins · ties go to the higher individual vote'
+   :(v===me?'Your ballot — drag freely; it syncs under your name':'Viewing '+(v==='clark'?'Clark':'Maggie')+'’s ballot — edits here count as their vote')}</div></div>`;
+ const conts=['food','hotels','acts'].map(k=>{const meta=RK_META[k];
+  let rows;
+  if(v==='combined'){
+   rows=rkCombined(k).map((r,i)=>`<div class="rkrow ${i===0?'top1':''}">
      <span class="rkbadge">${i+1}</span>
-     <div class="t">${esc(it.t)}</div>
-     <button class="rkdel" data-act="rk-del" data-id="${esc(it.id)}" aria-label="remove">✕</button>
-    </div>`).join('')||'<div class="small">Empty — add below.</div>'}</div>
-   <div class="rkadd"><input type="text" id="rkin-${k}" data-keep autocomplete="off" placeholder="Add to ${esc(m[1])}…"><button class="btn sm gold" data-act="rk-add" data-k="${k}">Add</button></div>
+     <div class="t">${esc(r.it.t)}<div class="small">Clark #${r.pc} · Maggie #${r.pm} · avg ${(r.sum/2).toFixed(1)}${r.pc===1&&r.pm===1?' · 🤝 unanimous':''}</div></div>
+    </div>`).join('');
+   return `<div class="card rkcont"><h3>${meta[0]} ${esc(meta[1])} — the verdict</h3><div>${rows}</div></div>`;
+  }
+  const ids=rkNorm(k,v);const byId={};S.rankings[k].items.forEach(x=>byId[x.id]=x);
+  rows=ids.map((id,i)=>`<div class="rkrow ${i===0?'top1':''}" data-rkitem="${esc(id)}">
+    <span class="rkhandle" data-rkdrag="${esc(id)}" aria-label="drag to reorder">☰</span>
+    <span class="rkbadge">${i+1}</span>
+    <div class="t">${esc(byId[id].t)}</div>
+    <button class="rkdel" data-act="rk-del" data-id="${esc(id)}" aria-label="remove">✕</button>
+   </div>`).join('');
+  return `<div class="card rkcont" data-rkcont="${k}">
+   <h3>${meta[0]} ${esc(meta[1])}</h3><div class="small" style="margin:2px 0 6px">${esc(meta[2])} — ${v==='clark'?'Clark':'Maggie'}’s order</div>
+   <div>${rows||'<div class="small">Empty — add below.</div>'}</div>
+   <div class="rkadd"><input type="text" id="rkin-${k}" data-keep autocomplete="off" placeholder="Add to ${esc(meta[1])}…"><button class="btn sm gold" data-act="rk-add" data-k="${k}">Add</button></div>
   </div>`}).join('');
+ return head+conts;
 }
 function viewTrip(){
  const idx=DAYSEL!==null?DAYSEL:((phase()==='plan'||phase()==='after')?-1:Math.max(0,tripDayIndex())); /* pre & post trip default to the Prologue — the story's first page */
@@ -1277,10 +1319,16 @@ document.addEventListener('click',e=>{
     :'What should we be doing right now, and what’s coming next?';t.focus();break}
   case 'patch-apply':applyPatchUI();break;
   case 'notice-ack':ackNotice(a.id);break;
-  case 'rk-del':{const r=rkFind(a.id);if(r&&confirm('Remove “'+r.it.t+'” from the ranking?')){r.list.splice(r.i,1);rkTouch(r.k);render()}break}
+  case 'rk-view':UI.rkview=a.v;render();break;
+  case 'rk-del':{const r=rkFind(a.id);if(r&&confirm('Remove “'+r.it.t+'” from BOTH ballots?')){
+   const L=S.rankings[r.k];L.items.splice(r.i,1);L.cts=Date.now();
+   ['clark','maggie'].forEach(w=>{L.orders[w].ids=L.orders[w].ids.filter(x=>x!==a.id);L.orders[w].ts=Date.now()});
+   dirty();render()}break}
   case 'rk-add':{const el2=$('rkin-'+a.k);const v2=(el2&&el2.value||'').trim();if(!v2)return;
-   S.rankings[a.k].items.push({id:'rk_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),t:v2});
-   if(el2)el2.value='';rkTouch(a.k);render();break}
+   const L=S.rankings[a.k];const nid='rk_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+   L.items.push({id:nid,t:v2});L.cts=Date.now();
+   ['clark','maggie'].forEach(w=>{L.orders[w].ids.push(nid);L.orders[w].ts=Date.now()}); /* newcomers start last on both ballots */
+   if(el2)el2.value='';dirty();render();break}
   case 'j-save':saveJEntry(a.d);break;
   case 'j-del':delJEntry(a.id);break;
   case 'jwho':setWho(a.n);render();toast('Got it — entries from this phone sign as '+a.n);break;
@@ -1330,14 +1378,14 @@ document.addEventListener('pointermove',e=>{
 document.addEventListener('pointerup',()=>{
  if(!RKDRAG)return;const d=RKDRAG;rkEndDrag();
  if(!d.moved||!d.tgt)return;
+ const w=rkView();if(w==='combined')return; /* the verdict is computed, never dragged */
  const src=rkFind(d.id);if(!src)return;
- if(d.tgt.item){const dst=rkFind(d.tgt.item);if(!dst||d.tgt.item===d.id)return;
-  if(dst.k!==src.k)return; /* items stay in their own list — Food never ranks against Hotels */
-  src.list.splice(src.i,1);
-  const di=src.list.indexOf(dst.it);
-  src.list.splice(di<0?src.list.length:di,0,src.it);rkTouch(src.k);render()}
- else if(d.tgt.cont){if(d.tgt.cont!==src.k)return;
-  src.list.splice(src.i,1);src.list.push(src.it);rkTouch(src.k);render()}
+ const ids=rkNorm(src.k,w);const from=ids.indexOf(d.id);if(from<0)return;
+ if(d.tgt.item){const dst=rkFind(d.tgt.item);if(!dst||d.tgt.item===d.id||dst.k!==src.k)return;
+  ids.splice(from,1);const di=ids.indexOf(d.tgt.item);ids.splice(di<0?ids.length:di,0,d.id)}
+ else if(d.tgt.cont){if(d.tgt.cont!==src.k)return;ids.splice(from,1);ids.push(d.id)}
+ else return;
+ S.rankings[src.k].orders[w]={ts:Date.now(),ids};dirty();render()
 });
 document.addEventListener('pointercancel',rkEndDrag);
 
