@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-21T14:24:11.973Z",
+ "updatedAt": "2026-08-22T02:49:01.385Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -44,23 +44,23 @@
  "claims": {
   "NC": {
    "at": "Aug 16 at 12:43 PM",
-   "meal": true,
-   "photo": true
+   "meal": false,
+   "photo": false
   },
   "VA": {
    "at": "Aug 18 at 8:56 AM",
-   "meal": false,
-   "photo": false
+   "meal": true,
+   "photo": true
   },
   "MD": {
    "at": "Aug 18 at 7:39 PM",
    "meal": true,
-   "photo": false
+   "photo": true
   },
   "DE": {
    "at": "Aug 19 at 2:30 PM",
    "meal": true,
-   "photo": false
+   "photo": true
   },
   "NJ": {
    "at": "Aug 20 at 1:46 PM",
@@ -80,18 +80,25 @@
  },
  "notices": {
   "maggie-love-1": true,
-  "love-2026-07-20": false,
   "love-2026-07-21": true,
   "love-2026-07-22": true,
   "love-2026-07-23": true,
   "love-2026-07-24": false,
   "love-2026-07-25": true,
+  "love-2026-07-26": false,
+  "love-2026-07-27": false,
+  "love-2026-07-28": false,
+  "love-2026-07-29": false,
   "love-2026-07-30": false,
+  "love-2026-08-01": false,
+  "love-2026-08-02": false,
   "love-2026-08-03": true,
+  "love-2026-08-05": false,
   "love-2026-08-06": true,
+  "love-2026-08-07": false,
+  "love-2026-08-08": false,
   "love-2026-08-09": true,
   "love-2026-08-10": true,
-  "love-2026-08-11": true,
   "love-2026-08-12": true,
   "love-2026-08-13": true,
   "love-2026-08-14": true,
@@ -102,5 +109,238 @@
   "love-2026-08-19": true,
   "love-2026-08-20": true,
   "love-2026-08-21": true
+ },
+ "rankings": {
+  "food": {
+   "cts": 1787366936817,
+   "items": [
+    {
+     "id": "f_blackcat",
+     "t": "Black Cat Tavern — Hyannis (“best meal yet” 🤤)"
+    },
+    {
+     "id": "f_boatyard",
+     "t": "Boatyard Bar & Grill — the world’s-best crab cakes, Annapolis"
+    },
+    {
+     "id": "f_curate",
+     "t": "Cúrate — Asheville tapas lunch"
+    },
+    {
+     "id": "f_oysterclub",
+     "t": "Oyster Club — Mystic"
+    },
+    {
+     "id": "f_jettierae",
+     "t": "Jettie Rae’s Oyster House — night one, Asheville"
+    },
+    {
+     "id": "f_striper",
+     "t": "Striper Bites — Lewes"
+    },
+    {
+     "id": "f_macs",
+     "t": "Mac’s on the Pier — Wellfleet (Sat lunch)"
+    },
+    {
+     "id": "f_casa",
+     "t": "Casa del Cabo — Eastham (Sat 6:00)"
+    },
+    {
+     "id": "f_forty",
+     "t": "Forty at Thorn Hill — Jackson (Tue)"
+    },
+    {
+     "id": "f_streetco",
+     "t": "Street & Co — Portland, the farewell (Thu)"
+    }
+   ],
+   "orders": {
+    "clark": {
+     "ts": 1787366936817,
+     "ids": [
+      "f_blackcat",
+      "f_boatyard",
+      "f_curate",
+      "f_oysterclub",
+      "f_jettierae",
+      "f_striper",
+      "f_macs",
+      "f_casa",
+      "f_forty",
+      "f_streetco"
+     ]
+    },
+    "maggie": {
+     "ts": 1787366936817,
+     "ids": [
+      "f_blackcat",
+      "f_boatyard",
+      "f_curate",
+      "f_oysterclub",
+      "f_jettierae",
+      "f_striper",
+      "f_macs",
+      "f_casa",
+      "f_forty",
+      "f_streetco"
+     ]
+    }
+   }
+  },
+  "hotels": {
+   "cts": 0,
+   "items": [
+    {
+     "id": "h_blindtiger",
+     "t": "Blind Tiger — Asheville (1 Michelin Key)"
+    },
+    {
+     "id": "h_uncommoner",
+     "t": "Uncommoner — W Yarmouth (the 9-ft pool)"
+    },
+    {
+     "id": "h_graduate",
+     "t": "Graduate — Annapolis"
+    },
+    {
+     "id": "h_oakhurst",
+     "t": "Oakhurst Inn — Charlottesville"
+    },
+    {
+     "id": "h_ocean",
+     "t": "Ocean Casino Resort — Atlantic City"
+    },
+    {
+     "id": "h_talta",
+     "t": "Tälta Lodge — Stowe (Sun–Tue)"
+    },
+    {
+     "id": "h_thornhill",
+     "t": "Inn at Thorn Hill — Jackson (2 Keys, Tue)"
+    },
+    {
+     "id": "h_press",
+     "t": "The Press Hotel — Portland (Wed–Fri)"
+    }
+   ],
+   "orders": {
+    "clark": {
+     "ts": 0,
+     "ids": [
+      "h_blindtiger",
+      "h_uncommoner",
+      "h_graduate",
+      "h_oakhurst",
+      "h_ocean",
+      "h_talta",
+      "h_thornhill",
+      "h_press"
+     ]
+    },
+    "maggie": {
+     "ts": 0,
+     "ids": [
+      "h_blindtiger",
+      "h_uncommoner",
+      "h_graduate",
+      "h_oakhurst",
+      "h_ocean",
+      "h_talta",
+      "h_thornhill",
+      "h_press"
+     ]
+    }
+   }
+  },
+  "acts": {
+   "cts": 0,
+   "items": [
+    {
+     "id": "a_craggy",
+     "t": "Craggy Pinnacle sunset — Blue Ridge golden hour"
+    },
+    {
+     "id": "a_biltmore",
+     "t": "Biltmore House + gardens"
+    },
+    {
+     "id": "a_monticello",
+     "t": "Monticello Behind the Scenes"
+    },
+    {
+     "id": "a_ferry",
+     "t": "Cape May–Lewes ferry crossing"
+    },
+    {
+     "id": "a_annapolis",
+     "t": "Annapolis: USNA + Spa Creek sunset"
+    },
+    {
+     "id": "a_rad",
+     "t": "River Arts District studios — Asheville"
+    },
+    {
+     "id": "a_capemay",
+     "t": "Cape May promenade + painted ladies"
+    },
+    {
+     "id": "a_seals",
+     "t": "Chatham fish-pier seals (Sat)"
+    },
+    {
+     "id": "a_ptown",
+     "t": "Provincetown + Carnival week (Sat)"
+    },
+    {
+     "id": "a_mansfield",
+     "t": "Mt Mansfield gondola — Stowe (Mon)"
+    },
+    {
+     "id": "a_kanc",
+     "t": "The Kanc or Mt Washington summit (Wed)"
+    },
+    {
+     "id": "a_peaks",
+     "t": "Casco Bay: Peaks Island or Lucky Catch (Thu)"
+    }
+   ],
+   "orders": {
+    "clark": {
+     "ts": 0,
+     "ids": [
+      "a_craggy",
+      "a_biltmore",
+      "a_monticello",
+      "a_ferry",
+      "a_annapolis",
+      "a_rad",
+      "a_capemay",
+      "a_seals",
+      "a_ptown",
+      "a_mansfield",
+      "a_kanc",
+      "a_peaks"
+     ]
+    },
+    "maggie": {
+     "ts": 0,
+     "ids": [
+      "a_craggy",
+      "a_biltmore",
+      "a_monticello",
+      "a_ferry",
+      "a_annapolis",
+      "a_rad",
+      "a_capemay",
+      "a_seals",
+      "a_ptown",
+      "a_mansfield",
+      "a_kanc",
+      "a_peaks"
+     ]
+    }
+   }
+  }
  }
 }
