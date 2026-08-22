@@ -1,5 +1,5 @@
 {
- "contentV": 27,
+ "contentV": 30,
  "days": [
   {
    "d": "2026-08-19",
@@ -38,7 +38,17 @@
   {
    "d": "2026-08-22",
    "depart": "Leave 8:25 — Chatham by 9 (≈30 min from W Yarmouth)",
-   "drive": "Loop day: Chatham 30 min · Chatham→Wellfleet ~25 · P-town home leg ~55–60"
+   "drive": "Loop day: Chatham 30 min · Chatham→Wellfleet ~25 · P-town home leg ~55–60",
+   "todo": [
+    "⚠️ NOW: cancel Casa del Cabo 6:00 on Tock — small room, Saturday night; cancel by 4:30 as a courtesy",
+    "P-town until ~5:15, then the home leg (~55 min)",
+    "🍕 Pizza Barbone, 390 Main St, Hyannis ~6:30 — wood-fired Neapolitan, the Cape's best (508-957-2377)",
+    "Main St Hyannis stroll after — you liked this town Thursday night",
+    "Optional sunset flip (call Barbone first to confirm kitchen hours): Rock Harbor 7:00–7:45 on the way, pizza ~8:10 after",
+    "Home ~8:30 · stamp the MASSACHUSETTS bonus · journal + keepers · bags half-packed — Stowe leaves 8:30 AM"
+   ],
+   "eat": "Pizza Barbone ~6:30 — Casa del Cabo CANCELLED (do it on Tock now)",
+   "note": "The pizza coup: Casa's ceviche loses to wood-fired Neapolitan, and geography approves — Barbone is 10 min from the Uncommoner in the Hyannis you already love. Default order: pizza 6:30, stroll after, no sunset chase. If the sky looks spectacular from Rt 6, the flip (Rock Harbor sunset 7:31 → pizza after) only works if Barbone's kitchen confirms it's serving past 8 — one call settles it. Either way: cancel Tock NOW, not at 5:45."
   },
   {
    "d": "2026-08-23",
