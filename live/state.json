@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-22T02:52:22.465Z",
+ "updatedAt": "2026-08-22T02:52:46.280Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -112,7 +112,7 @@
  },
  "rankings": {
   "food": {
-   "cts": 1787367121698,
+   "cts": 1787367162040,
    "items": [
     {
      "id": "f_blackcat",
@@ -157,11 +157,15 @@
     {
      "id": "rk_mt3s87e1eylc",
      "t": "Skipper Chowder House — South Yarmouth"
+    },
+    {
+     "id": "rk_mt3s9cqflkmo",
+     "t": "22 Bowen’s — Newport"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787367138224,
+     "ts": 1787367162040,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -173,11 +177,12 @@
       "f_macs",
       "f_casa",
       "f_forty",
-      "f_streetco"
+      "f_streetco",
+      "rk_mt3s9cqflkmo"
      ]
     },
     "maggie": {
-     "ts": 1787367121698,
+     "ts": 1787367162040,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -189,7 +194,8 @@
       "f_forty",
       "f_streetco",
       "rk_mt3s6vk2igaw",
-      "rk_mt3s87e1eylc"
+      "rk_mt3s87e1eylc",
+      "rk_mt3s9cqflkmo"
      ]
     }
    }
