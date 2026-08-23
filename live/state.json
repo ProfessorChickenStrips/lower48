@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-23T16:31:33.805Z",
+ "updatedAt": "2026-08-23T16:31:50.700Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -332,9 +332,10 @@
    ],
    "orders": {
     "clark": {
-     "ts": 1787502689617,
+     "ts": 1787502706497,
      "ids": [
       "a_biltmore",
+      "a_ptown",
       "a_craggy",
       "a_annapolis",
       "a_monticello",
@@ -344,8 +345,7 @@
       "a_capemay",
       "a_mansfield",
       "a_kanc",
-      "a_peaks",
-      "a_ptown"
+      "a_peaks"
      ]
     },
     "maggie": {
