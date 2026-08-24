@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-24T00:57:42.350Z",
+ "updatedAt": "2026-08-24T00:57:49.104Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -124,7 +124,7 @@
  },
  "rankings": {
   "food": {
-   "cts": 1787367162040,
+   "cts": 1787533064858,
    "items": [
     {
      "id": "f_blackcat",
@@ -151,10 +151,6 @@
      "t": "Mac’s on the Pier — Wellfleet (Sat lunch)"
     },
     {
-     "id": "f_casa",
-     "t": "Casa del Cabo — Eastham (Sat 6:00)"
-    },
-    {
      "id": "f_forty",
      "t": "Forty at Thorn Hill — Jackson (Tue)"
     },
@@ -177,7 +173,7 @@
    ],
    "orders": {
     "clark": {
-     "ts": 1787533058026,
+     "ts": 1787533064858,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -188,13 +184,12 @@
       "f_striper",
       "f_jettierae",
       "f_macs",
-      "f_casa",
       "f_forty",
       "f_streetco"
      ]
     },
     "maggie": {
-     "ts": 1787367162040,
+     "ts": 1787533064858,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -202,7 +197,6 @@
       "f_jettierae",
       "f_striper",
       "f_macs",
-      "f_casa",
       "f_forty",
       "f_streetco",
       "rk_mt3s6vk2igaw",
