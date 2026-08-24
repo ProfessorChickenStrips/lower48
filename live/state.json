@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-24T02:30:11.696Z",
+ "updatedAt": "2026-08-24T02:30:56.930Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -284,7 +284,7 @@
    }
   },
   "acts": {
-   "cts": 1787367321867,
+   "cts": 1787538652693,
    "items": [
     {
      "id": "a_craggy",
@@ -333,11 +333,15 @@
     {
      "id": "rk_mt3sbvqkd32x",
      "t": "UVA Lawn & Rotunda"
+    },
+    {
+     "id": "rk_mt6mczrpgt7j",
+     "t": "Plymouth Rock and Dartmouth College lawn and murals"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787503958975,
+     "ts": 1787538652693,
      "ids": [
       "a_biltmore",
       "a_ptown",
@@ -350,11 +354,12 @@
       "a_capemay",
       "a_mansfield",
       "a_kanc",
-      "a_peaks"
+      "a_peaks",
+      "rk_mt6mczrpgt7j"
      ]
     },
     "maggie": {
-     "ts": 1787367321868,
+     "ts": 1787538652693,
      "ids": [
       "a_craggy",
       "a_biltmore",
@@ -367,7 +372,8 @@
       "a_mansfield",
       "a_kanc",
       "a_peaks",
-      "rk_mt3sbvqkd32x"
+      "rk_mt3sbvqkd32x",
+      "rk_mt6mczrpgt7j"
      ]
     }
    }
