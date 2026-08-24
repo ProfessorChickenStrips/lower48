@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-23T16:49:28.609Z",
+ "updatedAt": "2026-08-24T00:29:07.712Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -491,6 +491,27 @@
    "media": [
     {
      "path": "media/2026-08-23/1787503746315-clark-0.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1787531340580pxhk",
+   "d": "2026-08-23",
+   "who": "Clark",
+   "text": "We stopped at Dartmouth College on our way, bc I’m a nerd. 🤓",
+   "at": "2026-08-24T00:29:00.580Z",
+   "ts": 1787531340580,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-23/1787531316758-clark-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-23/1787531316870-clark-1.jpg",
      "type": "img",
      "up": true
     }
