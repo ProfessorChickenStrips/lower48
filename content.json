@@ -1,5 +1,5 @@
 {
- "contentV": 38,
+ "contentV": 39,
  "days": [
   {
    "d": "2026-08-19",
@@ -14,7 +14,21 @@
    ],
    "note": "PLAN CHANGE: the Marquis was never actually booked — tonight is Ocean Casino Resort, Atlantic City (confirmation lives in your email + planning chat, deliberately NOT in this public app). The ferry stays exactly as booked. Cape May still happens as a 30–40 min landing stroll — it keeps the NJ claim honest and the sunset promenade photo. Then 50 min up the Parkway to a big, easy resort night.",
    "hotel": "Ocean Casino Resort, Atlantic City",
-   "eat": "Dinner inside Ocean Casino Resort after the drive — pick by mood on arrival"
+   "eat": "Dinner inside Ocean Casino Resort after the drive — pick by mood on arrival",
+   "claims": [
+    {
+     "code": "MD",
+     "label": "Maryland",
+     "text": "Eastport crab feast + the Naval Academy + sunset over Spa Creek",
+     "rain": "claimed ✓"
+    },
+    {
+     "code": "DE",
+     "label": "Delaware",
+     "text": "Striper Bites + Second Street, then boarding the ferry from Delaware sand",
+     "rain": "claimed ✓"
+    }
+   ]
   },
   {
    "d": "2026-08-15",
@@ -48,7 +62,16 @@
     "Home ~8:30 · stamp the MASSACHUSETTS bonus · journal + keepers · bags half-packed — Stowe leaves 8:30 AM"
    ],
    "eat": "Pizza Barbone ~6:30 — Casa del Cabo CANCELLED (do it on Tock now)",
-   "note": "The pizza coup: Casa's ceviche loses to wood-fired Neapolitan, and geography approves — Barbone is 10 min from the Uncommoner in the Hyannis you already love. Default order: pizza 6:30, stroll after, no sunset chase. If the sky looks spectacular from Rt 6, the flip (Rock Harbor sunset 7:31 → pizza after) only works if Barbone's kitchen confirms it's serving past 8 — one call settles it. Either way: cancel Tock NOW, not at 5:45."
+   "note": "The pizza coup: Casa's ceviche loses to wood-fired Neapolitan, and geography approves — Barbone is 10 min from the Uncommoner in the Hyannis you already love. Default order: pizza 6:30, stroll after, no sunset chase. If the sky looks spectacular from Rt 6, the flip (Rock Harbor sunset 7:31 → pizza after) only works if Barbone's kitchen confirms it's serving past 8 — one call settles it. Either way: cancel Tock NOW, not at 5:45.",
+   "claims": [
+    {
+     "code": "MA",
+     "label": "Massachusetts",
+     "bonus": true,
+     "text": "BONUS: Chatham seals + Mac’s on the Pier + Carnival P-town + the pizza coup",
+     "rain": "claimed ✓ — PAAM, the shark center & Truro Vineyards stay on the someday list"
+    }
+   ]
   },
   {
    "d": "2026-08-23",
@@ -71,6 +94,14 @@
     "Monticello Behind the Scenes tour, 9:00 AM — booked ✓ · the full-house tour (upstairs + Dome Room) · done by ~11",
     "City Dock + Ego Alley stroll",
     "Crab dinner: Boatyard Bar & Grill, Eastport"
+   ],
+   "claims": [
+    {
+     "code": "VA",
+     "label": "Virginia",
+     "text": "Monticello Behind the Scenes + the UVA Lawn at morning light — the Jefferson pair",
+     "rain": "claimed under a 0% sky"
+    }
    ]
   },
   {
@@ -87,7 +118,15 @@
     "Inn reset 3:30–4:30 · Ibis cube into the Aer — 63° + wind at Craggy by sunset",
     "Parkway north by 4:45: Craggy Gardens + optional Pinnacle walk · golden hour ~7:15 · sunset 8:11 · phone light for the walk down"
    ],
-   "note": "Antler Hill swapped for the River Arts District — the RAD sits ON the drive home from the estate, so the evening math is unchanged. Only cost: the included winery tasting. The district is still rebuilding from Helene: hours vary, treat any one studio as a hope and buy something small — it’s recovery money. Cúrate: keep the Resy notify for a LATE table (~8:45–9:15) to land after the mountain; else casual downtown (check Sunday kitchen hours)."
+   "note": "Antler Hill swapped for the River Arts District — the RAD sits ON the drive home from the estate, so the evening math is unchanged. Only cost: the included winery tasting. The district is still rebuilding from Helene: hours vary, treat any one studio as a hope and buy something small — it’s recovery money. Cúrate: keep the Resy notify for a LATE table (~8:45–9:15) to land after the mountain; else casual downtown (check Sunday kitchen hours).",
+   "claims": [
+    {
+     "code": "NC",
+     "label": "North Carolina",
+     "text": "Biltmore House + the winery + Cúrate at lunch + the Pinnacle at golden hour",
+     "rain": "claimed in full sun"
+    }
+   ]
   },
   {
    "d": "2026-08-20",
@@ -104,14 +143,14 @@
     {
      "code": "NJ",
      "label": "New Jersey",
-     "text": "Arrival by sea on Cape May sand + an Atlantic City boardwalk night",
-     "rain": "The resort IS the rain plan"
+     "text": "Arrival by sea at Cape May + an Atlantic City night",
+     "rain": "claimed ✓"
     },
     {
      "code": "CT",
      "label": "Connecticut",
-     "text": "Mystic’s drawbridge village (or Pepe’s apizza)",
-     "rain": "Pepe’s — indoor by design"
+     "text": "Mystic’s drawbridge village, strolled + Sift in hand",
+     "rain": "claimed ✓"
     }
    ],
    "note": "As it actually happened: the Oyster Club idea stayed an idea — Mystic was the leg-stretch and Newport reclaimed its dinner at 22 Bowen’s, which is what the itinerary wanted all along. The Connecticut claim rests on the drawbridge village, honestly strolled."
