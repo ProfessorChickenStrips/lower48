@@ -95,6 +95,8 @@ nav.tabbar button .dot{position:absolute;margin-left:26px;width:8px;height:8px;b
 .rkhandle{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;color:var(--muted);padding:6px 10px 6px 2px;font-size:15px;flex:0 0 auto}
 .rkrow .t{flex:1;font-size:14px}
 .rkdel{flex:0 0 auto;background:none;border:0;color:#B4544A;font-size:15px;padding:6px 8px;cursor:pointer;line-height:1}
+.rkskip{flex:0 0 auto;background:none;border:0;font-size:13px;padding:6px 4px;cursor:pointer;line-height:1;opacity:.55}
+.rkskipped{opacity:.75}
 .rkrow.rkover{box-shadow:inset 0 3px 0 #C9A227}
 .rkcont.rkoverc{outline:2px dashed #C9A227;outline-offset:2px}
 .rkdragging{opacity:.45}
@@ -406,7 +408,8 @@ function migrate(o){
   if(!(o.rankings&&o.rankings.food))o.rankings=deepClone(SEED.rankings);
   else ['food','hotels','acts'].forEach(k=>{const L=o.rankings[k]||(o.rankings[k]=deepClone(SEED.rankings[k]));
    if(!L.orders){const idl=(L.items||[]).map(x=>x.id); /* v19 single-list shape → both ballots start from it */
-    o.rankings[k]={cts:L.ts||0,items:L.items||[],orders:{clark:{ts:0,ids:idl.slice()},maggie:{ts:0,ids:idl.slice()}}}}});
+    o.rankings[k]={cts:L.ts||0,items:L.items||[],orders:{clark:{ts:0,ids:idl.slice()},maggie:{ts:0,ids:idl.slice()}}}}
+   ['clark','maggie'].forEach(w=>{const ob=o.rankings[k].orders[w];if(ob&&!Array.isArray(ob.skip))ob.skip=[]});});
   return{ok:true,state:o};
 }
 function save(){if(!LS_OK)return;try{S.savedAt=new Date().toISOString();localStorage.setItem(LSKEY,JSON.stringify(S))}catch(e){LS_OK=false;toast('Autosave unavailable on this phone — protect changes via Sync')}}
@@ -576,7 +579,7 @@ function applyOverlay(live){ /* additive & conservative: local conf numbers and 
   if(!r||!L||!r.orders)return; /* old-shape payloads are ignored */
   if(Array.isArray(r.items)&&(r.cts||0)>(L.cts||0)){L.cts=r.cts;L.items=r.items} /* catalog: newest add/remove wins */
   ['clark','maggie'].forEach(w=>{const ro=r.orders[w];
-   if(ro&&Array.isArray(ro.ids)&&(ro.ts||0)>((L.orders[w]&&L.orders[w].ts)||0))L.orders[w]={ts:ro.ts,ids:ro.ids}}); /* each ballot edited on its own phone — per-person newest wins */
+   if(ro&&Array.isArray(ro.ids)&&(ro.ts||0)>((L.orders[w]&&L.orders[w].ts)||0))L.orders[w]={ts:ro.ts,ids:ro.ids,skip:Array.isArray(ro.skip)?ro.skip:[]}}); /* each ballot edited on its own phone — per-person newest wins; sat-outs travel with the ballot */
  });
 }
 
@@ -732,7 +735,7 @@ function renderTabs(){
  $('tabbar').innerHTML=TABS.map(([id,ico,lb])=>`<button data-act="tab" data-t="${id}" class="${TAB===id?'on':''}" ${TAB===id?'aria-current="page"':''} aria-label="${lb}"><span class="ico" aria-hidden="true">${ico}</span>${lb}${id==='sync'&&S.dirty?'<span class="dot" title="unsynced changes"></span>':''}</button>`).join('');
 }
 const TAB_BLURBS={
- rank:['🏆 The Rankings','Two ballots, one truth: rank yours, Maggie ranks hers, and the maths crowns the combined champion.'],
+ rank:['🏆 The Rankings','Two ballots, one truth: rank yours, Maggie ranks hers, and the maths crowns the champion. 🚫 = sat one out — it then rides the other ballot alone.'],
  trip:['🧭 The Fourteen Days','One page per day: the plan, the state claims, and the story you two write as you go. 📖 Pre holds everything before.'],
  ledger:['🏅 The State Ledger','Ten stamps to collect — 38 becomes 48. Claim each state as you land it, evidence and all.'],
  chat:['💬 The Concierge','Ask the trip anything — or paste an update block from your Claude planning chat and watch the app absorb it.'],
@@ -983,16 +986,21 @@ const RK_META={food:['🍽️','Food','Every memorable plate'],hotels:['🏨','H
 function rkWhoKey(){const w=(getWho()||'').toLowerCase();return w==='maggie'?'maggie':'clark'}
 if(!('rkview' in UI))UI.rkview=null; /* null = follow this phone's identity */
 function rkView(){return UI.rkview||rkWhoKey()}
-function rkNorm(k,w){ /* ballot = permutation of catalog: drop ghosts, append newcomers at the bottom */
+function rkNorm(k,w){ /* ballot = permutation of catalog MINUS this person's sat-outs; newcomers append */
  const L=S.rankings[k];const have=new Set(L.items.map(x=>x.id));
- const o=L.orders[w];const ids=o.ids.filter(id=>have.has(id));
- L.items.forEach(x=>{if(!ids.includes(x.id))ids.push(x.id)});o.ids=ids;return ids}
+ const o=L.orders[w];if(!Array.isArray(o.skip))o.skip=[];
+ const skip=new Set(o.skip.filter(id=>have.has(id)));
+ const ids=o.ids.filter(id=>have.has(id)&&!skip.has(id));
+ L.items.forEach(x=>{if(!ids.includes(x.id)&&!skip.has(x.id))ids.push(x.id)});o.ids=ids;return ids}
+function rkSkips(k,w){const o=S.rankings[k].orders[w];return Array.isArray(o.skip)?o.skip.filter(id=>S.rankings[k].items.some(x=>x.id===id)):[]}
 function rkFind(id){for(const k of ['food','hotels','acts']){const L=S.rankings[k].items;for(let i=0;i<L.length;i++)if(L[i].id===id)return{k,it:L[i],i}}return null}
-function rkCombined(k){ /* Borda: sum of the two ranks, lower wins; tie → whoever's best rank is better; then Clark's order */
- const c=rkNorm(k,'clark'),m=rkNorm(k,'maggie');const pos=(a,id)=>a.indexOf(id)+1;
+function rkCombined(k){ /* average rank over ACTUAL participants — a sat-out never drags an item down */
+ const c=rkNorm(k,'clark'),m=rkNorm(k,'maggie');const pos=(a,id)=>{const i=a.indexOf(id);return i<0?null:i+1};
  return S.rankings[k].items.map(it=>{const pc=pos(c,it.id),pm=pos(m,it.id);
-  return {it,pc,pm,sum:pc+pm,best:Math.min(pc,pm)}})
-  .sort((a,b)=>a.sum-b.sum||a.best-b.best||a.pc-b.pc);
+  const ranks=[pc,pm].filter(x=>x!=null);const n=ranks.length||1;
+  const avg=ranks.length?ranks.reduce((a,b)=>a+b,0)/ranks.length:999;
+  return {it,pc,pm,avg,voters:ranks.length,best:ranks.length?Math.min.apply(null,ranks):999}})
+  .sort((a,b)=>a.avg-b.avg||b.voters-a.voters||a.best-b.best||(a.pc||99)-(b.pc||99));
 }
 function viewRank(){
  const v=rkView();const me=rkWhoKey();
@@ -1004,9 +1012,9 @@ function viewRank(){
  const conts=['food','hotels','acts'].map(k=>{const meta=RK_META[k];
   let rows;
   if(v==='combined'){
-   rows=rkCombined(k).map((r,i)=>`<div class="rkrow ${i===0?'top1':''}">
+   rows=rkCombined(k).filter(r=>r.voters>0).map((r,i)=>`<div class="rkrow ${i===0?'top1':''}">
      <span class="rkbadge">${i+1}</span>
-     <div class="t">${esc(r.it.t)}<div class="small">Clark #${r.pc} · Maggie #${r.pm} · avg ${(r.sum/2).toFixed(1)}${r.pc===1&&r.pm===1?' · 🤝 unanimous':''}</div></div>
+     <div class="t">${esc(r.it.t)}<div class="small">${r.pc!=null?'Clark #'+r.pc:'Clark — sat out'} · ${r.pm!=null?'Maggie #'+r.pm:'Maggie — sat out'} · avg ${r.avg.toFixed(1)}${r.pc===1&&r.pm===1?' · 🤝 unanimous':''}${r.voters===1?' · solo vote':''}</div></div>
     </div>`).join('');
    return `<div class="card rkcont"><h3>${meta[0]} ${esc(meta[1])} — the verdict</h3><div>${rows}</div></div>`;
   }
@@ -1015,11 +1023,15 @@ function viewRank(){
     <span class="rkhandle" data-rkdrag="${esc(id)}" aria-label="drag to reorder">☰</span>
     <span class="rkbadge">${i+1}</span>
     <div class="t">${esc(byId[id].t)}</div>
+    <button class="rkskip" data-act="rk-skip" data-k="${k}" data-id="${esc(id)}" aria-label="didn’t do this" title="didn’t do this">🚫</button>
     <button class="rkdel" data-act="rk-del" data-id="${esc(id)}" aria-label="remove">✕</button>
    </div>`).join('');
+  const skipped=rkSkips(k,v);
+  const shelf=skipped.length?`<div class="small" style="margin-top:8px"><b>${v==='clark'?'Clark':'Maggie'} sat these out</b> — they still count in Combined via the other ballot:</div>${skipped.map(id=>`<div class="rkrow rkskipped"><span class="rkbadge" style="background:#9AA3AD">—</span><div class="t" style="color:var(--muted)">${esc((byId[id]||{}).t||id)}</div><button class="btn sm subtle" data-act="rk-unskip" data-k="${k}" data-id="${esc(id)}">I did do this</button></div>`).join('')}`:'';
   return `<div class="card rkcont" data-rkcont="${k}">
    <h3>${meta[0]} ${esc(meta[1])}</h3><div class="small" style="margin:2px 0 6px">${esc(meta[2])} — ${v==='clark'?'Clark':'Maggie'}’s order</div>
    <div>${rows||'<div class="small">Empty — add below.</div>'}</div>
+   ${shelf}
    <div class="rkadd"><input type="text" id="rkin-${k}" data-keep autocomplete="off" placeholder="Add to ${esc(meta[1])}…"><button class="btn sm gold" data-act="rk-add" data-k="${k}">Add</button></div>
   </div>`}).join('');
  return head+conts;
@@ -1320,6 +1332,14 @@ document.addEventListener('click',e=>{
   case 'patch-apply':applyPatchUI();break;
   case 'notice-ack':ackNotice(a.id);break;
   case 'rk-view':UI.rkview=a.v;render();break;
+  case 'rk-skip':{const w=rkView();if(w==='combined')break;const o=S.rankings[a.k].orders[w];
+   if(!Array.isArray(o.skip))o.skip=[];
+   if(!o.skip.includes(a.id))o.skip.push(a.id);
+   o.ids=o.ids.filter(x=>x!==a.id);o.ts=Date.now();dirty();render();
+   toast((w==='clark'?'Clark':'Maggie')+' sat that one out — Combined now uses the other ballot alone');break}
+  case 'rk-unskip':{const w=rkView();if(w==='combined')break;const o=S.rankings[a.k].orders[w];
+   o.skip=(o.skip||[]).filter(x=>x!==a.id);if(!o.ids.includes(a.id))o.ids.push(a.id);
+   o.ts=Date.now();dirty();render();break}
   case 'rk-del':{const r=rkFind(a.id);if(r&&confirm('Remove “'+r.it.t+'” from BOTH ballots?')){
    const L=S.rankings[r.k];L.items.splice(r.i,1);L.cts=Date.now();
    ['clark','maggie'].forEach(w=>{L.orders[w].ids=L.orders[w].ids.filter(x=>x!==a.id);L.orders[w].ts=Date.now()});
