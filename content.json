@@ -1,61 +1,6 @@
 {
- "contentV": 44,
+ "contentV": 46,
  "days": [
-  {
-   "d": "2026-08-15",
-   "note": "You woke at 4:30 AM Pacific. Keep it gentle. · 📝 From the night the app was finished (Jul 20): “I had a lot of fun building the app today. I hope you enjoy experiencing our trip!” — Clark",
-   "eat": "Keep tonight easy: White Duck Taco or Burial — the Cúrate play is tomorrow (Day 2)"
-  },
-  {
-   "d": "2026-08-16",
-   "eat": "Cúrate at lunch ✓ — tapas as the day’s centerpiece · evening belonged to the mountain",
-   "todo": [
-    "Gardens + conservatory first, then Biltmore House ✓",
-    "Antler Hill winery tasting ✓ — “Plants!!!!” — Maggie",
-    "Cúrate — the long tapas lunch ✓ (the quest, solved by flanking)",
-    "Inn reset · Ibis cube into the Aer",
-    "Craggy Gardens + the Pinnacle at golden hour ✓ — sunset from 5,144 feet"
-   ],
-   "note": "As it actually happened: the estate morning ran long and earned it — house, gardens, and the winery — then Cúrate settled its quest at lunch instead of dinner. The River Arts District stays on the someday list; the Pinnacle sunset was the right trade.",
-   "claims": [
-    {
-     "code": "NC",
-     "label": "North Carolina",
-     "text": "Biltmore House + the winery + Cúrate at lunch + the Pinnacle at golden hour",
-     "rain": "claimed in full sun"
-    }
-   ]
-  },
-  {
-   "d": "2026-08-17",
-   "depart": "8:15–8:30 AM sharp — NSO on Zoom tonight (7:30 PM ET) · Charlottesville by ~3:30–4",
-   "drive": "334 mi · ~6h (I-26→I-81→I-64) · QUICK Roanoke lunch — today’s buffer protects tonight’s Zoom",
-   "todo": [
-    "334 miles, Asheville → Charlottesville ✓",
-    "Check-in + wifi test at the Oakhurst ✓",
-    "Early dinner downtown — “our best meal yet!” — Maggie",
-    "🎥 NSO on Zoom: rehearsal 7:30, live 8:00–9:30 ET ✓ — nailed after six hours of interstate"
-   ],
-   "eat": "An early downtown dinner ✓ — the trip’s reigning “best meal yet” for one whole day",
-   "note": "The NSO claims the evening: rehearsal 7:30 ET, live 8–9:30 ET. The drive already lands by ~4, so only two things move — dinner goes EARLY (5:30, not 8) and the Lawn walk trades golden hour for afternoon light. Do not linger at lunch: every Roanoke minute comes out of tonight’s margin. Off Zoom 9:30, lights out by 10:30 — Monticello’s 9 AM tour tomorrow is untouched."
-  },
-  {
-   "d": "2026-08-18",
-   "depart": "Monticello Behind the Scenes tour 9:00 AM ✓ · on the road by noon",
-   "todo": [
-    "Monticello Behind the Scenes tour, 9:00 AM — booked ✓ · the full-house tour (upstairs + Dome Room) · done by ~11",
-    "City Dock + Ego Alley stroll",
-    "Crab dinner: Boatyard Bar & Grill, Eastport"
-   ],
-   "claims": [
-    {
-     "code": "VA",
-     "label": "Virginia",
-     "text": "Monticello Behind the Scenes + the UVA Lawn at morning light — the Jefferson pair",
-     "rain": "claimed under a 0% sky"
-    }
-   ]
-  },
   {
    "d": "2026-08-19",
    "drive": "~120 mi · ~2h15 over the Bay Bridge · ferry 4:15→~5:40 PM (85 min)",
@@ -86,31 +31,9 @@
    ]
   },
   {
-   "d": "2026-08-20",
-   "eat": "22 Bowen’s, Bowen’s Wharf ✓ — Mystic got the stroll, Newport got the dinner after all",
-   "depart": "9:15–9:30 AM from Atlantic City",
-   "drive": "~270 mi · 6–6.5h (50 min SHORTER than planned) · GWB midday only — never at 4 PM",
-   "todo": [
-    "Atlantic City morning → the long haul north ✓",
-    "Mystic ~afternoon: the drawbridge village + Sift ✓ — stroll, not supper",
-    "Newport by evening · The Wayfinder ✓",
-    "22 Bowen’s on the wharf ✓ — the steakhouse on the harbor, exactly as the original plan drew it"
-   ],
-   "claims": [
-    {
-     "code": "NJ",
-     "label": "New Jersey",
-     "text": "Arrival by sea at Cape May + an Atlantic City night",
-     "rain": "claimed ✓"
-    },
-    {
-     "code": "CT",
-     "label": "Connecticut",
-     "text": "Mystic’s drawbridge village, strolled + Sift in hand",
-     "rain": "claimed ✓"
-    }
-   ],
-   "note": "As it actually happened: the Oyster Club idea stayed an idea — Mystic was the leg-stretch and Newport reclaimed its dinner at 22 Bowen’s, which is what the itinerary wanted all along. The Connecticut claim rests on the drawbridge village, honestly strolled."
+   "d": "2026-08-15",
+   "note": "You woke at 4:30 AM Pacific. Keep it gentle. · 📝 From the night the app was finished (Jul 20): “I had a lot of fun building the app today. I hope you enjoy experiencing our trip!” — Clark",
+   "eat": "Keep tonight easy: White Duck Taco or Burial — the Cúrate play is tomorrow (Day 2)"
   },
   {
    "d": "2026-08-21",
@@ -171,6 +94,119 @@
    "note": "As it actually happened: a rock, a boat, pancakes, a nerd pilgrimage, and a hilltop dinner. The village stroll and covered bridge folded into Monday’s plan instead — the day was full enough without them."
   },
   {
+   "d": "2026-08-18",
+   "depart": "Monticello Behind the Scenes tour 9:00 AM ✓ · on the road by noon",
+   "todo": [
+    "Monticello Behind the Scenes tour, 9:00 AM — booked ✓ · the full-house tour (upstairs + Dome Room) · done by ~11",
+    "City Dock + Ego Alley stroll",
+    "Crab dinner: Boatyard Bar & Grill, Eastport"
+   ],
+   "claims": [
+    {
+     "code": "VA",
+     "label": "Virginia",
+     "text": "Monticello Behind the Scenes + the UVA Lawn at morning light — the Jefferson pair",
+     "rain": "claimed under a 0% sky"
+    }
+   ]
+  },
+  {
+   "d": "2026-08-27",
+   "eat": "Street & Co, 5:30 bar ✓ booked — the farewell · long-shot bonus: Fore Street’s 5 PM walk-in tables if you still want to try"
+  },
+  {
+   "d": "2026-08-16",
+   "eat": "Cúrate at lunch ✓ — tapas as the day’s centerpiece · evening belonged to the mountain",
+   "todo": [
+    "Gardens + conservatory first, then Biltmore House ✓",
+    "Antler Hill winery tasting ✓ — “Plants!!!!” — Maggie",
+    "Cúrate — the long tapas lunch ✓ (the quest, solved by flanking)",
+    "Inn reset · Ibis cube into the Aer",
+    "Craggy Gardens + the Pinnacle at golden hour ✓ — sunset from 5,144 feet"
+   ],
+   "note": "As it actually happened: the estate morning ran long and earned it — house, gardens, and the winery — then Cúrate settled its quest at lunch instead of dinner. The River Arts District stays on the someday list; the Pinnacle sunset was the right trade.",
+   "claims": [
+    {
+     "code": "NC",
+     "label": "North Carolina",
+     "text": "Biltmore House + the winery + Cúrate at lunch + the Pinnacle at golden hour",
+     "rain": "claimed in full sun"
+    }
+   ]
+  },
+  {
+   "d": "2026-08-20",
+   "eat": "22 Bowen’s, Bowen’s Wharf ✓ — Mystic got the stroll, Newport got the dinner after all",
+   "depart": "9:15–9:30 AM from Atlantic City",
+   "drive": "~270 mi · 6–6.5h (50 min SHORTER than planned) · GWB midday only — never at 4 PM",
+   "todo": [
+    "Atlantic City morning → the long haul north ✓",
+    "Mystic ~afternoon: the drawbridge village + Sift ✓ — stroll, not supper",
+    "Newport by evening · The Wayfinder ✓",
+    "22 Bowen’s on the wharf ✓ — the steakhouse on the harbor, exactly as the original plan drew it"
+   ],
+   "claims": [
+    {
+     "code": "NJ",
+     "label": "New Jersey",
+     "text": "Arrival by sea at Cape May + an Atlantic City night",
+     "rain": "claimed ✓"
+    },
+    {
+     "code": "CT",
+     "label": "Connecticut",
+     "text": "Mystic’s drawbridge village, strolled + Sift in hand",
+     "rain": "claimed ✓"
+    }
+   ],
+   "note": "As it actually happened: the Oyster Club idea stayed an idea — Mystic was the leg-stretch and Newport reclaimed its dinner at 22 Bowen’s, which is what the itinerary wanted all along. The Connecticut claim rests on the drawbridge village, honestly strolled."
+  },
+  {
+   "d": "2026-08-25",
+   "eat": "Forty at Thorn Hill — BOOKED 6:45 PM ✓ (house guests)",
+   "depart": "8:15–8:30 AM (early — Zoom block 1–4 PM ET at the inn) · Jackson by ~noon",
+   "drive": "115 mi · ~3h15 with QUICK Notch hits only · ⚠️ Crawford Notch has no cell service — be through it before 12:30",
+   "todo": [
+    "Notch drive-through edition: Mt Washington Hotel overlook (10 min) · Silver Cascade (roadside, 5 min) · Willey House (15 min)",
+    "Arrive Thorn Hill ~noon: light lunch · settle in · WIFI TEST well before 1:00 (hotspot standing by)",
+    "💻 While the laptop is open pre-Zoom: MINT THE TWO FRESH BRIDGE TOKENS — 5 min, September uploads + the book depend on it",
+    "🎥 1:00–2:30 PM ET (10–11:30 PT): 2026 Fall Kick Off Program Chairs — camera-ready, quiet corner",
+    "🎥 3:00–4:00 PM ET (12–1 PT): MSGB & MSB Committee — use the 2:30–3:00 gap to stretch, tea, reset",
+    "Maggie’s counter-programming 1–4: the inn’s own SPA (dinner’s booked — one call for a treatment slot)",
+    "4:15 PM — freed: Jackson Falls + the honeymoon covered bridge + village stroll · back by ~6:15 to dress",
+    "6:45 PM — Forty at Thorn Hill ✓ steps from the room"
+   ],
+   "note": "Confirmed against the calendar: Fall Kick Off 1:00–2:30 ET, MSGB & MSB 3:00–4:00 ET — the same two meetings this day was rebuilt around, so nothing else moves. The 2:30–3:00 gap is a real break, not a margin. Cog stays off · through the cell-dead Notch by 12:30 · off Zoom 4:00 sharp · Forty at Thorn Hill BOOKED 6:45 — the village window closes ~6:15."
+  },
+  {
+   "d": "2026-08-26",
+   "eat": "Scales is full — book Leeward or Chaval · or Eventide at 5 walk-in · Union at the Press is the zero-effort answer"
+  },
+  {
+   "d": "2026-08-17",
+   "depart": "8:15–8:30 AM sharp — NSO on Zoom tonight (7:30 PM ET) · Charlottesville by ~3:30–4",
+   "drive": "334 mi · ~6h (I-26→I-81→I-64) · QUICK Roanoke lunch — today’s buffer protects tonight’s Zoom",
+   "todo": [
+    "334 miles, Asheville → Charlottesville ✓",
+    "Check-in + wifi test at the Oakhurst ✓",
+    "Early dinner downtown — “our best meal yet!” — Maggie",
+    "🎥 NSO on Zoom: rehearsal 7:30, live 8:00–9:30 ET ✓ — nailed after six hours of interstate"
+   ],
+   "eat": "An early downtown dinner ✓ — the trip’s reigning “best meal yet” for one whole day",
+   "note": "The NSO claims the evening: rehearsal 7:30 ET, live 8–9:30 ET. The drive already lands by ~4, so only two things move — dinner goes EARLY (5:30, not 8) and the Lawn walk trades golden hour for afternoon light. Do not linger at lunch: every Roanoke minute comes out of tonight’s margin. Off Zoom 9:30, lights out by 10:30 — Monticello’s 9 AM tour tomorrow is untouched."
+  },
+  {
+   "d": "2026-08-28",
+   "todo": [
+    "After-hours key drop if the counter is dark",
+    "ATL 8:50–11:25: walk to the DL 483 gate FIRST, then breakfast near it",
+    "🎥 10:00–11:00 AM ET (7–8 PT): AIB-SE Executive Board Planning — join from the gate, earbuds in (link lives in your calendar, not here)",
+    "Boarding ~10:55 overlaps the last minutes — sit AT the gate from 10:40, drop at 11:00 sharp and board",
+    "BUR 1:01 PM — home mid-afternoon"
+   ],
+   "note": "The AIB-SE Zoom fits entirely inside the Atlanta layover — nothing about the 4:15 AM choreography changes. It works as long as DL 1515 runs roughly on time (8:50 arrival = 70 min of slack before the call). If PWM slips badly: join late from whatever gate you're at, or send regrets — final boarding ~11:10 is the hard stop, and the board doesn't get to keep you off the flight home."
+  },
+  {
    "d": "2026-08-24",
    "depart": "8:15 → Stowe Laundry, 44 Park Pl — SELF-SERVE: wash in by 8:30, dry by 9:15, folded ~9:50 (coffee at Black Cap while the drums spin) → mountain by 10:15",
    "todo": [
@@ -183,40 +219,6 @@
    ],
    "eat": "Casual Monday done right: Idletyme Brewing, The Bench, or Doc Ponds — check the door’s hours when you pick (Michael’s closed · Harrison’s dark Sun/Mon)",
    "note": "Self-serve laundry claims the first 90 minutes — the trade is a 10:15 mountain instead of 10:00, nothing else moves. Storm-shaped after: peaks and falls before 2, Ben & Jerry’s as the rain shelter, village and pool after. Optional romance detour: Gold Brook “Emily’s” covered bridge, 10 min south. Tonight: stamp VERMONT (summit + Notch + Bierhall), journal + keepers. Tomorrow: 8:15 departure, Zooms 1–4 at Thorn Hill — and mint the two fresh bridge tokens there (September’s uploads + the photo book depend on it)."
-  },
-  {
-   "d": "2026-08-25",
-   "eat": "Forty at Thorn Hill — call the inn as HOUSE GUESTS (603-383-4242) · town is thin midweek, lock it by check-in",
-   "depart": "8:15–8:30 AM (early — Zoom block 1–4 PM ET at the inn) · Jackson by ~noon",
-   "drive": "115 mi · ~3h15 with QUICK Notch hits only · ⚠️ Crawford Notch has no cell service — be through it before 12:30",
-   "todo": [
-    "Notch drive-through edition: Mt Washington Hotel overlook (10 min) · Silver Cascade (roadside, 5 min) · Willey House (15 min)",
-    "Arrive Thorn Hill ~noon: light lunch · settle in · WIFI TEST well before 1:00 (hotspot standing by)",
-    "🎥 1:00–2:30 PM ET (10–11:30 PT): 2026 Fall Kick Off Program Chairs — camera-ready, quiet corner",
-    "🎥 3:00–4:00 PM ET (12–1 PT): MSGB & MSB Committee — use the 2:30–3:00 gap to stretch, tea, reset",
-    "Maggie’s counter-programming 1–4: the inn’s own SPA (book a treatment when you call about dinner)",
-    "4:15 PM — freed: Jackson Falls + the honeymoon covered bridge + village stroll, all minutes from the inn"
-   ],
-   "note": "Confirmed against the calendar: Fall Kick Off 1:00–2:30 ET, MSGB & MSB 3:00–4:00 ET — the same two meetings this day was rebuilt around, so nothing else moves. The 2:30–3:00 gap is a real break, not a margin. Cog stays off · through the cell-dead Notch by 12:30 · off Zoom 4:00 sharp · Forty at Thorn Hill tonight."
-  },
-  {
-   "d": "2026-08-26",
-   "eat": "Scales is full — book Leeward or Chaval · or Eventide at 5 walk-in · Union at the Press is the zero-effort answer"
-  },
-  {
-   "d": "2026-08-27",
-   "eat": "Street & Co, 5:30 bar ✓ booked — the farewell · long-shot bonus: Fore Street’s 5 PM walk-in tables if you still want to try"
-  },
-  {
-   "d": "2026-08-28",
-   "todo": [
-    "After-hours key drop if the counter is dark",
-    "ATL 8:50–11:25: walk to the DL 483 gate FIRST, then breakfast near it",
-    "🎥 10:00–11:00 AM ET (7–8 PT): AIB-SE Executive Board Planning — join from the gate, earbuds in (link lives in your calendar, not here)",
-    "Boarding ~10:55 overlaps the last minutes — sit AT the gate from 10:40, drop at 11:00 sharp and board",
-    "BUR 1:01 PM — home mid-afternoon"
-   ],
-   "note": "The AIB-SE Zoom fits entirely inside the Atlanta layover — nothing about the 4:15 AM choreography changes. It works as long as DL 1515 runs roughly on time (8:50 arrival = 70 min of slack before the call). If PWM slips badly: join late from whatever gate you're at, or send regrets — final boarding ~11:10 is the hard stop, and the board doesn't get to keep you off the flight home."
   }
  ],
  "res": [
