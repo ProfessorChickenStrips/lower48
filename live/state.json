@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-26T12:19:05.399Z",
+ "updatedAt": "2026-08-26T12:19:17.590Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -291,7 +291,7 @@
    }
   },
   "acts": {
-   "cts": 1787746741031,
+   "cts": 1787746753329,
    "items": [
     {
      "id": "a_craggy",
@@ -344,11 +344,15 @@
     {
      "id": "rk_mta28zoa9hxt",
      "t": "The Kanc"
+    },
+    {
+     "id": "rk_mta29b8xnu5q",
+     "t": "Mt Washington Auto Road"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787746741031,
+     "ts": 1787746753329,
      "ids": [
       "a_biltmore",
       "a_ptown",
@@ -362,12 +366,13 @@
       "a_capemay",
       "a_mansfield",
       "a_peaks",
-      "rk_mta28zoa9hxt"
+      "rk_mta28zoa9hxt",
+      "rk_mta29b8xnu5q"
      ],
      "skip": []
     },
     "maggie": {
-     "ts": 1787746741031,
+     "ts": 1787746753329,
      "ids": [
       "a_craggy",
       "a_biltmore",
@@ -380,7 +385,8 @@
       "a_mansfield",
       "a_peaks",
       "rk_mt6mczrpgt7j",
-      "rk_mta28zoa9hxt"
+      "rk_mta28zoa9hxt",
+      "rk_mta29b8xnu5q"
      ],
      "skip": [
       "rk_mt3sbvqkd32x"
