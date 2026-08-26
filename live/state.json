@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-26T12:18:39.473Z",
+ "updatedAt": "2026-08-26T12:19:05.399Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -291,7 +291,7 @@
    }
   },
   "acts": {
-   "cts": 1787538652693,
+   "cts": 1787746741031,
    "items": [
     {
      "id": "a_craggy",
@@ -330,10 +330,6 @@
      "t": "Mt Mansfield gondola — Stowe (Mon)"
     },
     {
-     "id": "a_kanc",
-     "t": "The Kanc or Mt Washington summit (Wed)"
-    },
-    {
      "id": "a_peaks",
      "t": "Casco Bay: Peaks Island or Lucky Catch (Thu)"
     },
@@ -344,11 +340,15 @@
     {
      "id": "rk_mt6mczrpgt7j",
      "t": "Plymouth Rock and Dartmouth College lawn and murals"
+    },
+    {
+     "id": "rk_mta28zoa9hxt",
+     "t": "The Kanc"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787538667620,
+     "ts": 1787746741031,
      "ids": [
       "a_biltmore",
       "a_ptown",
@@ -361,13 +361,13 @@
       "a_ferry",
       "a_capemay",
       "a_mansfield",
-      "a_kanc",
-      "a_peaks"
+      "a_peaks",
+      "rk_mta28zoa9hxt"
      ],
      "skip": []
     },
     "maggie": {
-     "ts": 1787539450103,
+     "ts": 1787746741031,
      "ids": [
       "a_craggy",
       "a_biltmore",
@@ -378,9 +378,9 @@
       "a_seals",
       "a_ptown",
       "a_mansfield",
-      "a_kanc",
       "a_peaks",
-      "rk_mt6mczrpgt7j"
+      "rk_mt6mczrpgt7j",
+      "rk_mta28zoa9hxt"
      ],
      "skip": [
       "rk_mt3sbvqkd32x"
