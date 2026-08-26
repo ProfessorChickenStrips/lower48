@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-26T12:20:40.223Z",
+ "updatedAt": "2026-08-26T20:01:55.207Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -127,7 +127,7 @@
  },
  "rankings": {
   "food": {
-   "cts": 1787538566608,
+   "cts": 1787774510710,
    "items": [
     {
      "id": "f_blackcat",
@@ -176,11 +176,15 @@
     {
      "id": "rk_mt6mb5cg3314",
      "t": "Edson’s on the Hill - Stowe"
+    },
+    {
+     "id": "rk_mtais8za1rph",
+     "t": "Gilbert’s Chowder - Portland"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787538590696,
+     "ts": 1787774510710,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -193,12 +197,13 @@
       "f_jettierae",
       "f_macs",
       "f_forty",
-      "f_streetco"
+      "f_streetco",
+      "rk_mtais8za1rph"
      ],
      "skip": []
     },
     "maggie": {
-     "ts": 1787538566608,
+     "ts": 1787774510710,
      "ids": [
       "f_blackcat",
       "f_boatyard",
@@ -211,7 +216,8 @@
       "rk_mt3s6vk2igaw",
       "rk_mt3s87e1eylc",
       "rk_mt3s9cqflkmo",
-      "rk_mt6mb5cg3314"
+      "rk_mt6mb5cg3314",
+      "rk_mtais8za1rph"
      ],
      "skip": []
     }
