@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-27T19:35:42.235Z",
+ "updatedAt": "2026-08-27T19:36:31.183Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -528,6 +528,22 @@
    "media": [
     {
      "path": "media/2026-08-23/1787859329930-clark-0.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1787859385166gufg",
+   "d": "2026-08-25",
+   "who": "Clark",
+   "text": "Mt Washington Auto Road",
+   "at": "2026-08-27T19:36:25.166Z",
+   "ts": 1787859385166,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-25/1787859363484-clark-0.jpg",
      "type": "img",
      "up": true
     }
