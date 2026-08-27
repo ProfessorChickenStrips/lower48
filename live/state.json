@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-27T22:40:30.484Z",
+ "updatedAt": "2026-08-27T22:40:52.220Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -308,7 +308,7 @@
    }
   },
   "acts": {
-   "cts": 1787836015724,
+   "cts": 1787870447964,
    "items": [
     {
      "id": "a_craggy",
@@ -361,11 +361,15 @@
     {
      "id": "rk_mta29b8xnu5q",
      "t": "Mt Washington Auto Road"
+    },
+    {
+     "id": "rk_mtc3win0yc2n",
+     "t": "Portland Shopping and Lighthouse"
     }
    ],
    "orders": {
     "clark": {
-     "ts": 1787836015724,
+     "ts": 1787870447964,
      "ids": [
       "a_biltmore",
       "a_ptown",
@@ -379,12 +383,13 @@
       "a_seals",
       "a_ferry",
       "a_capemay",
-      "a_mansfield"
+      "a_mansfield",
+      "rk_mtc3win0yc2n"
      ],
      "skip": []
     },
     "maggie": {
-     "ts": 1787836015724,
+     "ts": 1787870447964,
      "ids": [
       "a_craggy",
       "a_biltmore",
@@ -397,7 +402,8 @@
       "a_mansfield",
       "rk_mt6mczrpgt7j",
       "rk_mta28zoa9hxt",
-      "rk_mta29b8xnu5q"
+      "rk_mta29b8xnu5q",
+      "rk_mtc3win0yc2n"
      ],
      "skip": [
       "rk_mt3sbvqkd32x"
