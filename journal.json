@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-27T19:37:21.661Z",
+ "updatedAt": "2026-08-27T19:38:08.359Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -560,6 +560,27 @@
    "media": [
     {
      "path": "media/2026-08-26/1787859411857-clark-0.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1787859481012n1ef",
+   "d": "2026-08-27",
+   "who": "Clark",
+   "text": "Last day of the trip. Saw the Portland Head Lighthouse and found some great art!",
+   "at": "2026-08-27T19:38:01.012Z",
+   "ts": 1787859481012,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-27/1787859452189-clark-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-27/1787859452243-clark-1.jpg",
      "type": "img",
      "up": true
     }
