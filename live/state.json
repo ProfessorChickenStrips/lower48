@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-27T13:06:38.197Z",
+ "updatedAt": "2026-08-27T13:06:59.980Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -308,7 +308,7 @@
    }
   },
   "acts": {
-   "cts": 1787746753329,
+   "cts": 1787836015724,
    "items": [
     {
      "id": "a_craggy",
@@ -347,10 +347,6 @@
      "t": "Mt Mansfield gondola — Stowe (Mon)"
     },
     {
-     "id": "a_peaks",
-     "t": "Casco Bay: Peaks Island or Lucky Catch (Thu)"
-    },
-    {
      "id": "rk_mt3sbvqkd32x",
      "t": "UVA Lawn & Rotunda"
     },
@@ -369,7 +365,7 @@
    ],
    "orders": {
     "clark": {
-     "ts": 1787774621359,
+     "ts": 1787836015724,
      "ids": [
       "a_biltmore",
       "a_ptown",
@@ -383,13 +379,12 @@
       "a_seals",
       "a_ferry",
       "a_capemay",
-      "a_mansfield",
-      "a_peaks"
+      "a_mansfield"
      ],
      "skip": []
     },
     "maggie": {
-     "ts": 1787746753329,
+     "ts": 1787836015724,
      "ids": [
       "a_craggy",
       "a_biltmore",
@@ -400,7 +395,6 @@
       "a_seals",
       "a_ptown",
       "a_mansfield",
-      "a_peaks",
       "rk_mt6mczrpgt7j",
       "rk_mta28zoa9hxt",
       "rk_mta29b8xnu5q"
