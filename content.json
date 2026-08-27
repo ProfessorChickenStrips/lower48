@@ -1,43 +1,91 @@
 {
- "contentV": 50,
+ "contentV": 51,
  "days": [
-  {
-   "d": "2026-08-19",
-   "drive": "~120 mi · ~2h15 over the Bay Bridge · ferry 4:15→~5:40 PM (85 min)",
+  {"d": "2026-08-15",
+   "hotel": "Blind Tiger Asheville ✓ — the trip opened in a Michelin Key inn",
+   "depart": "BUR 7:00 AM → wheels down AVL 4:44 PM",
+   "drive": "AVL → Montford ~20 min",
    "todo": [
-    "Naval Academy via Gate 1 (photo ID!)",
-    "Lewes: lunch + Second St in the “first town in the first state”",
-    "Ferry: terminal by 3:15 — check-in closes 3:45, sails 4:15 — watch for dolphins",
-    "Land Cape May ~5:40: promenade stroll + the Victorian photo (NJ claim material) — 30–40 min, no more",
-    "~6:30 drive the Parkway north ~50 min → Ocean Casino Resort, Atlantic City",
-    "Dinner at Ocean ~8 — the resort holds a dozen options, zero planning required"
+    "Flew west to start east: BUR → AVL, bags + the one-way rental ✓",
+    "Checked into the Blind Tiger ~6 PM ✓",
+    "Jettie Rae’s Oyster House at 7:00 ✓ — oysters on night one"
    ],
-   "note": "PLAN CHANGE: the Marquis was never actually booked — tonight is Ocean Casino Resort, Atlantic City (confirmation lives in your email + planning chat, deliberately NOT in this public app). The ferry stays exactly as booked. Cape May still happens as a 30–40 min landing stroll — it keeps the NJ claim honest and the sunset promenade photo. Then 50 min up the Parkway to a big, easy resort night.",
+   "eat": "Jettie Rae’s Oyster House ✓ — oysters to open the trip",
+   "note": "Day one: a 4:30 AM Pacific alarm, a continent crossed, oysters by 7. · 📝 From the night the app was finished (Jul 20): “I had a lot of fun building the app today. I hope you enjoy experiencing our trip!” — Clark"},
+  {"d": "2026-08-16",
+   "hotel": "Blind Tiger Asheville",
+   "depart": "On the estate by 9:45 · Biltmore House at 10:45 ✓",
+   "drive": "Local + the Parkway — Craggy at golden hour",
+   "todo": [
+    "Gardens + conservatory first, then Biltmore House ✓",
+    "Antler Hill winery tasting ✓ — “Plants!!!!” — Maggie",
+    "Cúrate — the long tapas lunch ✓ (the quest, solved by flanking)",
+    "Inn reset between estate and mountain ✓",
+    "Craggy Gardens + the Pinnacle at golden hour ✓ — sunset from 5,144 feet"
+   ],
+   "eat": "Cúrate at lunch ✓ — tapas as the day’s centerpiece · evening belonged to the mountain",
+   "note": "As it actually happened: the estate morning ran long and earned it — house, gardens, and the winery — then Cúrate settled its quest at lunch instead of dinner. The River Arts District stays on the someday list; the Pinnacle sunset was the right trade.",
+   "claims": [{"code": "NC", "label": "North Carolina", "text": "Biltmore House + the winery + Cúrate at lunch + the Pinnacle at golden hour", "rain": "claimed in full sun"}]},
+  {"d": "2026-08-17",
+   "hotel": "Oakhurst Inn ✓",
+   "depart": "8:15 AM from Asheville · Charlottesville by ~4",
+   "drive": "334 mi · ~6h (I-26→I-81→I-64) — the trip’s longest first-half drive, done",
+   "todo": [
+    "334 miles, Asheville → Charlottesville ✓",
+    "Check-in + wifi test at the Oakhurst ✓",
+    "Early dinner downtown — “our best meal yet!” — Maggie",
+    "🎥 NSO on Zoom: rehearsal 7:30, live 8:00–9:30 ET ✓ — nailed after six hours of interstate"
+   ],
+   "eat": "An early downtown dinner ✓ — the trip’s reigning “best meal yet” for one whole day",
+   "note": "The NSO evening worked exactly as rebuilt: dinner early, rehearsal 7:30 ET, live 8:00–9:30 ✓, lights out by 10:30 with Monticello’s 9 AM tour protected. Six hours of interstate, zero drama."},
+  {"d": "2026-08-18",
+   "hotel": "Graduate Annapolis ✓",
+   "depart": "Monticello Behind the Scenes tour 9:00 AM ✓ · on the road by noon",
+   "drive": "~150 mi · ~3h30 to Annapolis",
+   "todo": [
+    "Monticello Behind the Scenes 9:00 ✓ — the full house, upstairs + Dome Room, done by ~11",
+    "UVA Lawn & Rotunda ✓ — a solo pilgrimage (Maggie sat this one out; her ballot says so too)",
+    "City Dock + Ego Alley at golden hour ✓ — sunset over Spa Creek",
+    "Boatyard Bar & Grill, Eastport ✓ — the crab feast, the Maryland ritual begun"
+   ],
+   "eat": "Boatyard crab feast ✓ — Eastport delivered",
+   "note": "Jefferson in the morning, the sailors’ town by evening: Behind the Scenes, the Lawn in morning light, then Annapolis at golden hour and crabs in Eastport.",
+   "claims": [{"code": "VA", "label": "Virginia", "text": "Monticello Behind the Scenes + the UVA Lawn at morning light — the Jefferson pair", "rain": "claimed under a 0% sky"}]},
+  {"d": "2026-08-19",
    "hotel": "Ocean Casino Resort, Atlantic City",
-   "eat": "Dinner inside Ocean Casino Resort after the drive — pick by mood on arrival",
+   "depart": "USNA at opening · out ~11:30 · Lewes for lunch",
+   "drive": "~120 mi over the Bay Bridge · the ferry sailed 4:15 → Cape May ~5:40",
+   "todo": [
+    "Naval Academy through Gate 1 ✓ — the Yard and Bancroft Hall country",
+    "Lewes ✓ — Striper Bites lunch + Second St in the first town in the first state",
+    "Cape May–Lewes Ferry ✓ — the car rode a boat across Delaware Bay",
+    "Cape May landing stroll ✓ — the promenade and a Victorian photo",
+    "Parkway north → Ocean Casino Resort, Atlantic City ✓",
+    "Dinner inside the resort ✓ — zero planning required, as intended"
+   ],
+   "eat": "Striper Bites in Lewes ✓ · dinner inside Ocean Casino Resort ✓",
+   "note": "The plan change that became a story: the Marquis was never actually booked, so the night pivoted to Ocean Casino Resort in Atlantic City — and the ferry day around it ran exactly as drawn: Academy, Lewes, the crossing, a 40-minute Cape May landing, then the Parkway north to a big easy resort night.",
    "claims": [
-    {
-     "code": "MD",
-     "label": "Maryland",
-     "text": "Eastport crab feast + the Naval Academy + sunset over Spa Creek",
-     "rain": "claimed ✓"
-    },
-    {
-     "code": "DE",
-     "label": "Delaware",
-     "text": "Striper Bites + Second Street, then boarding the ferry from Delaware sand",
-     "rain": "claimed ✓"
-    }
-   ]
-  },
-  {
-   "d": "2026-08-15",
-   "note": "You woke at 4:30 AM Pacific. Keep it gentle. · 📝 From the night the app was finished (Jul 20): “I had a lot of fun building the app today. I hope you enjoy experiencing our trip!” — Clark",
-   "eat": "Keep tonight easy: White Duck Taco or Burial — the Cúrate play is tomorrow (Day 2)"
-  },
-  {
-   "d": "2026-08-21",
-   "drive": "~85 mi · 2h30–3h15 — Bourne Bridge before noon · hotel is ~20 min past the bridge",
+    {"code": "MD", "label": "Maryland", "text": "Eastport crab feast + the Naval Academy + sunset over Spa Creek", "rain": "claimed ✓"},
+    {"code": "DE", "label": "Delaware", "text": "Striper Bites + Second Street, then boarding the ferry from Delaware sand", "rain": "claimed ✓"}]},
+  {"d": "2026-08-20",
+   "depart": "9:15 AM from Atlantic City",
+   "drive": "~270 mi · the long haul north — GWB crossed at midday, as designed",
+   "todo": [
+    "Atlantic City morning → the long haul north ✓",
+    "Mystic ~afternoon: the drawbridge village + Sift ✓ — stroll, not supper",
+    "Newport by evening · The Wayfinder ✓",
+    "22 Bowen’s on the wharf ✓ — the steakhouse on the harbor, exactly as the original plan drew it"
+   ],
+   "eat": "22 Bowen’s, Bowen’s Wharf ✓ — Mystic got the stroll, Newport got the dinner after all",
+   "note": "As it actually happened: the Oyster Club idea stayed an idea — Mystic was the leg-stretch and Newport reclaimed its dinner at 22 Bowen’s, which is what the itinerary wanted all along. The Connecticut claim rests on the drawbridge village, honestly strolled.",
+   "claims": [
+    {"code": "NJ", "label": "New Jersey", "text": "Arrival by sea at Cape May + an Atlantic City night", "rain": "claimed ✓"},
+    {"code": "CT", "label": "Connecticut", "text": "Mystic’s drawbridge village, strolled + Sift in hand", "rain": "claimed ✓"}]},
+  {"d": "2026-08-21",
+   "hotel": "Uncommoner Hotel, W Yarmouth ✓",
+   "depart": "A rainy Newport morning — the Cliff Walk stayed dry-docked, by design",
+   "drive": "~85 mi · Bourne Bridge before noon ✓",
    "todo": [
     "Cliff Walk cancelled — 70% rain and gusts on a wet cliff path ✓ (the right call)",
     "Rainy drive to the Cape · Uncommoner check-in + wifi test ✓",
@@ -45,21 +93,13 @@
     "Evening drive through Barnstable + Hyannis harbors — rain on the windshield, the good kind",
     "Black Cat Tavern, Hyannis ✓ — the new champion 🤤"
    ],
+   "eat": "Black Cat Tavern ✓ — “best meal yet,” and this time it stuck (long the №1 on the ballots)",
    "note": "The Breakers stayed unvisited — the rain day chose harbor drives and a great dinner instead, which is exactly this trip’s style. Newport keeps the Cliff Walk as a debt for another visit.",
-   "eat": "Black Cat Tavern ✓ — “best meal yet,” and this time it stuck (currently #1 in the Rankings)",
-   "claims": [
-    {
-     "code": "RI",
-     "label": "Rhode Island",
-     "text": "Bowen’s Wharf by night + a rainy Newport morning — claimed honestly",
-     "rain": "claimed in actual rain"
-    }
-   ]
-  },
-  {
-   "d": "2026-08-22",
-   "depart": "Leave 8:25 — Chatham by 9 (≈30 min from W Yarmouth)",
-   "drive": "Loop day: Chatham 30 min · Chatham→Wellfleet ~25 · P-town home leg ~55–60",
+   "claims": [{"code": "RI", "label": "Rhode Island", "text": "Bowen’s Wharf by night + a rainy Newport morning — claimed honestly", "rain": "claimed in actual rain"}]},
+  {"d": "2026-08-22",
+   "hotel": "Uncommoner Hotel, W Yarmouth",
+   "depart": "8:25 → Chatham by 9 ✓",
+   "drive": "The loop day: Chatham → Wellfleet → P-town → home",
    "todo": [
     "Chatham lighthouse + fish-pier seals ✓",
     "Mac’s on the Pier, Wellfleet — lunch on the harbor ✓",
@@ -68,22 +108,12 @@
     "Massachusetts bonus stamped ✓"
    ],
    "eat": "Mac’s on the Pier at noon ✓ · Pizza Barbone for dinner ✓ — wood-fired over ceviche, no regrets",
-   "note": "The pizza coup: Casa's ceviche loses to wood-fired Neapolitan, and geography approves — Barbone is 10 min from the Uncommoner in the Hyannis you already love. Default order: pizza 6:30, stroll after, no sunset chase. If the sky looks spectacular from Rt 6, the flip (Rock Harbor sunset 7:31 → pizza after) only works if Barbone's kitchen confirms it's serving past 8 — one call settles it. Either way: cancel Tock NOW, not at 5:45.",
-   "claims": [
-    {
-     "code": "MA",
-     "label": "Massachusetts",
-     "bonus": true,
-     "text": "BONUS: Chatham seals + Mac’s on the Pier + Carnival P-town + the pizza coup",
-     "rain": "claimed ✓ — PAAM, the shark center & Truro Vineyards stay on the someday list"
-    }
-   ]
-  },
-  {
-   "d": "2026-08-23",
-   "depart": "8:30–9:00 AM — canal by 9:45 is easy from W Yarmouth",
-   "drive": "~275 mi · 6h15–7h with the Plymouth stop · Cape → Rt 3 → I-93 through NH → I-89 → Stowe",
-   "eat": "The Friendly Toast, Concord ✓ · Edson Hill ✓ — Sunday ate very well",
+   "note": "The pizza coup, executed cleanly: Casa del Cabo cancelled with courtesy, wood-fired Neapolitan ten minutes from the hotel, Main St Hyannis after — no sunset chase needed. Seals, oysters, Carnival, and a legend, all in one loop.",
+   "claims": [{"code": "MA", "label": "Massachusetts", "bonus": true, "text": "BONUS: Chatham seals + Mac’s on the Pier + Carnival P-town + the pizza coup", "rain": "claimed ✓ — PAAM, the shark center & Truro Vineyards stay on the someday list"}]},
+  {"d": "2026-08-23",
+   "hotel": "Tälta Lodge ✓",
+   "depart": "8:30 from the Cape · canal by 9:45",
+   "drive": "~275 mi with the Plymouth stop — the second half’s long drive, rewarded with two Vermont nights",
    "todo": [
     "Plymouth Rock + Mayflower II ✓ — the boulder, the boat, the story",
     "🍳 The Friendly Toast, Concord NH ✓ — the Back Bay craving, zero detour",
@@ -91,139 +121,64 @@
     "Tälta Lodge check-in ✓",
     "Edson Hill dinner ✓ — the hilltop finish to a five-stop day"
    ],
-   "note": "As it actually happened: a rock, a boat, pancakes, a nerd pilgrimage, and a hilltop dinner. The village stroll and covered bridge folded into Monday’s plan instead — the day was full enough without them."
-  },
-  {
-   "d": "2026-08-18",
-   "depart": "Monticello Behind the Scenes tour 9:00 AM ✓ · on the road by noon",
+   "eat": "The Friendly Toast, Concord ✓ · Edson Hill ✓ — Sunday ate very well",
+   "note": "As it actually happened: a rock, a boat, pancakes, a nerd pilgrimage, and a hilltop dinner. The village stroll and covered bridge folded into Monday’s plan instead — the day was full enough without them."},
+  {"d": "2026-08-24",
+   "hotel": "Stowe stay — Tälta Lodge",
+   "depart": "8:15 → Stowe Laundry, self-serve — folded by ~10, Black Cap coffee while the drums spun",
+   "drive": "Mountain Rd up and back · the Smugglers’ Notch hairpins in the afternoon",
    "todo": [
-    "Monticello Behind the Scenes tour, 9:00 AM — booked ✓ · the full-house tour (upstairs + Dome Room) · done by ~11",
-    "City Dock + Ego Alley stroll",
-    "Crab dinner: Boatyard Bar & Grill, Eastport"
+    "Self-serve laundry ✓ — the suitcase reborn by 10",
+    "Gondola SkyRide up Mansfield ✓ — summit air, 15–20° cooler than the valley",
+    "Trapp Bierhall lunch ✓ — pretzels and lager, earned by laundry",
+    "Smugglers’ Notch drive ✓ — the one-lane hairpins through the boulders, windows down",
+    "A deliberately casual Monday night ✓ — exactly what day 10 wanted",
+    "VERMONT stamped ✓"
    ],
-   "claims": [
-    {
-     "code": "VA",
-     "label": "Virginia",
-     "text": "Monticello Behind the Scenes + the UVA Lawn at morning light — the Jefferson pair",
-     "rain": "claimed under a 0% sky"
-    }
-   ]
-  },
-  {
-   "d": "2026-08-27",
-   "eat": "Street & Co, 5:30 bar ✓ booked — the farewell · long-shot bonus: Fore Street’s 5 PM walk-in tables if you still want to try",
-   "depart": "No boat, no schedule — an easy city day on foot",
-   "drive": "Everything within 12 min of the Press · car rests until the 4:15 AM valet",
+   "eat": "Trapp Bierhall at lunch ✓ · kept the evening simple — Michael’s closed and Harrison’s dark, so the town decided for us",
+   "note": "The rhythm day: laundry claimed the morning, the gondola claimed the sky, the Bierhall claimed lunch, the Notch claimed the afternoon. Bingham Falls, Ben & Jerry’s, and the village shops stayed on the someday list — day 10 chose altitude and clean socks over errands, correctly.",
+   "claims": [{"code": "VT", "label": "Vermont", "text": "Mansfield by gondola + the Smugglers’ Notch hairpins + a Trapp Bierhall lunch", "rain": "claimed in mountain sunshine"}]},
+  {"d": "2026-08-25",
+   "hotel": "Inn at Thorn Hill & Spa ✓",
+   "depart": "8:15 from Stowe · Jackson by ~noon",
+   "drive": "115 mi through Crawford Notch, with quick hits on the way",
    "todo": [
-    "Coffee + work block (Press lobby or Speckled Ax) · 💻 FIRST: mint the bridge tokens — last desk-day of the trip",
-    "Portland Museum of Art: WINSLOW HOMER — Painter, Etcher (Homer painted this exact coast) + Arts District galleries",
-    "Shops: Exchange St · Sherman’s Books · Sea Bags wharf flagship · Maine Potters Market (the real art-studio stop)",
-    "🦞 ~11:45 Eventide walk-in LUNCH: brown-butter roll №1 + oysters (walk-ins easy midday)",
-    "🦞 ~3:00 Highroller: cheese-crusted roll №2, split — crawl complete (Bite into Maine scratched with the boat)",
-    "Afternoon: nap / work block №2 / Eastern Prom bench — the 4:15 AM alarm is watching",
-    "5:30 Street & Co ✓ — the farewell · 🏆 final Rankings session after (Gilbert’s is now ballot-official)"
-   ],
-   "prep": "TONIGHT: fuel the car · confirm valet 4:15 AM · settle bill · pack fully · rain shells in door pockets (showers ~5 AM) · lights out 9:30",
-   "claims": [
-    {
-     "code": "ME",
-     "label": "Maine",
-     "text": "Maine claimed at the table and on foot: Gilbert’s chowder, Winslow Homer’s coast at the PMA, lobster rolls at Eventide & Highroller, the Old Port end to end",
-     "rain": "It’s a walking-and-eating day — rain just moves it indoors"
-    }
-   ]
-  },
-  {
-   "d": "2026-08-16",
-   "eat": "Cúrate at lunch ✓ — tapas as the day’s centerpiece · evening belonged to the mountain",
-   "todo": [
-    "Gardens + conservatory first, then Biltmore House ✓",
-    "Antler Hill winery tasting ✓ — “Plants!!!!” — Maggie",
-    "Cúrate — the long tapas lunch ✓ (the quest, solved by flanking)",
-    "Inn reset · Ibis cube into the Aer",
-    "Craggy Gardens + the Pinnacle at golden hour ✓ — sunset from 5,144 feet"
-   ],
-   "note": "As it actually happened: the estate morning ran long and earned it — house, gardens, and the winery — then Cúrate settled its quest at lunch instead of dinner. The River Arts District stays on the someday list; the Pinnacle sunset was the right trade.",
-   "claims": [
-    {
-     "code": "NC",
-     "label": "North Carolina",
-     "text": "Biltmore House + the winery + Cúrate at lunch + the Pinnacle at golden hour",
-     "rain": "claimed in full sun"
-    }
-   ]
-  },
-  {
-   "d": "2026-08-20",
-   "eat": "22 Bowen’s, Bowen’s Wharf ✓ — Mystic got the stroll, Newport got the dinner after all",
-   "depart": "9:15–9:30 AM from Atlantic City",
-   "drive": "~270 mi · 6–6.5h (50 min SHORTER than planned) · GWB midday only — never at 4 PM",
-   "todo": [
-    "Atlantic City morning → the long haul north ✓",
-    "Mystic ~afternoon: the drawbridge village + Sift ✓ — stroll, not supper",
-    "Newport by evening · The Wayfinder ✓",
-    "22 Bowen’s on the wharf ✓ — the steakhouse on the harbor, exactly as the original plan drew it"
-   ],
-   "claims": [
-    {
-     "code": "NJ",
-     "label": "New Jersey",
-     "text": "Arrival by sea at Cape May + an Atlantic City night",
-     "rain": "claimed ✓"
-    },
-    {
-     "code": "CT",
-     "label": "Connecticut",
-     "text": "Mystic’s drawbridge village, strolled + Sift in hand",
-     "rain": "claimed ✓"
-    }
-   ],
-   "note": "As it actually happened: the Oyster Club idea stayed an idea — Mystic was the leg-stretch and Newport reclaimed its dinner at 22 Bowen’s, which is what the itinerary wanted all along. The Connecticut claim rests on the drawbridge village, honestly strolled."
-  },
-  {
-   "d": "2026-08-25",
-   "eat": "Forty at Thorn Hill — BOOKED 6:45 PM ✓ (house guests)",
-   "depart": "8:15–8:30 AM (early — Zoom block 1–4 PM ET at the inn) · Jackson by ~noon",
-   "drive": "115 mi · ~3h15 with QUICK Notch hits only · ⚠️ Crawford Notch has no cell service — be through it before 12:30",
-   "todo": [
-    "Notch drive-through: Mt Washington Hotel overlook · Silver Cascade · Willey House ✓",
-    "Thorn Hill ~noon · wifi test ✓ · ⚠️ bridge tokens NOT minted — carries to Portland (5 min at a laptop: GitHub → fine-grained tokens → paste into Sync tab)",
+    "Crawford Notch drive-through ✓ — Mt Washington Hotel overlook · Silver Cascade · Willey House",
+    "Thorn Hill by noon · wifi passed the test ✓",
     "🎥 Fall Kick Off 1:00–2:30 ET ✓ · 🎥 MSGB & MSB 3:00–4:00 ET ✓ — both survived",
-    "Evening audible: the windshield loop became the summit — Jackson village → Pinkham → 🚗⛰️ MT WASHINGTON AUTO ROAD to 6,288' on a clear evening ✓",
-    "6:45 PM — Forty at Thorn Hill ✓"
+    "Freed at 4: Jackson village + the Honeymoon Covered Bridge + Jackson Falls up Carter Notch Rd ✓",
+    "The audible of the trip: the windshield loop became the summit — Pinkham → 🚗⛰️ MT WASHINGTON AUTO ROAD to 6,288' on a clear evening ✓",
+    "6:45 — Forty at Thorn Hill ✓"
    ],
-   "note": "Zoom day executed to the minute — and then the audible of the trip: what was drawn up as a look-don't-touch drive up Rt 16 turned into the Auto Road at golden hour, summit clear. NH's fork question answered itself a day early. Forty at 6:45 closed it out steps from the room."
-  },
-  {
-   "d": "2026-08-26",
-   "eat": "Gilbert’s chowder ✓ then room service at the Press — the crawl bowed to the mountain day (Eventide & Highroller carry to Thursday)",
-   "depart": "~9:00 — fork resolved (summit done Tue night): it’s the Kanc",
-   "drive": "Kanc out-and-back ~4h with stops (⚠️ NO GAS on the highway — fill in Conway) · then West Side Rd → 302/25 east · Portland ~4:15–4:30",
+   "eat": "Forty at Thorn Hill, 6:45 ✓ — dinner steps from the room",
+   "note": "Zoom day executed to the minute — then the audible of the trip: what was drawn up as a look-don’t-touch drive up Rt 16 turned into the Auto Road at golden hour, summit clear, with the village loop and the falls as the warm-up. NH’s fork question answered itself a day early."},
+  {"d": "2026-08-26",
+   "hotel": "The Press Hotel ✓",
+   "depart": "~9:00 from Jackson — the Kanc, with the summit already banked",
+   "drive": "The Kancamagus out-and-back (tank filled in Conway) · then West Side Rd → 302/25 east · Portland by late afternoon",
    "todo": [
-    "Gas in Conway → the Kanc slow-roll: Albany bridge · Lower Falls · Rocky Gorge · Sabbaday · Pemi Overlook turnaround",
-    "Portland by early afternoon: pharmacy + dispensary errands · East Bayside stop",
-    "Check in The Press Hotel ✓",
-    "Evening as-lived: Gilbert’s chowder ✓ (crawl leg 1 of 3) → room service + early night — the Kanc and 6,288 feet of Tuesday sent the bill",
-    "⚠️ bridge tokens STILL not minted — now a Thursday-morning must"
+    "The Kancamagus slow-roll ✓ — Albany covered bridge · Lower Falls · Rocky Gorge · Pemi Overlook turnaround",
+    "East to Portland · checked into The Press Hotel ✓",
+    "Gilbert’s Chowder House ✓ — the classic, thick and honest",
+    "Room service + an early night ✓ — the Kanc and 6,288 feet of Tuesday sent the bill"
    ],
-   "note": "The Kanc closed the mountain chapter and Portland opened the last one — then honesty won the evening: one chowder at Gilbert’s, room service at the Press, lights out. Eventide and Highroller moved to Thursday, where they fit better anyway. No shame in a room-service night on day 12 of 14."
-  },
-  {
-   "d": "2026-08-17",
-   "depart": "8:15–8:30 AM sharp — NSO on Zoom tonight (7:30 PM ET) · Charlottesville by ~3:30–4",
-   "drive": "334 mi · ~6h (I-26→I-81→I-64) · QUICK Roanoke lunch — today’s buffer protects tonight’s Zoom",
+   "eat": "Gilbert’s chowder ✓ then room service at the Press — honesty won the evening",
+   "note": "The Kanc closed the mountain chapter and Portland opened the last one — one chowder at Gilbert’s, room service at the Press, lights out. No shame in a room-service night on day 12 of 14."},
+  {"d": "2026-08-27",
+   "hotel": "The Press Hotel",
+   "depart": "No boat, no museum — a work-and-food day, exactly as needed",
+   "drive": "One outing: Cape Elizabeth, lunch at the lighthouse · otherwise on foot from the Press",
    "todo": [
-    "334 miles, Asheville → Charlottesville ✓",
-    "Check-in + wifi test at the Oakhurst ✓",
-    "Early dinner downtown — “our best meal yet!” — Maggie",
-    "🎥 NSO on Zoom: rehearsal 7:30, live 8:00–9:30 ET ✓ — nailed after six hours of interstate"
+    "Coffee + work blocks at the Press ✓",
+    "💻 Bridge tokens minted + connected ✓ — September’s uploads and the book are safe",
+    "🦞 Bite into Maine at Portland Head Light ✓ — the lobster roll on the rocks, lighthouse included after all",
+    "Street & Co, 5:30 ✓ — the farewell: “Sole Francaise was 🤌🏼”",
+    "🏆 Final Rankings session — the ballots close with the trip"
    ],
-   "eat": "An early downtown dinner ✓ — the trip’s reigning “best meal yet” for one whole day",
-   "note": "The NSO claims the evening: rehearsal 7:30 ET, live 8–9:30 ET. The drive already lands by ~4, so only two things move — dinner goes EARLY (5:30, not 8) and the Lawn walk trades golden hour for afternoon light. Do not linger at lunch: every Roanoke minute comes out of tonight’s margin. Off Zoom 9:30, lights out by 10:30 — Monticello’s 9 AM tour tomorrow is untouched."
-  },
-  {
-   "d": "2026-08-28",
+   "eat": "Bite into Maine under the lighthouse ✓ · Street & Co ✓ — sole Française 🤌🏼 for the last table",
+   "prep": "The 4:15 AM choreography: car fueled · valet confirmed · bill settled · packed · rain shells in the door pockets · lights out 9:30",
+   "claims": [{"code": "ME", "label": "Maine", "text": "Maine claimed at the table and on the rocks: Gilbert’s chowder, a Bite into Maine roll under Portland Head Light, and sole Française at Street & Co", "rain": "the one lighthouse outing dodged the rain entirely"}]},
+  {"d": "2026-08-28",
    "todo": [
     "After-hours key drop if the counter is dark",
     "ATL 8:50–11:25: walk to the DL 483 gate FIRST, then breakfast near it",
@@ -231,90 +186,16 @@
     "Boarding ~10:55 overlaps the last minutes — sit AT the gate from 10:40, drop at 11:00 sharp and board",
     "BUR 1:01 PM — home mid-afternoon"
    ],
-   "note": "The AIB-SE Zoom fits entirely inside the Atlanta layover — nothing about the 4:15 AM choreography changes. It works as long as DL 1515 runs roughly on time (8:50 arrival = 70 min of slack before the call). If PWM slips badly: join late from whatever gate you're at, or send regrets — final boarding ~11:10 is the hard stop, and the board doesn't get to keep you off the flight home."
-  },
-  {
-   "d": "2026-08-24",
-   "depart": "8:15 → Stowe Laundry, 44 Park Pl — SELF-SERVE: wash in by 8:30, dry by 9:15, folded ~9:50 (coffee at Black Cap while the drums spin) → mountain by 10:15",
-   "todo": [
-    "Mansfield ~10:15: Gondola SkyRide or Auto Toll Road ($51/couple) — Ibis layers, summit runs 15–20° cooler",
-    "Trapp Bierhall lunch ~12:45 (Resy)",
-    "Smugglers’ Notch drive + Bingham Falls ~1:45 — quick version; storms possible after 2",
-    "🍦 Ben & Jerry’s factory, Waterbury ~2:30–3:45 — book the tour online TONIGHT · Flavor Graveyard mandatory · the indoor answer to the afternoon sky",
-    "Village hour ~4:15: Shaw’s General Store · Stowe Mercantile · Laughing Moon Chocolates · steeple photo from the Main St bridge",
-    "Pool or spa hour at Tälta ~5:30 — laundry done, suitcase reborn"
-   ],
-   "eat": "Casual Monday done right: Idletyme Brewing, The Bench, or Doc Ponds — check the door’s hours when you pick (Michael’s closed · Harrison’s dark Sun/Mon)",
-   "note": "Self-serve laundry claims the first 90 minutes — the trade is a 10:15 mountain instead of 10:00, nothing else moves. Storm-shaped after: peaks and falls before 2, Ben & Jerry’s as the rain shelter, village and pool after. Optional romance detour: Gold Brook “Emily’s” covered bridge, 10 min south. Tonight: stamp VERMONT (summit + Notch + Bierhall), journal + keepers. Tomorrow: 8:15 departure, Zooms 1–4 at Thorn Hill — and mint the two fresh bridge tokens there (September’s uploads + the photo book depend on it)."
-  }
+   "note": "The AIB-SE Zoom fits entirely inside the Atlanta layover — nothing about the 4:15 AM choreography changes. It works as long as DL 1515 runs roughly on time (8:50 arrival = 70 min of slack before the call). If PWM slips badly: join late from whatever gate you're at, or send regrets — final boarding ~11:10 is the hard stop, and the board doesn't get to keep you off the flight home."}
  ],
  "res": [
-  {
-   "id": "ferry",
-   "when": "Wed Aug 19 · 4:15 PM sailing ✓ · at terminal 3:15 · hard cutoff 3:45",
-   "cost": "$64 · paid in full"
-  },
-  {
-   "id": "monticello",
-   "what": "Monticello — Behind the Scenes tour",
-   "when": "Tue Aug 18 · 9:00 AM ✓ booked · arrive ~8:40",
-   "cost": ""
-  },
-  {
-   "id": "forestreet",
-   "what": "Farewell dinner — Street & Co ✓",
-   "when": "Thu Aug 27 · 5:30 PM bar seats ✓ booked (OpenTable, cancellable) — watch for a dining-room upgrade",
-   "cost": "",
-   "url": "https://www.streetandcompany.net"
-  },
-  {
-   "id": "curate",
-   "what": "Cúrate, Asheville — no tables for 2 showing",
-   "when": "Aug 15/16 · set a Resy notify + plan the ~5 PM bar walk-in on the 16th · sisters: La Bodega by Cúrate · else Chai Pani",
-   "cost": ""
-  },
-  {
-   "id": "thornhilldin",
-   "what": "Forty at Thorn Hill — CALL as house guests",
-   "when": "Tue Aug 25 · site shows full — phone 603-383-4242; inns hold tables for their own guests. Lock it by check-in at latest",
-   "cost": ""
-  },
-  {
-   "id": "harrisons",
-   "what": "Harrison’s Stowe — online full",
-   "when": "Sun Aug 23 · call, or walk the bar early · plan B: Michael’s on the Hill or Edson Hill",
-   "cost": ""
-  },
-  {
-   "id": "scales",
-   "what": "Portland dinner #1 (Scales full thru Sept)",
-   "when": "Wed Aug 26 · book Leeward (Resy) or Chaval · walk-in ladder: Eventide at 5 → Central Provisions → Duckfat · easy answer: Union at the Press",
-   "url": "https://leewardmaine.com/reservations",
-   "cost": ""
-  },
-  {
-   "id": "bowens",
-   "what": "Bowen’s Wharf evening — a wharf district, not one room",
-   "when": "Thu Aug 20 · ~8 PM · book one room if you like (22 Bowen’s · Clarke Cooke House · The Mooring) or stroll and choose",
-   "cost": ""
-  }
- ],
- "tasksAdd": [
-  {
-   "id": "t_unccancel",
-   "t": "Aug 17: final Cape gut-check — Uncommoner free cancellation ends Aug 18, 12:01 AM (property time)"
-  }
- ],
- "stops": [
-  {
-   "id": "cape",
-   "urgency": "Clark’s pick: Queen Anne Inn — “1 left” Jul 19 · 6 candidates loaded; card shows top 3 — tap “Not for us ✕” to rotate others in",
-   "options": [
-    {
-     "name": "Chapter House (Yarmouth Port)",
-     "caveat": "Mid-Cape base ≈ +20–30 min on each touring day, net ~35–45 min over the stay after an easier departure morning (corrected from ‘~1 hour’) — and the extra lands on the late P-town drive home · 10,000 sq-ft event lawn = August-weekend wedding risk · no breakfast served · a soundproofing complaint · fast traffic on 6A"
-    }
-   ]
-  }
+  {"id": "ferry", "when": "Wed Aug 19 · sailed 4:15 ✓ — the car crossed Delaware Bay", "cost": "$64 · paid"},
+  {"id": "monticello", "what": "Monticello — Behind the Scenes tour", "when": "Tue Aug 18 · 9:00 AM ✓ done", "cost": ""},
+  {"id": "forestreet", "what": "Farewell dinner — Street & Co ✓", "when": "Thu Aug 27 · 5:30 ✓ dined — sole Française 🤌🏼", "cost": ""},
+  {"id": "curate", "what": "Cúrate, Asheville ✓", "when": "Sun Aug 16 · the long tapas lunch — quest solved by flanking", "cost": ""},
+  {"id": "thornhilldin", "what": "Forty at Thorn Hill ✓", "when": "Tue Aug 25 · 6:45 ✓ dined as house guests", "cost": ""},
+  {"id": "harrisons", "what": "Stowe Monday dinner", "when": "Mon Aug 24 · kept casual — Michael’s closed, Harrison’s dark", "cost": ""},
+  {"id": "scales", "what": "Portland dinners, as lived", "when": "Wed: Gilbert’s + room service ✓ · Thu: Bite into Maine + Street & Co ✓", "cost": ""},
+  {"id": "bowens", "what": "Bowen’s Wharf evening ✓", "when": "Thu Aug 20 · 22 Bowen’s on the wharf — dined", "cost": ""}
  ]
 }
