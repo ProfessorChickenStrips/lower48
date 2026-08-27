@@ -1,5 +1,5 @@
 {
- "contentV": 49,
+ "contentV": 50,
  "days": [
   {
    "d": "2026-08-19",
@@ -112,7 +112,27 @@
   },
   {
    "d": "2026-08-27",
-   "eat": "Street & Co, 5:30 bar ✓ booked — the farewell · long-shot bonus: Fore Street’s 5 PM walk-in tables if you still want to try"
+   "eat": "Street & Co, 5:30 bar ✓ booked — the farewell · long-shot bonus: Fore Street’s 5 PM walk-in tables if you still want to try",
+   "depart": "No boat, no schedule — an easy city day on foot",
+   "drive": "Everything within 12 min of the Press · car rests until the 4:15 AM valet",
+   "todo": [
+    "Coffee + work block (Press lobby or Speckled Ax) · 💻 FIRST: mint the bridge tokens — last desk-day of the trip",
+    "Portland Museum of Art: WINSLOW HOMER — Painter, Etcher (Homer painted this exact coast) + Arts District galleries",
+    "Shops: Exchange St · Sherman’s Books · Sea Bags wharf flagship · Maine Potters Market (the real art-studio stop)",
+    "🦞 ~11:45 Eventide walk-in LUNCH: brown-butter roll №1 + oysters (walk-ins easy midday)",
+    "🦞 ~3:00 Highroller: cheese-crusted roll №2, split — crawl complete (Bite into Maine scratched with the boat)",
+    "Afternoon: nap / work block №2 / Eastern Prom bench — the 4:15 AM alarm is watching",
+    "5:30 Street & Co ✓ — the farewell · 🏆 final Rankings session after (Gilbert’s is now ballot-official)"
+   ],
+   "prep": "TONIGHT: fuel the car · confirm valet 4:15 AM · settle bill · pack fully · rain shells in door pockets (showers ~5 AM) · lights out 9:30",
+   "claims": [
+    {
+     "code": "ME",
+     "label": "Maine",
+     "text": "Maine claimed at the table and on foot: Gilbert’s chowder, Winslow Homer’s coast at the PMA, lobster rolls at Eventide & Highroller, the Old Port end to end",
+     "rain": "It’s a walking-and-eating day — rain just moves it indoors"
+    }
+   ]
   },
   {
    "d": "2026-08-16",
@@ -177,20 +197,17 @@
   },
   {
    "d": "2026-08-26",
-   "eat": "🦞 THE LOBSTER CRAWL: Gilbert’s chowder cup 4:45 (two spoons) → Eventide walk-in 5:05 (brown-butter roll №1 + oysters) → ~8:15 Highroller cheese-crusted roll, split — all within 6 min of the Press",
+   "eat": "Gilbert’s chowder ✓ then room service at the Press — the crawl bowed to the mountain day (Eventide & Highroller carry to Thursday)",
    "depart": "~9:00 — fork resolved (summit done Tue night): it’s the Kanc",
    "drive": "Kanc out-and-back ~4h with stops (⚠️ NO GAS on the highway — fill in Conway) · then West Side Rd → 302/25 east · Portland ~4:15–4:30",
    "todo": [
-    "Gas in Conway FIRST — the Kanc has zero services",
-    "Slow-roll stops: Albany covered bridge · Lower Falls · Rocky Gorge · Sabbaday (the one short walk, if any)",
-    "Kancamagus Pass / Pemi Overlook = turnaround — the big view is drive-up",
-    "Lunch back in Conway ~1:30 — go LIGHT, the crawl starts at 4:45",
-    "Check in The Press Hotel ~4:15–4:30 · bags down, walk out hungry · 💻 5 min at the desk: MINT THE BRIDGE TOKENS",
-    "🦞 4:45 Gilbert’s: one chowder cup, two spoons → 5:05 Eventide walk-in: brown-butter roll + oysters → Old Port stroll",
-    "~7:25 Eastern Prom sunset → 8:15 Highroller: the cheese-crusted one, SPLIT — the nightcap",
-    "🏆 Rank everything before bed — 4 new Food items; roll №3 (Bite into Maine, on the rocks) is tomorrow’s lunch"
+    "Gas in Conway → the Kanc slow-roll: Albany bridge · Lower Falls · Rocky Gorge · Sabbaday · Pemi Overlook turnaround",
+    "Portland by early afternoon: pharmacy + dispensary errands · East Bayside stop",
+    "Check in The Press Hotel ✓",
+    "Evening as-lived: Gilbert’s chowder ✓ (crawl leg 1 of 3) → room service + early night — the Kanc and 6,288 feet of Tuesday sent the bill",
+    "⚠️ bridge tokens STILL not minted — now a Thursday-morning must"
    ],
-   "note": "Fork resolved on the mountain Tuesday evening — Wednesday is pure Kanc, then Portland becomes an eating itinerary: the Lobster Crawl covers Gilbert’s chowder + Eventide + Highroller in one evening (split everything, nothing is a full meal), with Bite into Maine at Fort Williams finishing the set at Thursday lunch. Street & Co 5:30 Thursday stays the booked farewell. Valley forecast: increasing clouds, 67. NH claim already fully earned; the Kanc is the bonus lap. Tokens errand lives at the Press desk."
+   "note": "The Kanc closed the mountain chapter and Portland opened the last one — then honesty won the evening: one chowder at Gilbert’s, room service at the Press, lights out. Eventide and Highroller moved to Thursday, where they fit better anyway. No shame in a room-service night on day 12 of 14."
   },
   {
    "d": "2026-08-17",
