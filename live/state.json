@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-08-27T13:06:08.447Z",
+ "updatedAt": "2026-08-27T13:06:19.732Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -195,12 +195,12 @@
    ],
    "orders": {
     "clark": {
-     "ts": 1787774536739,
+     "ts": 1787835975539,
      "ids": [
       "f_blackcat",
       "f_boatyard",
-      "rk_mtais8za1rph",
       "rk_mt6mb5cg3314",
+      "rk_mtais8za1rph",
       "rk_mt3s87e1eylc",
       "rk_mt3s6vk2igaw",
       "rk_mt3s9cqflkmo",
