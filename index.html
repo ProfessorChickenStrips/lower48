@@ -100,7 +100,7 @@ nav.tabbar button .dot{position:absolute;margin-left:26px;width:8px;height:8px;b
 .rkrow.rkover{box-shadow:inset 0 3px 0 #C9A227}
 .rkcont.rkoverc{outline:2px dashed #C9A227;outline-offset:2px}
 .rkdragging{opacity:.45}
-.rklockbar{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap} .rkhandle.rklocked{cursor:default;opacity:.5} .rkfinal b{color:#C9A227} .rkadd{display:flex;gap:8px;margin-top:10px}
+.bookcd{border-left:4px solid #C9A227;padding:10px 12px} .bookcd .t{font-size:14px} .bookcd .row{font-size:13px;margin-top:4px;line-height:1.5} .bookcd .mut{color:var(--muted)} .bookcd b{color:#C9A227} .bookcd.done{border-left-color:#5a7d5a} .rklockbar{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap} .rkhandle.rklocked{cursor:default;opacity:.5} .rkfinal b{color:#C9A227} .rkadd{display:flex;gap:8px;margin-top:10px}
 .rkadd input{flex:1;min-width:0;border:1px solid #D8D2C0;border-radius:8px;padding:8px 10px;font:inherit;background:#fff}
 .claimcard{border:2px solid var(--goldBright);border-radius:14px;background:linear-gradient(180deg,#FFFDF6,#FBF4DF);
   padding:14px;margin:12px 0}
@@ -754,6 +754,20 @@ function renderBanner(){
 function go(t){TAB=t;render()}
 
 /* ============ RENDER (full re-render; fine at this size — inputs & scroll preserved) ============ */
+/* ============ BOOK COUNTDOWN — the closing bell for the forever site & photo book ============ */
+const BOOK_DL={words:Date.UTC(2026,8,1,3,59,59),   /* journal words: Aug 31, 11:59 PM ET */
+               media:Date.UTC(2026,8,6,3,59,59),   /* photos, rankings locks, book art: Sept 5, 11:59 PM ET */
+               build:Date.UTC(2026,8,6,16,0,0)};   /* the robot binds: Sept 6, noon ET */
+function cdFmt(ms){if(ms<=0)return null;const h=Math.floor(ms/36e5);if(h>=48)return Math.round(h/24)+'d';if(h>=1)return h+'h';return Math.max(1,Math.floor(ms/6e4))+'m'}
+function bookCD(){
+ const now=Date.now();
+ if(now>=BOOK_DL.build)return `<div class="card bookcd done"><div class="t">📖 <b>The book is with the binder.</b> The first draft lands for review — everything in the app as of Sept 6 is what it prints. The memorial site keeps living.</div></div>`;
+ const w=cdFmt(BOOK_DL.words-now),m=cdFmt(BOOK_DL.media-now);
+ const wBit=w?`✍️ Journal words: <b>${w}</b> <span class="mut">(Aug 31)</span>`:`✍️ Journal words: <b>closed</b>`;
+ const mBit=`📷🏆 Photos · rankings · art: <b>${m||'closing'}</b> <span class="mut">(Sept 5)</span>`;
+ return `<div class="card bookcd"><div class="t">📖 <b>THE BOOK CLOSES SOON</b> — what’s in the app is what gets printed & enshrined.</div>
+  <div class="row">${wBit} · ${mBit} · 🤖 binds <span class="mut">Sept 6</span></div></div>`;
+}
 function render(){
  ensureDailyLove(); /* creates today's note on first render of each date — both phones derive the same one */
  renderHeader();renderTabs();renderBanner();
@@ -762,8 +776,8 @@ function render(){
  document.querySelectorAll('input[data-keep]').forEach(el=>{stash[el.id]=el.value;if(document.activeElement===el)focusId=el.id});
  const v=$('view');
  const oldChips=v.querySelector('.chips');const chipScroll=oldChips?oldChips.scrollLeft:null; /* remember the date strip's horizontal position across a re-render */
- if(TAB==='trip')v.innerHTML=viewTrip();
- else if(TAB==='rank')v.innerHTML=viewRank();
+ if(TAB==='trip')v.innerHTML=bookCD()+viewTrip();
+ else if(TAB==='rank')v.innerHTML=bookCD()+viewRank();
  else if(TAB==='ledger')v.innerHTML=viewLedger();
  else if(TAB==='chat')v.innerHTML=viewChat();
  else v.innerHTML=viewSync();
