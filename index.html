@@ -100,7 +100,7 @@ nav.tabbar button .dot{position:absolute;margin-left:26px;width:8px;height:8px;b
 .rkrow.rkover{box-shadow:inset 0 3px 0 #C9A227}
 .rkcont.rkoverc{outline:2px dashed #C9A227;outline-offset:2px}
 .rkdragging{opacity:.45}
-.rkadd{display:flex;gap:8px;margin-top:10px}
+.rklockbar{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap} .rkhandle.rklocked{cursor:default;opacity:.5} .rkfinal b{color:#C9A227} .rkadd{display:flex;gap:8px;margin-top:10px}
 .rkadd input{flex:1;min-width:0;border:1px solid #D8D2C0;border-radius:8px;padding:8px 10px;font:inherit;background:#fff}
 .claimcard{border:2px solid var(--goldBright);border-radius:14px;background:linear-gradient(180deg,#FFFDF6,#FBF4DF);
   padding:14px;margin:12px 0}
@@ -579,7 +579,7 @@ function applyOverlay(live){ /* additive & conservative: local conf numbers and 
   if(!r||!L||!r.orders)return; /* old-shape payloads are ignored */
   if(Array.isArray(r.items)&&(r.cts||0)>(L.cts||0)){L.cts=r.cts;L.items=r.items} /* catalog: newest add/remove wins */
   ['clark','maggie'].forEach(w=>{const ro=r.orders[w];
-   if(ro&&Array.isArray(ro.ids)&&(ro.ts||0)>((L.orders[w]&&L.orders[w].ts)||0))L.orders[w]={ts:ro.ts,ids:ro.ids,skip:Array.isArray(ro.skip)?ro.skip:[]}}); /* each ballot edited on its own phone — per-person newest wins; sat-outs travel with the ballot */
+   if(ro&&Array.isArray(ro.ids)&&(ro.ts||0)>((L.orders[w]&&L.orders[w].ts)||0))L.orders[w]={ts:ro.ts,ids:ro.ids,skip:Array.isArray(ro.skip)?ro.skip:[],locked:!!ro.locked}}); /* each ballot edited on its own phone — per-person newest wins; sat-outs and locks travel with the ballot */
  });
 }
 
@@ -988,7 +988,7 @@ if(!('rkview' in UI))UI.rkview=null; /* null = follow this phone's identity */
 function rkView(){return UI.rkview||rkWhoKey()}
 function rkNorm(k,w){ /* ballot = permutation of catalog MINUS this person's sat-outs; newcomers append */
  const L=S.rankings[k];const have=new Set(L.items.map(x=>x.id));
- const o=L.orders[w];if(!Array.isArray(o.skip))o.skip=[];
+ const o=L.orders[w];if(!Array.isArray(o.skip))o.skip=[];if(typeof o.locked!=='boolean')o.locked=false;
  const skip=new Set(o.skip.filter(id=>have.has(id)));
  const ids=o.ids.filter(id=>have.has(id)&&!skip.has(id));
  L.items.forEach(x=>{if(!ids.includes(x.id)&&!skip.has(x.id))ids.push(x.id)});o.ids=ids;return ids}
@@ -1016,23 +1016,31 @@ function viewRank(){
      <span class="rkbadge">${i+1}</span>
      <div class="t">${esc(r.it.t)}<div class="small">${r.pc!=null?'Clark #'+r.pc:'Clark — sat out'} · ${r.pm!=null?'Maggie #'+r.pm:'Maggie — sat out'} · avg ${r.avg.toFixed(1)}${r.pc===1&&r.pm===1?' · 🤝 unanimous':''}${r.voters===1?' · solo vote':''}</div></div>
     </div>`).join('');
-   return `<div class="card rkcont"><h3>${meta[0]} ${esc(meta[1])} — the verdict</h3><div>${rows}</div></div>`;
+   const lc=!!S.rankings[k].orders.clark.locked,lm=!!S.rankings[k].orders.maggie.locked;
+   const lockLine=lc&&lm?`<div class="small rkfinal" style="margin:2px 0 6px">🔒 <b>FINAL</b> — both ballots locked</div>`
+    :(lc||lm?`<div class="small" style="margin:2px 0 6px">🔒 ${lc?'Clark':'Maggie'} locked · ⏳ ${lc?'Maggie':'Clark'} still editing</div>`
+    :`<div class="small" style="margin:2px 0 6px">⏳ neither ballot locked yet</div>`);
+   return `<div class="card rkcont"><h3>${meta[0]} ${esc(meta[1])} — the verdict</h3>${lockLine}<div>${rows}</div></div>`;
   }
   const ids=rkNorm(k,v);const byId={};S.rankings[k].items.forEach(x=>byId[x.id]=x);
+  const o=S.rankings[k].orders[v];const locked=!!o.locked;const whoNm=v==='clark'?'Clark':'Maggie';
   rows=ids.map((id,i)=>`<div class="rkrow ${i===0?'top1':''}" data-rkitem="${esc(id)}">
-    <span class="rkhandle" data-rkdrag="${esc(id)}" aria-label="drag to reorder">☰</span>
+    ${locked?`<span class="rkhandle rklocked" aria-hidden="true">🔒</span>`:`<span class="rkhandle" data-rkdrag="${esc(id)}" aria-label="drag to reorder">☰</span>`}
     <span class="rkbadge">${i+1}</span>
     <div class="t">${esc(byId[id].t)}</div>
-    <button class="rkskip" data-act="rk-skip" data-k="${k}" data-id="${esc(id)}" aria-label="didn’t do this" title="didn’t do this">🚫</button>
-    <button class="rkdel" data-act="rk-del" data-id="${esc(id)}" aria-label="remove">✕</button>
+    ${locked?'':`<button class="rkskip" data-act="rk-skip" data-k="${k}" data-id="${esc(id)}" aria-label="didn’t do this" title="didn’t do this">🚫</button>
+    <button class="rkdel" data-act="rk-del" data-id="${esc(id)}" aria-label="remove">✕</button>`}
    </div>`).join('');
   const skipped=rkSkips(k,v);
-  const shelf=skipped.length?`<div class="small" style="margin-top:8px"><b>${v==='clark'?'Clark':'Maggie'} sat these out</b> — they still count in Combined via the other ballot:</div>${skipped.map(id=>`<div class="rkrow rkskipped"><span class="rkbadge" style="background:#9AA3AD">—</span><div class="t" style="color:var(--muted)">${esc((byId[id]||{}).t||id)}</div><button class="btn sm subtle" data-act="rk-unskip" data-k="${k}" data-id="${esc(id)}">I did do this</button></div>`).join('')}`:'';
+  const shelf=skipped.length?`<div class="small" style="margin-top:8px"><b>${v==='clark'?'Clark':'Maggie'} sat these out</b> — they still count in Combined via the other ballot:</div>${skipped.map(id=>`<div class="rkrow rkskipped"><span class="rkbadge" style="background:#9AA3AD">—</span><div class="t" style="color:var(--muted)">${esc((byId[id]||{}).t||id)}</div>${locked?'':`<button class="btn sm subtle" data-act="rk-unskip" data-k="${k}" data-id="${esc(id)}">I did do this</button>`}</div>`).join('')}`:'';
   return `<div class="card rkcont" data-rkcont="${k}">
    <h3>${meta[0]} ${esc(meta[1])}</h3><div class="small" style="margin:2px 0 6px">${esc(meta[2])} — ${v==='clark'?'Clark':'Maggie'}’s order</div>
    <div>${rows||'<div class="small">Empty — add below.</div>'}</div>
    ${shelf}
-   <div class="rkadd"><input type="text" id="rkin-${k}" data-keep autocomplete="off" placeholder="Add to ${esc(meta[1])}…"><button class="btn sm gold" data-act="rk-add" data-k="${k}">Add</button></div>
+   ${locked
+    ?`<div class="rklockbar"><span class="tag ver">🔒 Locked</span><span class="small">${whoNm}’s ${esc(meta[1])} order is final — drag and edits are off</span><button class="btn sm ghost" data-act="rk-unlock" data-k="${k}">Unlock</button></div>`
+    :`<div class="rkadd"><input type="text" id="rkin-${k}" data-keep autocomplete="off" placeholder="Add to ${esc(meta[1])}…"><button class="btn sm gold" data-act="rk-add" data-k="${k}">Add</button></div>
+   <div class="btnrow" style="margin-top:8px"><button class="btn sm subtle" data-act="rk-lock" data-k="${k}">🔒 Lock ${whoNm}’s ${esc(meta[1])} order</button></div>`}
   </div>`}).join('');
  return head+conts;
 }
@@ -1332,20 +1340,32 @@ document.addEventListener('click',e=>{
   case 'patch-apply':applyPatchUI();break;
   case 'notice-ack':ackNotice(a.id);break;
   case 'rk-view':UI.rkview=a.v;render();break;
+  case 'rk-lock':{const w=rkView();if(w==='combined')break;const o=S.rankings[a.k].orders[w];
+   o.locked=true;o.ts=Date.now();dirty();render();
+   toast('🔒 '+(w==='clark'?'Clark':'Maggie')+'’s '+a.k+' order is locked — the Combined tab shows it');break}
+  case 'rk-unlock':{const w=rkView();if(w==='combined')break;const o=S.rankings[a.k].orders[w];
+   o.locked=false;o.ts=Date.now();dirty();render();break}
   case 'rk-skip':{const w=rkView();if(w==='combined')break;const o=S.rankings[a.k].orders[w];
+   if(o.locked){toast('🔒 '+(w==='clark'?'Clark':'Maggie')+'’s list is locked — unlock to edit');break}
    if(!Array.isArray(o.skip))o.skip=[];
    if(!o.skip.includes(a.id))o.skip.push(a.id);
    o.ids=o.ids.filter(x=>x!==a.id);o.ts=Date.now();dirty();render();
    toast((w==='clark'?'Clark':'Maggie')+' sat that one out — Combined now uses the other ballot alone');break}
   case 'rk-unskip':{const w=rkView();if(w==='combined')break;const o=S.rankings[a.k].orders[w];
+   if(o.locked){toast('🔒 Locked — unlock to edit');break}
    o.skip=(o.skip||[]).filter(x=>x!==a.id);if(!o.ids.includes(a.id))o.ids.push(a.id);
    o.ts=Date.now();dirty();render();break}
-  case 'rk-del':{const r=rkFind(a.id);if(r&&confirm('Remove “'+r.it.t+'” from BOTH ballots?')){
+  case 'rk-del':{const r=rkFind(a.id);if(!r)break;
+   const lkw=['clark','maggie'].filter(w2=>S.rankings[r.k].orders[w2].locked);
+   if(lkw.length){toast('🔒 '+lkw.map(x=>x==='clark'?'Clark':'Maggie').join(' & ')+' locked this list — catalog edits need both unlocked');break}
+   if(confirm('Remove “'+r.it.t+'” from BOTH ballots?')){
    const L=S.rankings[r.k];L.items.splice(r.i,1);L.cts=Date.now();
    ['clark','maggie'].forEach(w=>{L.orders[w].ids=L.orders[w].ids.filter(x=>x!==a.id);L.orders[w].ts=Date.now()});
    dirty();render()}break}
   case 'rk-add':{const el2=$('rkin-'+a.k);const v2=(el2&&el2.value||'').trim();if(!v2)return;
-   const L=S.rankings[a.k];const nid='rk_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+   const L=S.rankings[a.k];
+   const lkw2=['clark','maggie'].filter(w2=>L.orders[w2].locked);
+   if(lkw2.length){toast('🔒 '+lkw2.map(x=>x==='clark'?'Clark':'Maggie').join(' & ')+' locked this list — catalog edits need both unlocked');break}const nid='rk_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
    L.items.push({id:nid,t:v2});L.cts=Date.now();
    ['clark','maggie'].forEach(w=>{L.orders[w].ids.push(nid);L.orders[w].ts=Date.now()}); /* newcomers start last on both ballots */
    if(el2)el2.value='';dirty();render();break}
@@ -1400,12 +1420,13 @@ document.addEventListener('pointerup',()=>{
  if(!d.moved||!d.tgt)return;
  const w=rkView();if(w==='combined')return; /* the verdict is computed, never dragged */
  const src=rkFind(d.id);if(!src)return;
+ const ob=S.rankings[src.k].orders[w];if(ob.locked)return; /* locked = no drags, belt & suspenders */
  const ids=rkNorm(src.k,w);const from=ids.indexOf(d.id);if(from<0)return;
  if(d.tgt.item){const dst=rkFind(d.tgt.item);if(!dst||d.tgt.item===d.id||dst.k!==src.k)return;
   ids.splice(from,1);const di=ids.indexOf(d.tgt.item);ids.splice(di<0?ids.length:di,0,d.id)}
  else if(d.tgt.cont){if(d.tgt.cont!==src.k)return;ids.splice(from,1);ids.push(d.id)}
  else return;
- S.rankings[src.k].orders[w]={ts:Date.now(),ids};dirty();render()
+ S.rankings[src.k].orders[w]={ts:Date.now(),ids,skip:Array.isArray(ob.skip)?ob.skip:[],locked:!!ob.locked};dirty();render() /* v22 fix: drags no longer wipe sat-outs */
 });
 document.addEventListener('pointercancel',rkEndDrag);
 
