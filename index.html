@@ -755,13 +755,13 @@ function go(t){TAB=t;render()}
 
 /* ============ RENDER (full re-render; fine at this size — inputs & scroll preserved) ============ */
 /* ============ BOOK COUNTDOWN — the closing bell for the forever site & photo book ============ */
-const BOOK_DL={words:Date.UTC(2026,8,8,6,59,59),   /* EXTENDED for the holiday weekend: Mon Sept 7, 11:59 PM PT */
-               media:Date.UTC(2026,8,8,6,59,59),
-               build:Date.UTC(2026,8,8,16,0,0)};   /* the robot binds: Tue Sept 8, 9 AM PT */
+const BOOK_DL={words:Date.UTC(2026,8,15,6,59,59),   /* EXTENDED to Mon Sept 14, 11:59 PM PT */
+               media:Date.UTC(2026,8,15,6,59,59),
+               build:Date.UTC(2026,8,15,16,0,0)};   /* the robot binds: Tue Sept 15, 9 AM PT */
 function cdFmt(ms){if(ms<=0)return null;const h=Math.floor(ms/36e5);if(h>=48)return Math.round(h/24)+'d';if(h>=1)return h+'h';return Math.max(1,Math.floor(ms/6e4))+'m'}
 function bookCD(){
  const now=Date.now();
- if(now>=BOOK_DL.build)return `<div class="card bookcd done"><div class="t">📖 <b>The book is with the binder.</b> The first draft lands for review — everything in the app as of Sunday midnight is what it prints. The memorial site keeps living.</div></div>`;
+ if(now>=BOOK_DL.build)return `<div class="card bookcd done"><div class="t">📖 <b>The book is with the binder.</b> The first draft lands for review — everything in the app as of Monday night, Sept 14 is what it prints. The memorial site keeps living.</div></div>`;
  const m=cdFmt(BOOK_DL.media-now);
  const chk=nm=>{const w=nm.toLowerCase();const J=S.journal||[];
   const has=f=>J.some(e=>e&&!e.del&&!e.priv&&e.who===nm&&f(e));
@@ -778,7 +778,7 @@ function bookCD(){
  const pend=typeof pendingMediaCount==='function'&&pendingMediaCount()>0?`<div class="row" style="color:#8a4b00">⌛ ${pendingMediaCount()} photo/video upload${pendingMediaCount()>1?'s':''} still pending on THIS phone — open Trip → today and retry before the deadline</div>`:'';
  const allDone=C.done&&M.done;
  return `<div class="card bookcd"><div class="t">📖 <b>EXTENDED — THE BOOK CLOSES MONDAY NIGHT.</b> Everything in the app by then gets printed & enshrined.</div>
-  <div class="row">⏳ <b>${m||'closing'}</b> left <span class="mut">(Mon 11:59 PM PT · Labor Day)</span> · 🤖 binds <span class="mut">Tue 9 AM</span></div>
+  <div class="row">⏳ <b>${m||'closing'}</b> left <span class="mut">(Mon <b>Sept 14</b> · 11:59 PM PT)</span> · 🤖 binds <span class="mut">Tue Sept 15, 9 AM</span></div>
   <div class="bkgrid">${col(C)}${col(M)}</div>
   ${allDone?`<div class="row" style="color:#5a7d5a"><b>Everything's in — the binder gets it all. Enjoy the weekend. 🎉</b></div>`
    :`<div class="row mut" style="font-size:12px">Ticks are automatic: a <b>closing entry</b> = any journal entry dated after Aug 28 · a <b>KEEPERS list</b> = a journal entry starting “KEEPERS:” (your must-print photos & moments, plain words) · <b>locks</b> live on the Ranks tab. Syncs between phones — yes, you can see each other’s homework.</div>`}
