@@ -728,7 +728,10 @@ function renderHeader(){
   :`<div class="big serif">🏅</div><div class="lbl">trip complete</div>`;
  $('statrow').innerHTML=`
   <div class="stat">${left}</div>
-  <div class="stat"><div class="ringwrap"><svg width="46" height="46" aria-hidden="true"><circle cx="23" cy="23" r="${r}" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="#C9A227" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(pct*c).toFixed(1)} ${c}"/></svg><div class="ringnum">${done}/${tot}</div></div><div class="lbl">bookings locked</div></div>
+  ${Date.now()<BOOK_DL.build
+   ?(()=>{const bd=bkChk('Clark').n+bkChk('Maggie').n,bp=bd/6;
+     return `<div class="stat"><div class="ringwrap"><svg width="46" height="46" aria-hidden="true"><circle cx="23" cy="23" r="${r}" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="#C9A227" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(bp*c).toFixed(1)} ${c}"/></svg><div class="ringnum">${bd}/6</div></div><div class="lbl">book homework</div></div>`})()
+   :`<div class="stat"><div class="big">${(S.journal||[]).filter(e=>e&&!e.del&&!e.priv).length}</div><div class="lbl">memories kept</div></div>`}
   <div class="stat"><div class="big">${S.meta.base+claimedCount()}<span class="accent">→48</span></div><div class="lbl">states claimed</div></div>`;
 }
 function renderTabs(){
@@ -758,19 +761,19 @@ function go(t){TAB=t;render()}
 const BOOK_DL={words:Date.UTC(2026,8,15,6,59,59),   /* EXTENDED to Mon Sept 14, 11:59 PM PT */
                media:Date.UTC(2026,8,15,6,59,59),
                build:Date.UTC(2026,8,15,16,0,0)};   /* the robot binds: Tue Sept 15, 9 AM PT */
+function bkChk(nm){const J=(S&&S.journal)||[];
+ const has=f=>J.some(e=>e&&!e.del&&!e.priv&&e.who===nm&&f(e));
+ const txt=e=>((e.text||'').trim());
+ const entry=has(e=>e.d>'2026-08-28'&&txt(e)&&!/^keepers:/i.test(txt(e))&&!/^(debate|trash talk):/i.test(txt(e)));
+ const keep=has(e=>/^keepers:/i.test(txt(e)));
+ const deb=has(e=>/^(debate|trash talk):/i.test(txt(e)));
+ return {nm,entry,keep,deb,n:(entry?1:0)+(keep?1:0)+(deb?1:0),done:entry&&keep&&deb}}
 function cdFmt(ms){if(ms<=0)return null;const h=Math.floor(ms/36e5);if(h>=48)return Math.round(h/24)+'d';if(h>=1)return h+'h';return Math.max(1,Math.floor(ms/6e4))+'m'}
 function bookCD(){
  const now=Date.now();
  if(now>=BOOK_DL.build)return `<div class="card bookcd done"><div class="t">📖 <b>The book is with the binder.</b> The first draft lands for review — everything in the app as of Monday night, Sept 14 is what it prints. The memorial site keeps living.</div></div>`;
  const m=cdFmt(BOOK_DL.media-now);
- const chk=nm=>{const w=nm.toLowerCase();const J=S.journal||[];
-  const has=f=>J.some(e=>e&&!e.del&&!e.priv&&e.who===nm&&f(e));
-  const txt=e=>((e.text||'').trim());
-  const entry=has(e=>e.d>'2026-08-28'&&txt(e)&&!/^keepers:/i.test(txt(e)));
-  const keep=has(e=>/^keepers:/i.test(txt(e)));
-  const deb=has(e=>/^(debate|trash talk):/i.test(txt(e)));
-  return {nm,entry,keep,deb,done:entry&&keep&&deb}};
- const C=chk('Clark'),M=chk('Maggie');
+ const C=bkChk('Clark'),M=bkChk('Maggie');
  const col=p=>`<div class="bkcol"><b>${p.nm}</b>
    <div>${p.entry?'✅':'⬜'} ✍️ Closing entry</div>
    <div>${p.keep?'✅':'⬜'} 📷 KEEPERS list</div>
