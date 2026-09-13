@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-13T05:41:07.356Z",
+ "updatedAt": "2026-09-13T05:43:26.027Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -1153,6 +1153,42 @@
     },
     {
      "path": "media/2026-08-23/1789278017231-maggie-3.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-23/1789278017407-maggie-4.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-23/1789278017596-maggie-5.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1789278199752f4em",
+   "d": "2026-08-23",
+   "who": "Maggie",
+   "text": "Arrival in Stowe, Vermont & Cold Holloe Cider Mill",
+   "at": "2026-09-13T05:43:19.752Z",
+   "ts": 1789278199752,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-23/1789278147699-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-23/1789278147886-maggie-1.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-23/1789278148077-maggie-2.jpg",
      "type": "img",
      "up": true
     }
