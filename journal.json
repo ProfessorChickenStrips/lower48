@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-08T01:17:40.109Z",
+ "updatedAt": "2026-09-13T03:49:24.287Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -102,47 +102,6 @@
    ]
   },
   {
-   "id": "j1786919850990g5lp",
-   "d": "2026-08-16",
-   "who": "Clark",
-   "text": "Pipe organ in the dining room. Serious flex.",
-   "at": "2026-08-16T22:37:30.990Z",
-   "ts": 1786919850990,
-   "del": false,
-   "media": [
-    {
-     "path": "media/2026-08-16/1786919808149-clark-0.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-16/1786919808218-clark-1.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-16/1786919808280-clark-2.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-16/1786919808321-clark-3.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-16/1786919808390-clark-4.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-16/1786919808449-clark-5.jpg",
-     "type": "img",
-     "up": true
-    }
-   ]
-  },
-  {
    "id": "j1786919821834qvm8",
    "d": "2026-08-16",
    "who": "Maggie",
@@ -150,7 +109,38 @@
    "at": "2026-08-16T22:37:01.834Z",
    "ts": 1786919821834,
    "del": false,
-   "media": []
+   "media": [
+    {
+     "path": "media/2026-08-16/1786919604829-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919613558-maggie-1.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919779137-maggie-2.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919779399-maggie-3.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919779663-maggie-4.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919779930-maggie-5.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
   },
   {
    "id": "j17869199845415enq",
@@ -159,6 +149,47 @@
    "text": "More plants!!",
    "at": "2026-08-16T22:39:44.541Z",
    "ts": 1786919984541,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-16/1786919974428-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919974668-maggie-1.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919974928-maggie-2.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919975166-maggie-3.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919975424-maggie-4.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786919975671-maggie-5.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1786919850990g5lp",
+   "d": "2026-08-16",
+   "who": "Clark",
+   "text": "Pipe organ in the dining room. Serious flex.",
+   "at": "2026-08-16T22:37:30.990Z",
+   "ts": 1786919850990,
    "del": false,
    "media": []
   },
@@ -170,7 +201,38 @@
    "at": "2026-08-16T22:42:01.617Z",
    "ts": 1786920121617,
    "del": false,
-   "media": []
+   "media": [
+    {
+     "path": "media/2026-08-16/1786920043907-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786920051084-maggie-1.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786920063418-maggie-2.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786920089991-maggie-3.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786920110419-maggie-4.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-16/1786920119034-maggie-5.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
   },
   {
    "id": "j1787004141839ak3l",
@@ -241,6 +303,11 @@
      "path": "media/2026-08-17/1787049004473-maggie-3.jpg",
      "type": "img",
      "up": true
+    },
+    {
+     "path": "media/2026-08-17/1787049004640-maggie-4.jpg",
+     "type": "img",
+     "up": true
     }
    ]
   },
@@ -260,26 +327,6 @@
     },
     {
      "path": "media/2026-08-18/1787057826555-clark-1.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-18/1787057826617-clark-2.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-18/1787057826693-clark-3.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-18/1787057826774-clark-4.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-18/1787057826813-clark-5.jpg",
      "type": "img",
      "up": true
     }
@@ -457,26 +504,6 @@
      "path": "media/2026-08-20/1787272206654-clark-1.jpg",
      "type": "img",
      "up": true
-    },
-    {
-     "path": "media/2026-08-20/1787272206757-clark-2.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-20/1787272206861-clark-3.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-20/1787272206947-clark-4.jpg",
-     "type": "img",
-     "up": true
-    },
-    {
-     "path": "media/2026-08-20/1787272207014-clark-5.jpg",
-     "type": "img",
-     "up": true
     }
    ]
   },
@@ -601,6 +628,96 @@
      "up": true
     }
    ]
+  },
+  {
+   "id": "j17892364482960cme",
+   "d": "2026-08-18",
+   "who": "Maggie",
+   "text": "Monticello Snippets",
+   "at": "2026-09-12T18:07:28.296Z",
+   "ts": 1789236448296,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j1789236635112c2d5",
+   "d": "2026-08-18",
+   "who": "Maggie",
+   "text": "Hotel, amazing crab cakes, and sunset!",
+   "at": "2026-09-12T18:10:35.112Z",
+   "ts": 1789236635112,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j178923677553537ku",
+   "d": "2026-08-19",
+   "who": "Maggie",
+   "text": "Us Naval Academy ⚓️",
+   "at": "2026-09-12T18:12:55.535Z",
+   "ts": 1789236775535,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j17892368372351lyd",
+   "d": "2026-08-19",
+   "who": "Maggie",
+   "text": "US Naval Academy Museum",
+   "at": "2026-09-12T18:13:57.235Z",
+   "ts": 1789236837235,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j1789236954671yco1",
+   "d": "2026-08-19",
+   "who": "Maggie",
+   "text": "Ferry and Cape May",
+   "at": "2026-09-12T18:15:54.671Z",
+   "ts": 1789236954671,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j1789237150881nt8e",
+   "d": "2026-08-20",
+   "who": "Maggie",
+   "text": "Wake up in Atlantic City, drive through NYC, and Mystic, CT!",
+   "at": "2026-09-12T18:19:10.881Z",
+   "ts": 1789237150881,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j1789237311418r1j2",
+   "d": "2026-08-20",
+   "who": "Maggie",
+   "text": "Dinner at 22 Bowen's on the Warf in Newport, RI",
+   "at": "2026-09-12T18:21:51.418Z",
+   "ts": 1789237311418,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j1789237477372yzut",
+   "d": "2026-08-21",
+   "who": "Maggie",
+   "text": "Rainy drive into Cape Cod and an incredible meal at Skipper Chowder House when we arrived!",
+   "at": "2026-09-12T18:24:37.372Z",
+   "ts": 1789237477372,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j17892376629404xrv",
+   "d": "2026-08-21",
+   "who": "Maggie",
+   "text": "Despite the rain our hotel was adorable in Cape Cod!",
+   "at": "2026-09-12T18:27:42.940Z",
+   "ts": 1789237662940,
+   "del": false,
+   "media": []
   },
   {
    "id": "j17885789602992mmf",
