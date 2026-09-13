@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-13T03:53:04.902Z",
+ "updatedAt": "2026-09-13T05:26:04.722Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -987,6 +987,37 @@
    "ts": 1788830255806,
    "del": false,
    "media": []
+  },
+  {
+   "id": "j1789277159722c1ku",
+   "d": "2026-08-21",
+   "who": "Maggie",
+   "text": "Dinner at Black Cat Tavern! Yum!",
+   "at": "2026-09-13T05:25:59.724Z",
+   "ts": 1789277159722,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-21/1789277132770-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-21/1789277132964-maggie-1.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-21/1789277133143-maggie-2.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-21/1789277133315-maggie-3.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
   }
  ]
 }
