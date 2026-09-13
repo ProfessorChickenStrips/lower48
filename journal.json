@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-13T06:11:44.017Z",
+ "updatedAt": "2026-09-13T06:12:37.062Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -1699,6 +1699,22 @@
    "text": "Art Finds",
    "at": "2026-09-13T06:11:34.240Z",
    "ts": 1789279894240,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-27/1789279889716-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1789279952763tc96",
+   "d": "2026-08-27",
+   "who": "Maggie",
+   "text": "Street & Co. - Final trip dinner",
+   "at": "2026-09-13T06:12:32.763Z",
+   "ts": 1789279952763,
    "del": false,
    "media": []
   }
