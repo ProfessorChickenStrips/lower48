@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-13T06:03:33.917Z",
+ "updatedAt": "2026-09-13T06:05:33.132Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -1579,6 +1579,27 @@
     },
     {
      "path": "media/2026-08-26/1789279274043-maggie-3.jpg",
+     "type": "img",
+     "up": true
+    }
+   ]
+  },
+  {
+   "id": "j1789279528917tmcm",
+   "d": "2026-08-26",
+   "who": "Maggie",
+   "text": "New Hampshire short hike",
+   "at": "2026-09-13T06:05:28.917Z",
+   "ts": 1789279528917,
+   "del": false,
+   "media": [
+    {
+     "path": "media/2026-08-26/1789279510623-maggie-0.jpg",
+     "type": "img",
+     "up": true
+    },
+    {
+     "path": "media/2026-08-26/1789279510792-maggie-1.jpg",
      "type": "img",
      "up": true
     }
