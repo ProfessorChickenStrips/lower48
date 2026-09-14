@@ -525,7 +525,7 @@ function livePayload(){ /* sanitized: no conf, no totals, no notes, no chat, no 
  const claims={};Object.keys(S.claims).forEach(c=>{const g=S.claims[c];claims[c]={at:g.at||'',meal:!!g.meal,photo:!!g.photo}});
  const notices={};S.notices.forEach(n=>notices[n.id]=!!n.acked); /* ack booleans only — never the text */
  const rankings=S.rankings; /* names + order only — last-writer-wins per list via ts */
- return {v:1,updatedAt:new Date().toISOString(),stops,res,tasks,packing:S.packing.map(p=>!!p.done),claims,notices,rankings};
+ return {v:1,updatedAt:new Date().toISOString(),stops,res,tasks,packing:S.packing.map(p=>!!p.done),claims,notices,rankings,hw:S.hw||{}};
 }
 let PUSH_TIMER=null,PUSHING=false;
 function schedulePush(){if(!getToken())return;clearTimeout(PUSH_TIMER);PUSH_TIMER=setTimeout(pushLive,4000)}
@@ -575,6 +575,7 @@ function applyOverlay(live){ /* additive & conservative: local conf numbers and 
  if(Array.isArray(live.packing))live.packing.forEach((v,i)=>{if(v&&S.packing[i])S.packing[i].done=true});
  if(live.claims)Object.keys(live.claims).forEach(c=>{if(!S.claims[c]){const g=live.claims[c];S.claims[c]={at:g.at||'synced',meal:!!g.meal,photo:!!g.photo,note:''}}});
  if(live.notices)S.notices.forEach(n=>{if(live.notices[n.id]&&!n.acked){n.acked=true;n.ackedAt=n.ackedAt||new Date().toISOString()}});
+ if(live.hw)['clark','maggie'].forEach(w=>{const r=live.hw[w];if(!r)return;const L=hwGet(w);if((r.ts||0)>(L.ts||0)){L.media=!!r.media;L.ts=r.ts||0}});
  if(live.rankings&&S.rankings)['food','hotels','acts'].forEach(k=>{const r=live.rankings[k],L=S.rankings[k];
   if(!r||!L||!r.orders)return; /* old-shape payloads are ignored */
   if(Array.isArray(r.items)&&(r.cts||0)>(L.cts||0)){L.cts=r.cts;L.items=r.items} /* catalog: newest add/remove wins */
@@ -729,8 +730,8 @@ function renderHeader(){
  $('statrow').innerHTML=`
   <div class="stat">${left}</div>
   ${Date.now()<BOOK_DL.build
-   ?(()=>{const bd=bkChk('Clark').n+bkChk('Maggie').n,bp=bd/6;
-     return `<div class="stat"><div class="ringwrap"><svg width="46" height="46" aria-hidden="true"><circle cx="23" cy="23" r="${r}" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="#C9A227" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(bp*c).toFixed(1)} ${c}"/></svg><div class="ringnum">${bd}/6</div></div><div class="lbl">book homework</div></div>`})()
+   ?(()=>{const bd=bkChk('Clark').n+bkChk('Maggie').n,bp=bd/8;
+     return `<div class="stat"><div class="ringwrap"><svg width="46" height="46" aria-hidden="true"><circle cx="23" cy="23" r="${r}" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="#C9A227" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(bp*c).toFixed(1)} ${c}"/></svg><div class="ringnum">${bd}/8</div></div><div class="lbl">book homework</div></div>`})()
    :`<div class="stat"><div class="big">${(S.journal||[]).filter(e=>e&&!e.del&&!e.priv).length}</div><div class="lbl">memories kept</div></div>`}
   <div class="stat"><div class="big">${S.meta.base+claimedCount()}<span class="accent">→48</span></div><div class="lbl">states claimed</div></div>`;
 }
@@ -761,13 +762,14 @@ function go(t){TAB=t;render()}
 const BOOK_DL={words:Date.UTC(2026,8,15,6,59,59),   /* EXTENDED to Mon Sept 14, 11:59 PM PT */
                media:Date.UTC(2026,8,15,6,59,59),
                build:Date.UTC(2026,8,15,16,0,0)};   /* the robot binds: Tue Sept 15, 9 AM PT */
-function bkChk(nm){const J=(S&&S.journal)||[];
+function hwGet(w){if(!S.hw)S.hw={clark:{media:true},maggie:{media:false}};if(!S.hw[w])S.hw[w]={media:false};return S.hw[w]}
+function bkChk(nm){const J=(S&&S.journal)||[];const media=!!hwGet(nm.toLowerCase()).media;
  const has=f=>J.some(e=>e&&!e.del&&!e.priv&&e.who===nm&&f(e));
  const txt=e=>((e.text||'').trim());
  const entry=has(e=>e.d>'2026-08-28'&&txt(e)&&!/^keepers:/i.test(txt(e))&&!/^(debate|trash talk):/i.test(txt(e)));
  const keep=has(e=>/^keepers:/i.test(txt(e)));
  const deb=has(e=>/^(debate|trash talk):/i.test(txt(e)));
- return {nm,entry,keep,deb,n:(entry?1:0)+(keep?1:0)+(deb?1:0),done:entry&&keep&&deb}}
+ return {nm,entry,keep,deb,media,n:(entry?1:0)+(keep?1:0)+(deb?1:0)+(media?1:0),done:entry&&keep&&deb&&media}}
 function cdFmt(ms){if(ms<=0)return null;const h=Math.floor(ms/36e5);if(h>=48)return Math.round(h/24)+'d';if(h>=1)return h+'h';return Math.max(1,Math.floor(ms/6e4))+'m'}
 function bookCD(){
  const now=Date.now();
@@ -777,14 +779,17 @@ function bookCD(){
  const col=p=>`<div class="bkcol"><b>${p.nm}</b>
    <div>${p.entry?'✅':'⬜'} ✍️ Closing entry</div>
    <div>${p.keep?'✅':'⬜'} 📷 KEEPERS list</div>
-   <div>${p.deb?'✅':'⬜'} 🥊 Debates line</div></div>`;
+   <div>${p.deb?'✅':'⬜'} 🥊 Debates line</div>
+   <div>${p.media?'✅':'⬜'} 📸 Trip photos &amp; videos all uploaded ${p.media
+     ?`<button class="btn sm subtle" data-act="hw-media" data-w="${p.nm.toLowerCase()}" data-v="0" style="margin-left:4px;padding:0 6px">undo</button>`
+     :`<button class="btn sm" data-act="hw-media" data-w="${p.nm.toLowerCase()}" data-v="1" style="margin-left:4px;padding:0 8px">mark done</button>`}</div></div>`;
  const pend=typeof pendingMediaCount==='function'&&pendingMediaCount()>0?`<div class="row" style="color:#8a4b00">⌛ ${pendingMediaCount()} photo/video upload${pendingMediaCount()>1?'s':''} still pending on THIS phone — open Trip → today and retry before the deadline</div>`:'';
  const allDone=C.done&&M.done;
  return `<div class="card bookcd"><div class="t">📖 <b>EXTENDED — THE BOOK CLOSES MONDAY NIGHT.</b> Everything in the app by then gets printed & enshrined.</div>
   <div class="row">⏳ <b>${m||'closing'}</b> left <span class="mut">(Mon <b>Sept 14</b> · 11:59 PM PT)</span> · 🤖 binds <span class="mut">Tue Sept 15, 9 AM</span></div>
   <div class="bkgrid">${col(C)}${col(M)}</div>
   ${allDone?`<div class="row" style="color:#5a7d5a"><b>Everything's in — the binder gets it all. Enjoy the weekend. 🎉</b></div>`
-   :`<div class="row mut" style="font-size:12px">Ticks are automatic: a <b>closing entry</b> = any journal entry dated after Aug 28 · a <b>KEEPERS list</b> = a journal entry starting “KEEPERS:” (your must-print photos & moments, plain words) · a <b>🥊 Debates line</b> = an entry starting “DEBATE:” — your ONE printed sentence of friendly trash talk for the rankings-verdict page (“DEBATE: The pizza was fine. It was not better than the crab.”). Syncs between phones — yes, you can see each other’s homework.</div>`}
+   :`<div class="row mut" style="font-size:12px">Ticks are automatic: a <b>closing entry</b> = any journal entry dated after Aug 28 · a <b>KEEPERS list</b> = a journal entry starting “KEEPERS:” (your must-print photos & moments, plain words) · a <b>🥊 Debates line</b> = an entry starting “DEBATE:” — your ONE printed sentence of friendly trash talk for the rankings-verdict page (“DEBATE: The pizza was fine. It was not better than the crab.”) · <b>📸 Photos &amp; videos</b> is the one manual tick — tap <i>mark done</i> once your last trip photos/videos are posted to their days. Syncs between phones — yes, you can see each other’s homework.</div>`}
   ${pend}</div>`;
 }
 function render(){
@@ -1373,6 +1378,8 @@ document.addEventListener('click',e=>{
   case 'patch-apply':applyPatchUI();break;
   case 'notice-ack':ackNotice(a.id);break;
   case 'rk-view':UI.rkview=a.v;render();break;
+  case 'hw-media':{const h=hwGet(a.w);h.media=a.v==='1';h.ts=Date.now();dirty();render();
+   toast(a.v==='1'?'📸 Marked: '+(a.w==='clark'?'Clark':'Maggie')+'’s trip media is all in':'Unmarked');break}
   case 'rk-lock':{const w=rkView();if(w==='combined')break;const o=S.rankings[a.k].orders[w];
    o.locked=true;o.ts=Date.now();dirty();render();
    toast('🔒 '+(w==='clark'?'Clark':'Maggie')+'’s '+a.k+' order is locked — the Combined tab shows it');break}
