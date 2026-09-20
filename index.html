@@ -760,9 +760,9 @@ function go(t){TAB=t;render()}
 
 /* ============ RENDER (full re-render; fine at this size — inputs & scroll preserved) ============ */
 /* ============ BOOK COUNTDOWN — the closing bell for the forever site & photo book ============ */
-const BOOK_DL={words:Date.UTC(2026,8,20,6,59,59),   /* +24h: Sat Sept 19, 11:59 PM PT */
-               media:Date.UTC(2026,8,20,6,59,59),
-               build:Date.UTC(2026,8,20,12,0,0)};   /* the robot binds: Sun Sept 20, 5 AM PT — in the inbox by breakfast */
+const BOOK_DL={words:Date.UTC(2026,8,21,6,59,59),   /* +24h again: Sun Sept 20, 11:59 PM PT */
+               media:Date.UTC(2026,8,21,6,59,59),
+               build:Date.UTC(2026,8,21,12,0,0)};   /* the robot binds: Mon Sept 21, 5 AM PT — in the inbox by breakfast */
 function hwGet(w){if(!S.hw)S.hw={clark:{media:true},maggie:{media:false}};if(!S.hw[w])S.hw[w]={media:false};return S.hw[w]}
 function bkChk(nm){const J=(S&&S.journal)||[];const media=!!hwGet(nm.toLowerCase()).media;
  const has=f=>J.some(e=>e&&!e.del&&!e.priv&&e.who===nm&&f(e));
@@ -776,7 +776,7 @@ function bkChk(nm){const J=(S&&S.journal)||[];const media=!!hwGet(nm.toLowerCase
 function cdFmt(ms){if(ms<=0)return null;const h=Math.floor(ms/36e5);if(h>=48)return Math.round(h/24)+'d';if(h>=1)return h+'h';return Math.max(1,Math.floor(ms/6e4))+'m'}
 function bookCD(){
  const now=Date.now();
- if(now>=BOOK_DL.build)return `<div class="card bookcd done"><div class="t">📖 <b>The book is with the binder.</b> The first draft lands for review — everything in the app as of Saturday night, Sept 19 is what it prints. The memorial site keeps living.</div></div>`;
+ if(now>=BOOK_DL.build)return `<div class="card bookcd done"><div class="t">📖 <b>The book is with the binder.</b> The first draft lands for review — everything in the app as of Sunday night, Sept 20 is what it prints. The memorial site keeps living.</div></div>`;
  const m=cdFmt(BOOK_DL.media-now);
  const C=bkChk('Clark'),M=bkChk('Maggie');
  const col=p=>`<div class="bkcol"><b>${p.nm}</b>
@@ -789,8 +789,8 @@ function bookCD(){
      :`<button class="btn sm" data-act="hw-media" data-w="${p.nm.toLowerCase()}" data-v="1" style="margin-left:4px;padding:0 8px">mark done</button>`}</div></div>`;
  const pend=typeof pendingMediaCount==='function'&&pendingMediaCount()>0?`<div class="row" style="color:#8a4b00">⌛ ${pendingMediaCount()} photo/video upload${pendingMediaCount()>1?'s':''} still pending on THIS phone — open Trip → today and retry before the deadline</div>`:'';
  const allDone=C.done&&M.done;
- return `<div class="card bookcd"><div class="t">📖 <b>EXTENDED — THE BOOK CLOSES SATURDAY NIGHT.</b> Everything in the app by then gets printed & enshrined.</div>
-  <div class="row">⏳ <b>${m||'closing'}</b> left <span class="mut">(Sat <b>Sept 19</b> · 11:59 PM PT)</span> · 🤖 binds <span class="mut">Sun Sept 20, 5 AM</span></div>
+ return `<div class="card bookcd"><div class="t">📖 <b>EXTENDED — THE BOOK CLOSES SUNDAY NIGHT.</b> Everything in the app by then gets printed & enshrined.</div>
+  <div class="row">⏳ <b>${m||'closing'}</b> left <span class="mut">(Sun <b>Sept 20</b> · 11:59 PM PT)</span> · 🤖 binds <span class="mut">Mon Sept 21, 5 AM</span></div>
   <div class="bkgrid">${col(C)}${col(M)}</div>
   ${allDone?`<div class="row" style="color:#5a7d5a"><b>Everything's in — the binder gets it all. Enjoy the weekend. 🎉</b></div>`
    :`<div class="row mut" style="font-size:12px">Ticks are automatic: a <b>closing entry</b> = a journal entry you write now, after the trip, posted on the <b>Aug 28</b> page (a few honest sentences looking back — it’s the write date that counts, not the page) · a <b>KEEPERS list</b> = a journal entry starting “KEEPERS:” (your must-print photos & moments, plain words) · a <b>🥊 Debates line</b> = an entry starting “DEBATE:” — your ONE printed sentence of friendly trash talk for the rankings-verdict page (“DEBATE: The pizza was fine. It was not better than the crab.”) · <b>🔒 Rankings locked</b> = all three of your lists (food · hotels · activities) locked on the Ranks tab · <b>📸 Photos &amp; videos</b> is the one manual tick — tap <i>mark done</i> once your last trip photos/videos are posted to their days. Syncs between phones — yes, you can see each other’s homework.</div>`}
