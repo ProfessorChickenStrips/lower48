@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-13T06:19:58.147Z",
+ "updatedAt": "2026-09-20T20:21:03.332Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -129,7 +129,8 @@
   "love-2026-08-26": true,
   "love-2026-08-27": true,
   "love-2026-08-28": true,
-  "love-2026-09-12": true
+  "love-2026-09-12": true,
+  "love-2026-09-20": true
  },
  "rankings": {
   "food": {
@@ -405,6 +406,14 @@
      "locked": false
     }
    }
+  }
+ },
+ "hw": {
+  "clark": {
+   "media": true
+  },
+  "maggie": {
+   "media": false
   }
  }
 }
