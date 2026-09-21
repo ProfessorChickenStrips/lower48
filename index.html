@@ -760,9 +760,9 @@ function go(t){TAB=t;render()}
 
 /* ============ RENDER (full re-render; fine at this size — inputs & scroll preserved) ============ */
 /* ============ BOOK COUNTDOWN — the closing bell for the forever site & photo book ============ */
-const BOOK_DL={words:Date.UTC(2026,8,22,6,59,59),   /* +24h: Mon Sept 21, 11:59 PM PT */
-               media:Date.UTC(2026,8,22,6,59,59),
-               build:Date.UTC(2026,8,22,12,0,0)};   /* the robot binds: Tue Sept 22, 5 AM PT */
+const BOOK_DL={words:Date.UTC(2026,8,21,13,30,0),   /* CLOSED: the book was fired Mon Sept 21, 6:30 AM PT with everything in */
+               media:Date.UTC(2026,8,21,13,30,0),
+               build:Date.UTC(2026,8,21,13,30,0)};   /* the robot bound it Mon Sept 21, 6:30 AM PT */
 function hwGet(w){if(!S.hw)S.hw={clark:{media:true},maggie:{media:false}};if(!S.hw[w])S.hw[w]={media:false};return S.hw[w]}
 function bkChk(nm){const J=(S&&S.journal)||[];const media=!!hwGet(nm.toLowerCase()).media;
  const has=f=>J.some(e=>e&&!e.del&&!e.priv&&e.who===nm&&f(e));
@@ -776,7 +776,7 @@ function bkChk(nm){const J=(S&&S.journal)||[];const media=!!hwGet(nm.toLowerCase
 function cdFmt(ms){if(ms<=0)return null;const h=Math.floor(ms/36e5);if(h>=48)return Math.round(h/24)+'d';if(h>=1)return h+'h';return Math.max(1,Math.floor(ms/6e4))+'m'}
 function bookCD(){
  const now=Date.now();
- if(now>=BOOK_DL.build)return `<div class="card bookcd done"><div class="t">📖 <b>The book is with the binder.</b> The first draft lands for review — everything in the app as of Monday night, Sept 21 is what it prints. The memorial site keeps living.</div></div>`;
+ if(now>=BOOK_DL.build)return `<div class="card bookcd done"><div class="t">📖 <b>The book is with the binder.</b> The first draft lands for review — everything in the app as of Monday morning, Sept 21 is what it prints. Both of you finished your homework, 10 for 10. The memorial site keeps living.</div></div>`;
  const m=cdFmt(BOOK_DL.media-now);
  const C=bkChk('Clark'),M=bkChk('Maggie');
  const col=p=>`<div class="bkcol"><b>${p.nm}</b>
