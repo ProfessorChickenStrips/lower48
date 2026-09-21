@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-21T04:31:18.038Z",
+ "updatedAt": "2026-09-21T04:31:48.861Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -1766,6 +1766,16 @@
    "text": "Wow! This was by far the most epic trip I have taken domestically! It had everything. Amazing food. Incredible scenery and nature, from mountaintop sunsets to romantic oceanfront dinners. History. Art. Some lovely accommodations and people. And of course, two crazy people who love each other and love to travel. A trip this epic needs an epic memento to remember it by. Thank you for making it so memorable, Maggie XOXO",
    "at": "2026-09-14T19:44:18.412Z",
    "ts": 1789415058412,
+   "del": false,
+   "media": []
+  },
+  {
+   "id": "j1789965104623ijmw",
+   "d": "2026-08-28",
+   "who": "Maggie",
+   "text": "KEEPERS: Selfies with the two of us, beautiful scenery. Keep all of it!",
+   "at": "2026-09-21T04:31:44.623Z",
+   "ts": 1789965104623,
    "del": false,
    "media": []
   }
