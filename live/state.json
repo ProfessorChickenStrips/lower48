@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-21T04:45:04.851Z",
+ "updatedAt": "2026-09-21T04:45:25.211Z",
  "stops": {
   "cape": "Uncommoner Hotel (West Yarmouth)",
   "stowe": "Tälta Lodge",
@@ -384,10 +384,11 @@
      "locked": true
     },
     "maggie": {
-     "ts": 1789965900639,
+     "ts": 1789965921023,
      "ids": [
       "a_biltmore",
       "a_ptown",
+      "rk_mta29b8xnu5q",
       "a_monticello",
       "a_craggy",
       "rk_mt6mczrpgt7j",
@@ -397,7 +398,6 @@
       "a_mansfield",
       "a_ferry",
       "rk_mta28zoa9hxt",
-      "rk_mta29b8xnu5q",
       "rk_mtc3win0yc2n"
      ],
      "skip": [
