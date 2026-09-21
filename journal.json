@@ -1,6 +1,6 @@
 {
  "v": 1,
- "updatedAt": "2026-09-21T04:53:05.228Z",
+ "updatedAt": "2026-09-21T04:53:34.415Z",
  "entries": [
   {
    "id": "j1753071900000build",
@@ -1793,10 +1793,10 @@
    "id": "j17899663808158v8t",
    "d": "2026-08-28",
    "who": "Maggie",
-   "text": "DEBATES: Our food was different so our restaurant choices were different. When comparing pastas Tivola crept up in rank.",
+   "text": "",
    "at": "2026-09-21T04:53:00.815Z",
-   "ts": 1789966380815,
-   "del": false,
+   "ts": 1789966410153,
+   "del": true,
    "media": []
   }
  ]
